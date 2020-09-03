@@ -2,18 +2,32 @@
   "name": "webdocx",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Faraz710/WebDocX.git"
   },
-  "author": "Faraz Suhail",
+  "author": ["Faraz Suhail", "Harsh Vardhan"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Faraz710/WebDocX/issues"
   },
-  "homepage": "https://github.com/Faraz710/WebDocX#readme"
+  "homepage": "https://github.com/Faraz710/WebDocX#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "is-empty": "^1.2.0",
+    "mongoose": "^5.10.2",
+    "validator": "^13.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
