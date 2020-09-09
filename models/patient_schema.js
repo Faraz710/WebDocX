@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create patient schema
-const PatientSchema = new Schema({
+const patientSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -19,4 +19,4 @@ const PatientSchema = new Schema({
     default: Date.now
   }
 });
-module.exports = Patient = mongoose.model("Patients", PatientSchema);
+module.exports = Patient = mongoose.model("Patients", patientSchema);

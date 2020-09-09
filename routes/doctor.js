@@ -12,13 +12,8 @@ const doctor = require('../models/doctor_schema');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
-//Display doctor registration form
-router.get("/authentication", function(req, res) {
-	res.render("doctor_auth");
-});
-
 //Registration form validation
-router.post("/authentication/register", function(req, res) {
+router.post("/register", function(req, res) {
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
 		//Return error if form input is not valid
@@ -29,6 +24,9 @@ router.post("/authentication/register", function(req, res) {
 		if (doctor) {
 			//Return error if email already registered
 			return res.status(400).json( {email: "Email already exists"} );
+			//res.redirect("/");
+			//res.send('<script>alert("Email already exists")</script>');
+
 		}
 		else {
 		//Store doctor details from form into newDoctor
@@ -45,7 +43,7 @@ router.post("/authentication/register", function(req, res) {
 				newDoctor.password = hash;
 
 			//Save the doctor details to MongoDB
-			newDoctor.save().then(doctor => res.json(doctor))
+			newDoctor.save().then(res.redirect("/"))
 							 .catch(err => console.log(err));
 			});
 		});
@@ -53,7 +51,7 @@ router.post("/authentication/register", function(req, res) {
 	});
 });
 
-router.post("/authentication/login", function(req, res) {
+router.post("/login", function(req, res) {
 	const {errors, isValid} = validateLoginInput(req.body);
 	if (!isValid) {
 		//Return error if form input is not valid
