@@ -12,7 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/Faraz710/WebDocX.git"
   },
-  "author": ["Faraz Suhail", "Harsh Vardhan"],
+  "author": [
+    "Faraz Suhail",
+    "Harsh Vardhan"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Faraz710/WebDocX/issues"
@@ -24,6 +27,7 @@
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.2",
     "validator": "^13.1.1"
   },
