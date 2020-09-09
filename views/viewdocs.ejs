@@ -6,6 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 </head>
 <body>
-	<h1>Patient Reg Form</h1>
+	<h1>Doctors</h1>
+	<% for (var i = 0; i < docs.length; i++) { %>
+	<li> <%= docs[i] %></li>
+	<%}%>
 </body>
 </html>

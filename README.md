@@ -16,7 +16,7 @@ The main dependencies used in this application are:
     "validator": "^13.1.1"
 ```
 
-### Running
+### Local Setup
 
 Make sure you have **NodeJS** v10 or greater installed:
 ``` bash

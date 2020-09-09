@@ -12,13 +12,8 @@ const Patient = require('../models/patient_schema');
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
 
-//Display patient registration form
-router.get("/authentication", function(req, res) {
-	res.render("patient_auth");
-});
-
 //Registration form validation
-router.post("/authentication/register", function(req, res) {
+router.post("/register", function(req, res) {
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
 		//Return error if form input is not valid
@@ -45,7 +40,7 @@ router.post("/authentication/register", function(req, res) {
 				newPatient.password = hash;
 
 			//Save the patient details to MongoDB
-			newPatient.save().then(patient => res.json(patient))
+			newPatient.save().then(res.redirect("/"))
 							 .catch(err => console.log(err));
 			});
 		});
@@ -55,7 +50,7 @@ router.post("/authentication/register", function(req, res) {
 
 
 //Login form validation
-router.post("/authentication/login", function(req, res) {
+router.post("/login", function(req, res) {
 	const {errors, isValid} = validateLoginInput(req.body);
 	if (!isValid) {
 		//Return error if form input is not valid

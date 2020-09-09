@@ -1,36 +1,55 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
+const viewdocs = require('./routes/viewdocs');
+const update = require('./routes/update');
+const consult = require('./routes/consult');
 
-const app = express();
-
-//parse incoming request body
+//Parse incoming request body
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static("public"));
-
 app.set("view engine", "ejs");
 
-//Homepage
-app.get("/", function(req,res) {
-	res.render("home");
-});
-
-//DB Config
+//Database Configuration
 const db = require("./config/keys").mongoURI;
-//Connect to MongoDB
+
+//Establish connection to database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, })
   		.then(() => console.log("Database successfully connected."))
   		.catch(err => console.log(err));
 
-//Routes
-//1. Patient Registration and Login
-app.use("/patient", patient);
+//API Routes
+//1. Homepage
+app.get("/", function(req,res) {
+	res.render("home");
+});
+//2. Patient Registration and Login
+app.use("/patient/auth", patient);
 
-//2. Doctor Registration and Login
-app.use("/doctor", doctor);
+//3. Doctor Registration and Login
+app.use("/doctor/auth", doctor);
+
+//4. Dashboard
+app.get("/dashboard", function(req, res) {
+	res.render("dashboard");
+});
+//5. Display list of doctors
+app.use("/view/doctors", viewdocs);
+
+//6. Update Profile
+app.use("/update", update);
+
+//7. Update Profile
+app.use("/consult", consult);
+
+//8. Incorrect URL
+app.get("*", function(req, res) {
+	res.render("error");
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
