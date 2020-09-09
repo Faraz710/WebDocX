@@ -13,16 +13,19 @@
   </script>
 </head>
 <body >
-  <div class="notification"><b>Now we are providing Consultation For COVID-19 too.</b>
-  <button class="buttontrans not" style="border-radius:10px; font-size:16px;">Precautions</button>
+  <div class="notification" id="notification">
+    <b>Now we are providing Consultation For COVID-19 too.</b>
+    <button class="buttontrans not" style="border-radius:10px; font-size:16px;">Precautions</button>
+    <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
   <div class="col-container sticky">
-    <div class="col" align="left" style="padding:0px">
+    <div id="logobar" class="col column5" align="left" style="padding:0px">
       <img class="logo" src="images/logo.jpg" height="100" width="200">
     </div>
-    <div class="col" align="right" style="padding:0px">
+    <img id="clogobar" class="logo hidden" src="images/logo.jpg" height="100" width="200">
+    <div class="col column5" align="right" style="padding:0px">
     <button class="buttontrans borderless" onclick="document.getElementById('id01').style.display='block'">Login</button>
-    <button class="buttontrans" onclick="document.getElementById('id02').style.display='block'">Sign Up</button>
+    <button class="buttontrans" onclick="document.getElementById('id03').style.display='block'">Sign Up</button>
     </div>
   </div>
   <div class="col-container">
@@ -46,7 +49,7 @@
         <button class="buttongreen borderless" style="width:100%; height:50px;" onclick="document.getElementById('id04').style.display='block'">Register Now</button>
       </div>
       <div class="col column5">
-        <button class="buttonwhite" style="width:80%; height:50px;" onclick="document.getElementById('id03').style.display='block'">Sign Up & Consult</button>
+        <button class="buttonwhite" style="width:80%; height:50px;" onclick="document.getElementById('id05').style.display='block'">Sign Up & Consult</button>
       </div>
     </div>
     </div>
@@ -66,7 +69,7 @@
           <div class="col column3" style="border:solid;background-image: url('images/phone.png'); background-repeat: no-repeat;background-size: 100% 100%;">
           </div>
           <div class="col column7" style="border:solid;height:100px;">
-            <p style="color:grey;">Call Us Now!</p>
+            <p style="color:white;">Call Us Now!</p>
             <a href="tel:123-456-7890">123-456-7890</a>
           </div>
         </div>
@@ -76,7 +79,7 @@
           <div class="col column3" style="border:solid; background-image: url('images/email.png'); background-repeat: no-repeat;background-size: 100% 100%;">
           </div>
           <div class="col column7" style="border:solid; height:100px;">
-            <p style="color:grey;">Drop Us an Email!</p>
+            <p style="color:white;">Drop Us an Email!</p>
             <a href = "mailto: webdoc.2019@gmail.com">webdoc.2019@gmail.com</a>
           </div>
         </div>
@@ -86,7 +89,7 @@
           <div class="col column3" style="border:solid;background-image: url('images/clock.png'); background-repeat: no-repeat;background-size: 100% 100%;">
           </div>
           <div class="col column7" style="border:solid;height:100px;">
-            <p style="color:grey;">Our Active Hours:</p>
+            <p style="color:white;">Our Active Hours:</p>
             We are available 24 x 7!
           </div>
         </div>
@@ -97,13 +100,16 @@
   <div style="background-color:black;color:grey; height: 50px;padding: 20px 50px;">Copyright © 2020 WebDoc. All rights reserved.</div>
   <button onclick="topFunction()" id="myBtn" title="Go to top"><b>&uarr;</b></button>
 
-  <!--Login Form-->
+
+  <!--Doctor Login Form-->
   <div id="id01" class="modal">
   
     <form class="modal-content animate" action="/action_page.php" method="post">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1>Welcome Back!</h1>
+        <img class="avatar active" src="images/doctor.png">
+        <button class="buttontrans borderless" style="padding:0px 0px;" onclick="patl()"><img class="avatar" src="images/patient.png"></button>
       </div>
   
       <div class="container">
@@ -126,12 +132,57 @@
     </form>
   </div>
 
+  <!--Patient Login Form-->
+  <div id="id02" class="modal">
+  
+    <form class="modal-content animate" action="/action_page.php" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <h1>Welcome Back!</h1>
+        <button class="buttontrans borderless" style="padding:0px 0px;" onclick="docl()"><img class="avatar" src="images/doctor.png"></button>
+        <img class="avatar active" src="images/patient.png">
+      </div>
+  
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Mail/Phone Number" id="uname" name="uname" required>
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
+          
+        <button type="submit" class="buttongreen borderless">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" id="remember" name="remember"> Remember me
+        </label>
+      </div>
+  
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn borderless">Cancel</button>
+        <span class="psw"><a href="#" style="color:black;">Forgot password?</a></span>
+      </div>
+    </form>
+  </div>
 
-<!--Sign Up Form-->
-<div id="id02" class="modal">
+<!--This is for functioning of switch buttons in login forms-->
+<script>
+  function docl()
+  {
+    document.getElementById('id02').style.display='none';
+    document.getElementById('id01').style.display='block';
+  }
+  function patl()
+  {
+    document.getElementById('id01').style.display='none';
+    document.getElementById('id02').style.display='block';
+  }
+</script>
+
+
+<!--Choice sign up Form-->
+<div id="id03" class="modal">
   <div class="modal-content animate">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>You Are?</h1>
     </div>
     <div class="col-container" align="center">
@@ -142,102 +193,116 @@
 <script>
   function m1()
   {
-    document.getElementById('id02').style.display='none';
-    document.getElementById('id03').style.display='block';
+    document.getElementById('id03').style.display='none';
+    document.getElementById('id04').style.display='block';
   }
   function m2()
   {
-    document.getElementById('id02').style.display='none';
-    document.getElementById('id04').style.display='block';
+    document.getElementById('id03').style.display='none';
+    document.getElementById('id05').style.display='block';
   }
 </script>
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn borderless">Cancel</button>
+      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn borderless">Cancel</button>
     </div>
   </div>
 </div>
 <!--Doctor signup-->
-<div id="id03" class="modal">
+<div id="id04" class="modal">
   
-  <form class="modal-content animate" action="/doctor/auth" method="post">
+  <form class="modal-content animate" action="/action_page.php" method="post">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
+      <img class="avatar active" src="images/doctor.png">
+      <button class="buttontrans borderless" style="padding:0px 0px;" onclick="pats()"><img class="avatar" src="images/patient.png"></button>
     </div>
 
     <div class="container">
-      <label for="fname"><b>First Name</b></label>
-      <input type="text" placeholder="First Name" id="fname" name="fname" required>
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Full Name" id="name" name="name" required>
 
-      <label for="lname"><b>Last Name</b></label>
-      <input type="text" placeholder="Last Name" id="lname" name="lname" required>
+      <label for="email"><b>Username</b></label>
+      <input type="text" placeholder="Enter Mail" id="email" name="email" required>
 
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Mail" id="uname" name="uname" required>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="psw" name="psw" required>
-
-      <label for="cpsw"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpsw" name="cpsw" required>
+      <label for="cpassword"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Enter Password" id="cpassword" name="cpassword" required>
         
       <label>
-        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all Terms & Condition
+        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
       </label><br>
 
       <button type="submit" id="signup" class="buttongreen borderless">Sign Up</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn borderless">Cancel</button>
+      <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn borderless">Cancel</button>
       <span class="psw"><a href="#" style="color:black;">Forgot password?</a></span>
     </div>
   </form>
 </div>
 <!--Patient Signup-->
-<div id="id04" class="modal">
+<div id="id05" class="modal">
   
-  <form class="modal-content animate" action="/doctor/auth/register" method="post">
+  <form class="modal-content animate" action="/action_page.php" method="post">
     <div class="imgcontainer">
-      <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
+      <button class="buttontrans borderless" style="padding:0px 0px;" onclick="docs()"><img class="avatar" src="images/doctor.png"></button>
+      <img class="avatar active" src="images/patient.png">
     </div>
 
     <div class="container">
-      <label for="fname"><b>First Name</b></label>
-      <input type="text" placeholder="First Name" id="fname" name="name" required>
+      <label for="name"><b>Name</b></label>
+      <input type="text" placeholder="Full Name" id="name" name="name" required>
 
-      <label for="lname"><b>Last Name</b></label>
-      <input type="text" placeholder="Last Name" id="lname" name="lname" required>
+      <label for="email"><b>Username</b></label>
+      <input type="text" placeholder="Enter Mail" id="email" name="email" required>
 
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Mail" id="uname" name="email" required>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" id="psw" name="password" required>
-
-      <label for="cpsw"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpsw" name="password2" required>
+      <label for="cpassword"><b>Confirm Password</b></label>
+      <input type="password" placeholder="Enter Password" id="cpassword" name="cpassword" required>
         
       <label>
-        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all Terms & Condition
+        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
       </label><br>
 
-      <button id="signup" class="buttongreen borderless">Sign Up</button>
+      <button type="submit" id="signup" class="buttongreen borderless">Sign Up</button>
     </div>
 
     <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn borderless">Cancel</button>
+      <button type="button" onclick="document.getElementById('id05').style.display='none'" class="cancelbtn borderless">Cancel</button>
       <span class="psw"><a href="#" style="color:black;">Forgot password?</a></span>
     </div>
   </form>
 </div>
+
+<!--This is for functioning of switch buttons in signup forms-->
+<script>
+  function docs()
+  {
+    document.getElementById('id05').style.display='none';
+    document.getElementById('id04').style.display='block';
+  }
+  function pats()
+  {
+    document.getElementById('id04').style.display='none';
+    document.getElementById('id05').style.display='block';
+  }
+</script>
+
   <script>
   // Get the modal
   var modal1 = document.getElementById('id01');
   var modal2 = document.getElementById('id02');
   var modal3 = document.getElementById('id03');
   var modal4 = document.getElementById('id04');
+  var modal5 = document.getElementById('id05');
   
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
@@ -248,12 +313,30 @@
           modal2.style.display = "none";
       }
       else if(event.target == modal3){
-          modal4.style.display = "none";
+          modal3.style.display = "none";
       }
       else if(event.target == modal4){
           modal4.style.display = "none";
       }
+      else if(event.target == modal5){
+          modal5.style.display = "none";
+      }
   }
+
+  // When the user scrolls down 50px move the logo in center
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    document.getElementById("logobar").style.opacity= 0;
+    document.getElementById("clogobar").style.opacity= 1;
+    document.getElementById("myBtn").style.visibility= "visible";
+  } else {
+    document.getElementById("logobar").style.opacity= 1;
+    document.getElementById("clogobar").style.opacity= 0;
+    document.getElementById("myBtn").style.visibility= "hidden";
+  }
+}
   </script>
 </body>
 </html>
