@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
-const update = require('./routes/update');
-const consult = require('./routes/consult');
+//const update = require('./routes/update');
+//const consult = require('./routes/consult');
 
 //Parse incoming request body
 app.use(bodyParser.urlencoded({extended: false}));
