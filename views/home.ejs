@@ -3,14 +3,9 @@
 <head>
   <meta charset="UTF-8">
 	<title>WebDocX</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-<script>
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <script type="text/javascript" src="/scripts/home.js"></script>
 </head>
 <body >
   <div class="notification" id="notification">
@@ -104,7 +99,7 @@
   <!--Doctor Login Form-->
   <div id="id01" class="modal">
   
-    <form class="modal-content animate" action="/action_page.php" method="post">
+    <form class="modal-content animate" action="/doctor/auth/login" method="post">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1>Welcome Back!</h1>
@@ -131,7 +126,7 @@
   <!--Patient Login Form-->
   <div id="id02" class="modal">
   
-    <form class="modal-content animate" action="/action_page.php" method="post">
+    <form class="modal-content animate" action="/patient/auth/login" method="post">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1>Welcome Back!</h1>
@@ -155,21 +150,6 @@
     </form>
   </div>
 
-<!--This is for functioning of switch buttons in login forms-->
-<script>
-  function docl()
-  {
-    document.getElementById('id02').style.display='none';
-    document.getElementById('id01').style.display='block';
-  }
-  function patl()
-  {
-    document.getElementById('id01').style.display='none';
-    document.getElementById('id02').style.display='block';
-  }
-</script>
-
-
 <!--Choice sign up Form-->
 <div id="id03" class="modal">
   <div class="modal-content animate">
@@ -181,25 +161,13 @@
       <div class="col column3"><button class="buttontrans" style="padding:0px 0px;" onclick="m1()"><img src="images/doctor.png" height="200" width="200"></button><br><h1>Doctor</h1></div>
       <div class="col column3"><button class="buttontrans" style="padding:0px 0px;" onclick="m2()"><img src="images/patient.png" height="200" width="200"></button><br><h1>Patient</h1></div>
     </div>
-    <!--removing the form from behind-->
-<script>
-  function m1()
-  {
-    document.getElementById('id03').style.display='none';
-    document.getElementById('id04').style.display='block';
-  }
-  function m2()
-  {
-    document.getElementById('id03').style.display='none';
-    document.getElementById('id05').style.display='block';
-  }
-</script>
   </div>
 </div>
+
 <!--Doctor signup-->
 <div id="id04" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php" method="post">
+  <form class="modal-content animate" action="/doctor/auth/register" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
@@ -218,7 +186,7 @@
       <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
       <label for="cpassword"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpassword" name="cpassword" required>
+      <input type="password" placeholder="Enter Password" id="cpassword" name="password2" required>
         
       <label>
         <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
@@ -228,10 +196,11 @@
     </div>
   </form>
 </div>
+
 <!--Patient Signup-->
 <div id="id05" class="modal">
   
-  <form class="modal-content animate" action="/action_page.php" method="post">
+  <form class="modal-content animate" action="/patient/auth/register" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
@@ -250,7 +219,7 @@
       <input type="password" placeholder="Enter Password" id="password" name="password" required>
 
       <label for="cpassword"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpassword" name="cpassword" required>
+      <input type="password" placeholder="Enter Password" id="cpassword" name="password2" required>
         
       <label>
         <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
@@ -259,63 +228,6 @@
       <button type="submit" id="signup" class="buttongreen borderless">Sign Up</button>
     </div>
   </form>
-</div>
-
-<!--This is for functioning of switch buttons in signup forms-->
-<script>
-  function docs()
-  {
-    document.getElementById('id05').style.display='none';
-    document.getElementById('id04').style.display='block';
-  }
-  function pats()
-  {
-    document.getElementById('id04').style.display='none';
-    document.getElementById('id05').style.display='block';
-  }
-</script>
-
-  <script>
-  // Get the modal
-  var modal1 = document.getElementById('id01');
-  var modal2 = document.getElementById('id02');
-  var modal3 = document.getElementById('id03');
-  var modal4 = document.getElementById('id04');
-  var modal5 = document.getElementById('id05');
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-      if (event.target == modal1) {
-          modal1.style.display = "none";
-      }
-      else if(event.target == modal2){
-          modal2.style.display = "none";
-      }
-      else if(event.target == modal3){
-          modal3.style.display = "none";
-      }
-      else if(event.target == modal4){
-          modal4.style.display = "none";
-      }
-      else if(event.target == modal5){
-          modal5.style.display = "none";
-      }
-  }
-
-  // When the user scrolls down 50px move the logo in center
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    document.getElementById("logobar").style.opacity= 0;
-    document.getElementById("clogobar").style.opacity= 1;
-    document.getElementById("myBtn").style.visibility= "visible";
-  } else {
-    document.getElementById("logobar").style.opacity= 1;
-    document.getElementById("clogobar").style.opacity= 0;
-    document.getElementById("myBtn").style.visibility= "hidden";
-  }
-}
-  </script>
+</div> 
 </body>
 </html>
