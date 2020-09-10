@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
-const update = require('./routes/update');
-const consult = require('./routes/consult');
+//const update = require('./routes/update');
+//const consult = require('./routes/consult');
 
 //Parse incoming request body
 app.use(bodyParser.urlencoded({extended: false}));
@@ -34,17 +34,17 @@ app.use("/patient/auth", patient);
 app.use("/doctor/auth", doctor);
 
 //4. Dashboard
-app.get("/dashboard", function(req, res) {
-	res.render("dashboard");
-});
+//app.get("/dashboard", function(req, res) {
+//	res.render("dashboard");
+//});
 //5. Display list of doctors
 app.use("/view/doctors", viewdocs);
 
 //6. Update Profile
-app.use("/update", update);
+//app.use("/update", update);
 
 //7. Update Profile
-app.use("/consult", consult);
+//app.use("/consult", consult);
 
 //8. Incorrect URL
 app.get("*", function(req, res) {
