@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const keys = require('../config/keys');
+var fs = require('fs');
 
 //Doctor schema
 const doctor = require('../models/doctor_schema');
