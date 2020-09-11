@@ -31,6 +31,10 @@ router.post("/register", function(req, res) {
 		else {
 		//Store doctor details from form into newDoctor
 		const newDoctor = new Doctor({
+			profilePic: {
+				data: fs.readFileSync('./public/images/doctor.png'),
+				contentType: 'image/png'
+			},
 			name: req.body.name,
 			email: req.body.email,
 			password: req.body.password

@@ -5,7 +5,11 @@ const bodyParser = require('body-parser');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
+<<<<<<< HEAD
 //const update = require('./routes/update');
+=======
+const update = require('./routes/update');
+>>>>>>> 617197dca89ac609ad699bf048872ea9bf243b2e
 //const consult = require('./routes/consult');
 
 //Parse incoming request body
