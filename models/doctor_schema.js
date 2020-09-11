@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create doctor schema
 const doctorSchema = new Schema({
+  profilePic: {
+    data: Buffer,
+    contentType: String
+  },
   name: {
     type: String,
     required: true
@@ -19,26 +23,20 @@ const doctorSchema = new Schema({
     default: Date.now
   },
   qualification: {
-    degree: {
-      type: String
-    },
-    college: {
-      type: String
-    },
-    gradCert: {
-      data: Buffer,
-      contentType: String
-  }
+    type: String
   },
-  specialization: {
+  speciality: {
+    type: [String]
+  },
+  experience: {
+    type: Number
+  },
+  reg_no: {
     type: String
   },
   licensePdf: {
     data: Buffer,
     contentType: String
-  },
-  reg_no: {
-    type: String
   },
   home: {
     address: {
@@ -50,6 +48,9 @@ const doctorSchema = new Schema({
     country: {
       type: String
     }
+  },
+  phoneNumber: {
+    type: String
   },
   activated: {
     type: Boolean,

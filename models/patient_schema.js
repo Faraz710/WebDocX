@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Create patient schema
 const patientSchema = new Schema({
+  profilePic: {
+    data: Buffer,
+    contentType: String
+  },
   name: {
     type: String,
     required: true

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const keys = require('../config/keys');
+var fs = require('fs');
 
 //Patient schema
 const Patient = require('../models/patient_schema');
@@ -28,6 +29,10 @@ router.post("/register", function(req, res) {
 		else {
 		//Store patient details from form into newPatient
 		const newPatient = new Patient({
+			profilePic: {
+				data: fs.readFileSync('./public/images/patient.png'),
+				contentType: 'image/png'
+			},
 			name: req.body.name,
 			email: req.body.email,
 			password: req.body.password
@@ -69,7 +74,7 @@ router.post("/login", function(req, res) {
 		bcrypt.compare(password, patient.password).then(isMatch => {
 			if (isMatch) {
 				//User Matched
-				res.send("Welcome "+email);
+				res.send("Welcome"+email);
 			}
 			else {
 				return res.status(400).json( {passwordIncorrect: "Password incorrect"} )

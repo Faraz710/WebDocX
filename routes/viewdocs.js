@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const Doctor = require('../models/doctor_schema');
 
 //Display doctors list based on speciality
-router.get("/:specialization", function(req, res) {
-	Doctor.find({specialization:req.params.specialization}, function(err, doctors) {
+router.get("/:speciality", function(req, res) {
+	Doctor.find({speciality:req.params.speciality}, function(err, doctors) {
 		res.render("viewdocs",{docs:doctors});
 	});
 });
