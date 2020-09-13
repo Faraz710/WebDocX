@@ -7,10 +7,10 @@
 </head>
 <body>
 	<h1>Update</h1>
-		<% var image = myAccount.profilePic.data.toString('base64'); %>
-		<% var type = myAccount.profilePic.contentType; %>
+		<% var image = profilePic.data.toString('base64'); %>
+		<% var type = profilePic.contentType; %>
 		<img src="data:<%= type %>;base64,<%= image %>" />
-		<li><%= myAccount.email %></li>
+		<li><%= myAccount.username %></li>
 		<li><%= myAccount.name %></li>
 </body>
 </html>

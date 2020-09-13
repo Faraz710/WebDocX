@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var passportLocalMongoose = require("passport-local-mongoose");
 const Schema = mongoose.Schema;
 // Create doctor schema
 const doctorSchema = new Schema({
@@ -10,11 +11,7 @@ const doctorSchema = new Schema({
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
+  username: {
     type: String,
     required: true
   },
@@ -26,7 +23,7 @@ const doctorSchema = new Schema({
     type: String
   },
   speciality: {
-    type: [String]
+    type: String
   },
   experience: {
     type: Number
@@ -57,4 +54,6 @@ const doctorSchema = new Schema({
     default: false
   }
 });
+
+doctorSchema.plugin(passportLocalMongoose);
 module.exports = Doctor = mongoose.model("Doctors", doctorSchema);

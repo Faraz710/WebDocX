@@ -8,11 +8,28 @@
   <script type="text/javascript" src="/scripts/home.js"></script>
 </head>
 <body >
+
   <div class="notification" id="notification">
     <b>Now we are providing Consultation For COVID-19 too.</b>
     <button class="buttontrans not" style="border-radius:10px; font-size:16px;">Precautions</button>
     <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
+
+  <!--Alert messages-->
+  <div class="alert-msg">
+    <% if (errorMessage && errorMessage.length > 0) { %>
+      <div class="alert alert-danger" role="alert">
+        <%= errorMessage %>
+      </div>
+    <% } %>
+    
+    <% if (successMessage && successMessage.length > 0){ %>
+      <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+      </div>
+    <% } %>
+  </div>
+  
   <div class="col-container sticky">
     <div id="logobar" class="col column5" align="left" style="padding:0px">
       <img class="logo" src="images/logo.jpg" height="100" width="200">
@@ -109,7 +126,7 @@
   
       <div class="container">
         <label for="email"><b>Username</b></label>
-        <input type="text" placeholder="Enter Mail" id="email" name="email" required>
+        <input type="text" placeholder="Enter Mail" id="email" name="username" required>
   
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" id="password" name="password" required>
@@ -136,7 +153,7 @@
   
       <div class="container">
         <label for="email"><b>Username</b></label>
-        <input type="text" placeholder="Enter Mail" id="email" name="email" required>
+        <input type="text" placeholder="Enter Mail" id="email" name="username" required>
   
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" id="password" name="password" required>
@@ -180,7 +197,7 @@
       <input type="text" placeholder="Full Name" id="name" name="name" required>
 
       <label for="email"><b>Username</b></label>
-      <input type="text" placeholder="Enter Mail" id="email" name="email" required>
+      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
 
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id="password" name="password" required>
@@ -213,7 +230,7 @@
       <input type="text" placeholder="Full Name" id="name" name="name" required>
 
       <label for="email"><b>Username</b></label>
-      <input type="text" placeholder="Enter Mail" id="email" name="email" required>
+      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
 
       <label for="password"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" id="password" name="password" required>
