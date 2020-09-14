@@ -100,7 +100,7 @@ app.get("/dashboardDoc", isLoggedIn, function(req, res) {
 
 // Patient Dashboard
 app.get("/dashboardPat", isLoggedIn, function(req, res) {
-  res.render("dashboardpat");
+  res.render("dashboardPat");
 });
 
 // Display list of doctors
