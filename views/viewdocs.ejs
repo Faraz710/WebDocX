@@ -6,9 +6,25 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
 </head>
 <body>
-	<h1>Doctors</h1>
+	<div class="row">
+<!--{ speciality: [ 'testing' ], activated: false, _id: 5f54b6a7eaf3ee46082cc0da, name: 'doctor2', email: 'doctor2@gmail.com', password: '$2a$10$VwXkIZ9mJu9XT.K6yrr1r.KKWCMDvUfUa79HYROOv4.XoFfO24t96', date: 2020-09-06T10:15:03.547Z, __v: 0 }-->
 	<% for (var i = 0; i < docs.length; i++) { %>
-	<li> <%= docs[i] %></li>
+	<div class="column">
+		<div class="card">
+		  <% var image = docs[i].profilePic.data.toString('base64'); %>
+		  <% var type = docs[i].profilePic.contentType; %>
+		  <div>
+		  <img src="data:<%= type %>;base64,<%= image %>" alt="Doctor" style="width:100px;height:100px;">
+		  </div>
+		  <div class="container" align="center">
+			<h2><%= docs[i].name %></h2>
+			<p class="title"><%= docs[0].speciality %></p>
+			<p><%= docs[i].email %></p>
+			<p><button class="button">Contact</button></p>
+		  </div>
+		</div>
+	  </div>
 	<%}%>
+</div>
 </body>
 </html>
