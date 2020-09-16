@@ -8,9 +8,13 @@ const Doctor = require('../models/doctor_schema');
 const Patient = require('../models/patient_schema');
 
 //Display doctor user details
-router.get("/doctor/:id", function(req, res) {
-	Doctor.findOne({_id:req.params.id}, function(err, account) {
-		res.render("update",{myAccount: account});
+router.get("/", function(req, res) {
+	Doctor.findOne({_id:req.user._id}, function(err, account) {
+		if(err){ 
+            req.flash("error", err.message);
+            res.redirect("/update");
+        }
+		res.render("update", {profilePic: account.profilePic});
 	});
 });
 

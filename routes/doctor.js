@@ -1,87 +1,53 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
-const keys = require('../config/keys');
 var fs = require('fs');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 //Doctor schema
 const doctor = require('../models/doctor_schema');
 
 //Functions to validate user input
 const validateRegisterInput = require('../validation/register');
-const validateLoginInput = require('../validation/login');
 
-//Registration form validation
+//Doctor Register Auth
 router.post("/register", function(req, res) {
+	//Registration form validation
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
-		//Return error if form input is not valid
-		return res.status(400).json(errors);
+		req.flash("error", errors);
+        res.redirect("/");
 	}
-
-	Doctor.findOne( {email: req.body.email} ).then(doctor => {
-		if (doctor) {
-			//Return error if email already registered
-			return res.status(400).json( {email: "Email already exists"} );
-			//res.redirect("/");
-			//res.send('<script>alert("Email already exists")</script>');
-
-		}
-		else {
-		//Store doctor details from form into newDoctor
-		const newDoctor = new Doctor({
-			profilePic: {
-				data: fs.readFileSync('./public/images/doctor.png'),
-				contentType: 'image/png'
-			},
-			name: req.body.name,
-			email: req.body.email,
-			password: req.body.password
-		});
-
-		//Hash password using bcrypt
-		bcrypt.genSalt(saltRounds, function(err, salt) {
-			bcrypt.hash(newDoctor.password, salt, function(err, hash) {
-				if (err) throw err;
-				newDoctor.password = hash;
-
-			//Save the doctor details to MongoDB
-			newDoctor.save().then(res.redirect("/"))
-							 .catch(err => console.log(err));
-			});
-		});
-		}
+	const newDoctor = new Doctor({
+		profilePic: {
+			data: fs.readFileSync('./public/images/doctor.png'),
+			contentType: 'image/png'
+		},
+		name: req.body.name,
+		username: req.body.username
 	});
+	Doctor.register(newDoctor, req.body.password, function(err, doctor){
+        if(err){
+            req.flash("error", err.message);
+            res.redirect("/");
+        }
+        passport.authenticate("doctorLocal")(req, res, function(){
+        	req.flash("success", "Successfully registered!!");
+            res.redirect("/"); 
+        });
+    });
 });
 
-router.post("/login", function(req, res) {
-	const {errors, isValid} = validateLoginInput(req.body);
-	if (!isValid) {
-		//Return error if form input is not valid
-		return res.status(400).json(errors);
-	}
-
-	const email = req.body.email;
-	const password = req.body.password;
-
-	Doctor.findOne( {email} ).then(doctor => {
-		if (!doctor) {
-			//Return error if email not registered
-			return res.status(400).json( {email: "Email not found"} );
-		}
-		//Compare hashed password
-		bcrypt.compare(password, doctor.password).then(isMatch => {
-			if (isMatch) {
-				//User Matched
-				res.send("Welcome "+email);
-			}
-			else {
-				return res.status(400).json( {passwordIncorrect: "Password incorrect"} )
-			}
-		})
-	});
-});
+//Doctor Login Auth
+router.post("/login", passport.authenticate('doctorLocal', {
+	successRedirect: '/dashboardDoc',
+    failureRedirect: '/',
+    failureFlash: true
+}));
 
 module.exports = router;
