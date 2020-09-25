@@ -4,27 +4,37 @@
 	<meta charset="UTF-8">
 	<title>WebDocX</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<div class="row">
-<!--{ speciality: [ 'testing' ], activated: false, _id: 5f54b6a7eaf3ee46082cc0da, name: 'doctor2', email: 'doctor2@gmail.com', password: '$2a$10$VwXkIZ9mJu9XT.K6yrr1r.KKWCMDvUfUa79HYROOv4.XoFfO24t96', date: 2020-09-06T10:15:03.547Z, __v: 0 }-->
-	<% for (var i = 0; i < docs.length; i++) { %>
-	<div class="column">
-		<div class="card">
-		  <% var image = docs[i].profilePic.data.toString('base64'); %>
-		  <% var type = docs[i].profilePic.contentType; %>
-		  <div>
-		  <img src="data:<%= type %>;base64,<%= image %>" alt="Doctor" style="width:100px;height:100px;">
-		  </div>
-		  <div class="container" align="center">
-			<h2><%= docs[i].name %></h2>
-			<p class="title"><%= docs[0].speciality %></p>
-			<p><%= docs[i].email %></p>
-			<p><button class="button">Contact</button></p>
-		  </div>
+		<% for (var i = 0; i < docs.length; i++) { %>
+		<div class="column">
+			<% var image = docs[i].profilePic.data.toString('base64'); %>
+			<% var type = docs[i].profilePic.contentType; %>
+			<div class="col-container card">
+				<div class="col column4" style="background-image: url('data:<%= type %>;base64,<%= image %>'); background-size: 100% 250px; background-repeat: no-repeat;">
+				</div>
+				<div class="col column6" align="center">
+					<h2 align="center">Dr.<%= docs[i].name %></h2>
+					<button class="buttongreen borderless">16+ Years Exp</button>   <button class="buttontrans">&#8377 324</button>
+					<h4 class="title"><%= docs[0].speciality %></h4>
+					<% if(docs[i].username==""){ %>
+					<p>Username Absent</p>
+					<% }else{ %>
+					<p><%= docs[i].email %></p>
+					<%}%>
+					<a href="#" class="fa fa-facebook"></a>
+					<a href="#" class="fa fa-twitter"></a>
+					<a href="#" class="fa fa-google"></a>
+					<a href="#" class="fa fa-linkedin"></a>
+					<a href="#" class="fa fa-youtube"></a>
+					<a href="#" class="fa fa-instagram"></a>
+					<p><button class="button">Consult Now</button></p>
+				</div>
+			</div>
 		</div>
-	  </div>
 	<%}%>
-</div>
+	</div>
 </body>
 </html>
