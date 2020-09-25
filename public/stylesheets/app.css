@@ -1,3 +1,159 @@
-body {
-	background-color: rgb(100,100,100);
-}
+html {
+	box-sizing: border-box;
+  }
+
+  	/*this is for breaking divs in columns*/
+  * {
+	box-sizing: border-box;
+  }
+
+  .col-container {
+	display: table;
+	width: 100%;
+  }
+  .col {
+	display: table-cell;
+	padding: 10px;
+  }
+
+  .column {
+	float: left;
+	width: 50%;
+	margin-bottom: 16px;
+	padding: 0 45px;
+  }
+  .column5{
+	width: 50%;
+	padding: 0px;
+  }
+  
+  .column4 {
+	width: 40%;
+	padding: 0px;
+  }
+
+  .column6 {
+	width: 60%;
+	padding: 0px;
+  }
+  
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+  
+  /*settings for small screens*/
+  @media screen and (max-width: 650px) {
+	.column {
+	  width: 100%;
+	  display: block;
+	}
+  }
+  
+  .card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .container {
+	padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+	content: "";
+	clear: both;
+	display: table;
+  }
+  
+  .title {
+	color: grey;
+  }
+  
+
+
+
+
+/*social media buttons*/
+.fa {
+	padding: 10px 10px;
+	font-size: 30px;
+	width: 30px;
+	text-align: center;
+	text-decoration: none;
+	margin: 5px 2px;
+  }
+  
+  .fa:hover {
+	  opacity: 0.7;
+  }
+  
+  .fa-facebook {
+	background: #3B5998;
+	color: white;
+  }
+  
+  .fa-twitter {
+	background: #55ACEE;
+	color: white;
+  }
+  
+  .fa-google {
+	background: #dd4b39;
+	color: white;
+  }
+  
+  .fa-linkedin {
+	background: #007bb5;
+	color: white;
+  }
+  
+  .fa-youtube {
+	background: #bb0000;
+	color: white;
+  }
+  
+  .fa-instagram {
+	background: #125688;
+	color: white;
+  }
+  
+/*social media buttons end*/
+
+
+
+
+
+
+  .button {
+	border: none;
+	outline: 0;
+	display: inline-block;
+	padding: 8px;
+	color: white;
+	background-color: #000;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+  }
+  
+  .button:hover {
+	background-color: #555;
+  }
+
+  .buttontrans{
+	background-color: transparent;
+	border-radius:3px;
+	border-width:1px;
+	color:black;
+	font-size:20px;
+  }
+  .borderless{
+	border: none;
+  }
+  .buttongreen{
+	background-color:#39FF14;
+	border-radius:3px;
+	border-width:1px;
+	color: White;
+	font-size:20px;
+  }
