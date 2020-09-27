@@ -1,86 +1,49 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
-const keys = require('../config/keys');
 var fs = require('fs');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 //Patient schema
 const Patient = require('../models/patient_schema');
 
 //Functions to validate user input
 const validateRegisterInput = require('../validation/register');
-const validateLoginInput = require('../validation/login');
 
-//Registration form validation
+//Patient Register Auth
 router.post("/register", function(req, res) {
+	//Registration form validation
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
-		//Return error if form input is not valid
-		return res.status(400).json(errors);
+		req.flash("error", errors);
+        res.redirect("/");
 	}
-
-	Patient.findOne( {email: req.body.email} ).then(patient => {
-		if (patient) {
-			//Return error if email already registered
-			return res.status(400).json( {email: "Email already exists"} );
-		}
-		else {
-		//Store patient details from form into newPatient
-		const newPatient = new Patient({
-			profilePic: {
-				data: fs.readFileSync('./public/images/patient.png'),
-				contentType: 'image/png'
-			},
-			name: req.body.name,
-			email: req.body.email,
-			password: req.body.password
-		});
-
-		//Hash password using bcrypt
-		bcrypt.genSalt(saltRounds, function(err, salt) {
-			bcrypt.hash(newPatient.password, salt, function(err, hash) {
-				if (err) throw err;
-				newPatient.password = hash;
-
-			//Save the patient details to MongoDB
-			newPatient.save().then(res.redirect("/"))
-							 .catch(err => console.log(err));
-			});
-		});
-		}
+	const newPatient = new Patient({
+		profilePic: {
+			data: fs.readFileSync('./public/images/patient.png'),
+			contentType: 'image/png'
+		},
+		name: req.body.name,
+		username: req.body.username,
 	});
+	Patient.register(newPatient, req.body.password, function(err, patient){
+        if(err){ 
+            req.flash("error", err.message);
+            res.redirect("/");
+        }
+        passport.authenticate("patientLocal")(req, res, function(){
+        	req.flash("success", "Successfully registered!!");
+        	res.redirect("/");
+        });
+    });
 });
 
-
-//Login form validation
-router.post("/login", function(req, res) {
-	const {errors, isValid} = validateLoginInput(req.body);
-	if (!isValid) {
-		//Return error if form input is not valid
-		return res.status(400).json(errors);
-	}
-
-	const email = req.body.email;
-	const password = req.body.password;
-
-	Patient.findOne( {email} ).then(patient => {
-		if (!patient) {
-			//Return error if email not registered
-			return res.status(400).json( {email: "Email not found"} );
-		}
-		//Compare hashed password
-		bcrypt.compare(password, patient.password).then(isMatch => {
-			if (isMatch) {
-				//User Matched
-				res.send("Welcome"+email);
-			}
-			else {
-				return res.status(400).json( {passwordIncorrect: "Password incorrect"} )
-			}
-		})
-	});
-});
+//Patient Login Auth
+router.post("/login", passport.authenticate('patientLocal', {
+	successRedirect: '/dashboardPat',
+    failureRedirect: '/',
+    failureFlash: true
+}));
 
 module.exports = router;
