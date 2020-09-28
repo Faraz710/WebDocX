@@ -78,3 +78,18 @@ function scrollFunction() {
     document.getElementById("myBtn").style.visibility= "hidden";
   }
 }
+
+//show password
+function myFunction(fid) {
+  var x =document.getElementById("password"+fid);
+  if(document.getElementById(fid).checked==true)
+  {
+    if (x.type === "password") {
+      x.type = "text";
+    }
+  }
+  else
+  {
+    x.type = "password";
+  }
+}
