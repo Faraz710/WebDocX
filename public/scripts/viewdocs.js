@@ -10,6 +10,7 @@ function topFunction() {
     document.getElementById("name").innerHTML = "DR."+name;
     document.getElementById("ctag").value=1;
     document.getElementById("stag").value=1;
+    document.getElementsByName("consultform").action="/consult/"+_id;
     for(var i=2;i<=5;i++){
         document.getElementById("tag"+i).style.display="none";
         document.getElementById("sym"+i).style.display="none";
