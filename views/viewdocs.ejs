@@ -25,7 +25,6 @@
 			<a href="#">Link 2</a>
 			<a href="#">Link 3</a>
 		</div>
-		<img src="/images/navlogo1.png" width="30" height="30">
 		<button style="float:right;" id="logout">Logout</button>
 		<script>
 			document.getElementById("logout").onclick = function () {
@@ -57,7 +56,7 @@
 					<a href="#" class="fa fa-linkedin"></a>
 					<a href="#" class="fa fa-youtube"></a>
 					<a href="#" class="fa fa-instagram"></a>
-					<p><button class="button" onclick="openForm('<%= docs[i].name %>')">Consult Now</button></p>
+					<p><button class="button" onclick="openForm('<%= docs[i].name %>','<%= docs[i]._id %>')">Consult Now</button></p>
 				</div>
 			</div>
 		</div>
@@ -66,7 +65,7 @@
 
 	<!--Consult Form-->
 <div class="form-popup" id="consult">
-  <form action="" class="form-container" name="consultform">
+  <form action="/consult/" class="form-container" id="consultform" name="consultform">
 
 	<div class="imgcontainer">
         <span onclick="document.getElementById('consult').style.display='none'" class="close" title="Close Modal">&times;</span>

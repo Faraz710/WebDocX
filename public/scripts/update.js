@@ -48,7 +48,7 @@ function cnf()
     document.getElementById("a").style.color = "grey";
 
     var x = document.getElementsByTagName("input");
-    for(var i=1;i<16;i++){
+    for(var i=2;i<=16;i++){
     x[i].style.display="none";
     }
 
@@ -56,15 +56,15 @@ function cnf()
     var j;
 
     for(i=1;i<=10;i++){
-        j=i+5;
+        j=i;
     i=i.toString();
     document.getElementById(i).style.display="block";
     if(i<7)
-    document.getElementById(i).innerHTML =x[i].value;
+    document.getElementById(i).innerHTML =x[j+1].value;
     else if(i==7)
-        document.getElementById(i).innerHTML =x[8].value+" "+x[9].value+" "+x[10].value+" "+x[11].value+" "+x[12].value;
+        document.getElementById(i).innerHTML =x[9].value+" "+x[10].value+" "+x[11].value+" "+x[12].value+" "+x[13].value;
     else
-    document.getElementById(i).innerHTML =x[j].value;
+    document.getElementById(i).innerHTML =x[j+6].value;
     }
 }
 function bck()
@@ -80,19 +80,19 @@ function bck()
     document.getElementById("a").style.color = "grey";
 
     var x = document.getElementsByTagName("input");
-    for(var i=1;i<=8;i++){
+    for(var i=2;i<=9;i++){
     x[i].style.display="block";
     }
-    for(i=9;i<=12;i++){
+    for(i=10;i<=13;i++){
         if(x[i].value!="")
         x[i].style.display="block";
         else
         {
-        x[7].value=i-8;
+        x[8].value=i-9;
         break;
         }
     }
-    for(var i=13;i<16;i++){
+    for(var i=14;i<=16;i++){
         x[i].style.display="block";
         }
     for(i=1;i<=10;i++){
@@ -101,4 +101,20 @@ function bck()
         }
     document.getElementById("specadd").style.display = "block";
 
+}
+function dpopen(){
+    document.getElementById("dp").style.display="block";
+    document.getElementById("op").style.display="none";
+    document.getElementById("cl").style.display="block";
+    
+}
+function dpclose(){
+    document.getElementById("dp").style.display="none";
+    document.getElementById("op").style.display="block";
+    document.getElementById("cl").style.display="none";
+}
+function chk(){
+    if(document.getElementById("profilepic").files.length!=0){
+        document.getElementById("pic").style.color="greenyellow";
+    }
 }
