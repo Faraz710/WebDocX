@@ -19,6 +19,20 @@
 			};
 		</script>
 	</div>
+<!--Alert messages-->
+	<div class="alert-msg">
+	    <% if (errorMessage && errorMessage.length > 0) { %>
+	      <div class="alert alert-danger" role="alert">
+	        <%= errorMessage %>
+	      </div>
+	    <% } %>
+	    
+	    <% if (successMessage && successMessage.length > 0){ %>
+	      <div class="alert alert-success" role="alert">
+	        <%= successMessage %>
+	      </div>
+	    <% } %>
+	</div>
 	<h1>Patient Dashboard</h1>
 	<li><a href="/view/doctors/testing">Doctors with speciality: testing</a></li>
 	<li><a href="/view/doctors/profile">Doctors with speciality: profile</a></li>
