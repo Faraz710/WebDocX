@@ -104,13 +104,13 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 });
 
 // Display list of doctors
-app.use("/view/doctors", viewdocs);
+app.use("/view/doctors", isLoggedIn, viewdocs);
 
 // Update Profile
 app.use("/update", isLoggedIn, update);
 
 // Consult
-app.use("/consult", consult);
+app.use("/consult", isLoggedIn, consult);
 
 // Incorrect URL
 app.get("*", function(req, res) {
