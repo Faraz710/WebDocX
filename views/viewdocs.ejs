@@ -47,9 +47,9 @@
 				<div class="col column4" style="background-image: url('data:<%= type %>;base64,<%= image %>'); background-size: 100% 250px; background-repeat: no-repeat;">
 				</div>
 				<div class="col column6" align="center">
-					<h2 align="center">Dr.<%= docs[i].name %></h2>
-					<button class="buttongreen borderless">16+ Years Exp</button>
-					<h4 class="title"><%= docs[0].speciality %></h4>
+					<h2 align="center">Dr. <%= docs[i].name %></h2>
+					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
+					<h4 class="title">Speciality: <%= docs[0].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>
 					<a href="#" class="fa fa-twitter"></a>
 					<a href="#" class="fa fa-google"></a>

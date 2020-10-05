@@ -23,10 +23,12 @@ const doctorSchema = new Schema({
     type: String
   },
   speciality: {
-    type: String
+    type: String,
+    default: 'cardiology'
   },
   experience: {
-    type: Number
+    type: Number,
+    default: 9
   },
   reg_no: {
     type: String
