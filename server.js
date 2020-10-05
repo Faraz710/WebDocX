@@ -10,7 +10,7 @@ const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
 const update = require('./routes/update');
-//const consult = require('./routes/consult');
+const consult = require('./routes/consult');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -110,7 +110,7 @@ app.use("/view/doctors", isLoggedIn, viewdocs);
 app.use("/update", isLoggedIn, update);
 
 // Consult
-//app.use("/consult", consult);
+app.use("/consult", isLoggedIn, consult);
 
 // Incorrect URL
 app.get("*", function(req, res) {

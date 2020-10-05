@@ -47,9 +47,9 @@
 				<div class="col column4" style="background-image: url('data:<%= type %>;base64,<%= image %>'); background-size: 100% 250px; background-repeat: no-repeat;">
 				</div>
 				<div class="col column6" align="center">
-					<h2 align="center">Dr.<%= docs[i].name %></h2>
-					<button class="buttongreen borderless">16+ Years Exp</button>
-					<h4 class="title"><%= docs[0].speciality %></h4>
+					<h2 align="center">Dr. <%= docs[i].name %></h2>
+					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
+					<h4 class="title">Speciality: <%= docs[0].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>
 					<a href="#" class="fa fa-twitter"></a>
 					<a href="#" class="fa fa-google"></a>
@@ -65,7 +65,7 @@
 
 	<!--Consult Form-->
 <div class="form-popup" id="consult">
-  <form action="/consult/" class="form-container" id="consultform" name="consultform">
+  <form action="/consult/" class="form-container" id="consultform" name="consultform" method="post">
 
 	<div class="imgcontainer">
         <span onclick="document.getElementById('consult').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -73,7 +73,7 @@
 		<h2 id="name" align="center"></h2>
 	</div>
 	<label for="psw"><b>Problems</b></label>
-    <input type="text" placeholder="Problems" id=" problems" name="problems" style="width:97%" required><!--get problems by name problems-->
+    <input type="text" placeholder="Problems" id=" problems" name="problem" style="width:97%" required><!--get problem by name problem-->
 
 	<label for="psw" style="clear:both"><b>Tags</b></label><br><!--take getElementByname(tags) for tag array-->
 	<input type="hidden" id="ctag" value=1>
