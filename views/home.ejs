@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!--favicon-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+
   <meta charset="UTF-8">
 	<title>WebDocX</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,51 +15,41 @@
   <script type="text/javascript" src="/scripts/home.js"></script>
 </head>
 <body >
+<!--Alert messages and notification-->
+  <div class="notification card" id="notification">
+    <% if (errorMessage && errorMessage.length > 0) { %>
+      <script>document.getElementById('notification').style.backgroundColor='#f8d7da';document.getElementById('notification').style.backgroundImage='none';</script>
+      <span style="color:#721c24;">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><b><%= errorMessage %></b>
+      </span><br>
+    <% } %>
 
-  <div class="notification" id="notification">
+    <% if (successMessage && successMessage.length > 0){ %>
+      <script>document.getElementById('notification').style.backgroundColor='#d4edda';document.getElementById('notification').style.backgroundImage='none';</script>
+      <span style="color:#155724;">
+        <i class="fa fa-check" aria-hidden="true"></i><b><%= successMessage %></b>
+      </span><br>
+    <% } %>
     <b>Now we are providing Consultation For COVID-19 too.</b>
     <button class="buttontrans not" style="border-radius:10px; font-size:16px;" >Precautions</button>
     <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
-
-  <!--Alert messages-->
-  <div class="alert-msg">
-    <% if (errorMessage && errorMessage.length > 0) { %>
-      <div class="alert alert-danger" role="alert">
-        <%= errorMessage %>
-      </div>
-    <% } %>
-    
-    <% if (successMessage && successMessage.length > 0){ %>
-      <div class="alert alert-success" role="alert">
-        <%= successMessage %>
-      </div>
-    <% } %>
-  </div>
   
-  <div class="col-container sticky">
+  <div class="col-container sticky" id="mainnav">
     <div id="logobar" class="col column5" align="left" style="padding:0px">
-      <img class="logo" src="images/logo.jpg" height="100" width="200">
+      <img class="logo" src="images/logo.png" height="100" width="200">
     </div>
-    <img id="clogobar" class="logo hidden" src="images/logo.jpg" height="100" width="200">
+    <img id="clogobar" class="logo hidden" src="images/logo.png" height="100" width="200">
     <div class="col column5" align="right" style="padding:0px">
-      <a href="#" class="fa fa-facebook"></a>
-					<a href="#" class="fa fa-twitter"></a>
-					<a href="#" class="fa fa-google"></a>
-					<a href="#" class="fa fa-linkedin"></a>
-					<a href="#" class="fa fa-youtube"></a>
-					<a href="#" class="fa fa-instagram"></a>
     <button class="buttontrans borderless" onclick="document.getElementById('id01').style.display='block'">Login</button>
     <button class="buttontrans" onclick="document.getElementById('id03').style.display='block'">Sign Up</button>
     </div>
   </div>
   <div class="col-container">
     <div class="col column5" align="left">
-      <font color="#66ffff">
-      <h1>Bringing Patients AND Doctors Together Worldwide.</h1>
-    </font>
+      <h1 style="color: #055ead;">Bringing Patients AND Doctors Together Worldwide.</h1>
     <div class="col-container">
-      <div class="col column5">
+      <div id="xyz"class="col column5" style="border-radius:10px;">
         <h1>For Doctors</h1>
         <p>Now you can attend to many more patients even from your home. Attend to patients WorldWide.</p>
       </div>
@@ -65,10 +61,10 @@
 
     <div class="col-container">
       <div class="col column5">
-        <button class="buttongreen borderless" style="width:100%; height:50px;" onclick="document.getElementById('id04').style.display='block'">Register Now</button>
+        <button class="buttongreen borderless card" style="width:100%; height:50px;" onclick="document.getElementById('id04').style.display='block'">Register Now</button>
       </div>
       <div class="col column5">
-        <button class="buttonwhite" style="width:80%; height:50px;" onclick="document.getElementById('id05').style.display='block'">Sign Up & Consult</button>
+        <button class="buttonwhite card" style="width:80%; height:50px;" onclick="document.getElementById('id05').style.display='block'">Sign Up & Consult</button>
       </div>
     </div>
     </div>
@@ -79,42 +75,48 @@
   <!--The footer starts-->
   <div style="background-color: #000000; background-image: linear-gradient(147deg, #000000 0%, #434343 74%); color:white">
 
-  <!--This is For Contact Info-->
-  <div align="center"><h1>Reach Us At</h1></div>
-  <div>
     <div class="col-container">
-      <div class="col column3">
-        <div class="col-container">
-          <div class="col column3" style="border:solid;background-image: url('images/phone.png'); background-repeat: no-repeat;background-size: 100% 100%;">
+      <div class="col column3" >
+        <div class="col-container card">
+          <div class="col column3 " style="border:none;position:relative">
+            <span style="font-size: 50px;position:absolute"><i class="fa fa-phone" aria-hidden="true"></i></span>
           </div>
-          <div class="col column7" style="border:solid;height:100px;">
+          <div class="col column7" style="border:none;height:100px;">
             <p style="color:white;">Call Us Now!</p>
-            <a href="tel:123-456-7890">123-456-7890</a>
+            <a style="color: grey;" href="tel:123-456-7890">123-456-7890</a>
           </div>
         </div>
       </div>
       <div class="col column3">
-        <div class="col-container">
-          <div class="col column3" style="border:solid; background-image: url('images/email.png'); background-repeat: no-repeat;background-size: 100% 100%;">
+        <div class="col-container card">
+          <div class="col column3" style="border:none;position:relative">
+            <span style="font-size: 50px;position:absolute;"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
           </div>
-          <div class="col column7" style="border:solid; height:100px;">
+          <div class="col column7" style="border:none; height:100px;">
             <p style="color:white;">Drop Us an Email!</p>
-            <a href = "mailto: webdoc.2019@gmail.com">webdoc.2019@gmail.com</a>
+            <a style="color: grey;" href = "mailto: webdoc.2019@gmail.com">webdoc.2019@gmail.com</a>
           </div>
         </div>
       </div>
       <div class="col column3">
-        <div class="col-container">
-          <div class="col column3" style="border:solid;background-image: url('images/clock.png'); background-repeat: no-repeat;background-size: 100% 100%;">
+        <div class="col-container card">
+          <div class="col column3" style="border:none;position:relative">
+            <span style="font-size: 50px;position:absolute; color:white;"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
           </div>
-          <div class="col column7" style="border:solid;height:100px;">
+          <div class="col column7" style="border:none;height:100px;">
             <p style="color:white;">Our Active Hours:</p>
             We are available 24 x 7!
           </div>
         </div>
       </div>
     </div>
-  </div>
+        <div align="center" style="font-size: 25px;">
+          <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+					<a href="https://twitter.com/login?lang=en" class="fa fa-twitter"></a>
+					<a href="https://www.linkedin.com/login" class="fa fa-linkedin"></a>
+					<a href="https://www.youtube.com/" class="fa fa-youtube"></a>
+          <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+        </div>
   </div>
   <div style="background-color:black;color:grey; height: 50px;padding: 20px 50px;">
           Copyright © 2020 WebDoc. All rights reserved.
@@ -129,8 +131,8 @@
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1>Welcome Back!</h1>
-        <img class="avatar active" src="images/doctor.png">
-        <button class="buttontrans borderless" style="padding:0px 0px;" onclick="patl()"><img class="avatar" src="images/patient.png"></button>
+        <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar active" src="images/doctor.png"></button>
+        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="patl()"><img class="avatar" src="images/patient.png"></button>
       </div>
   
       <div class="container">
@@ -157,8 +159,8 @@
       <div class="imgcontainer">
         <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
         <h1>Welcome Back!</h1>
-        <button class="buttontrans borderless" style="padding:0px 0px;" onclick="docl()"><img class="avatar" src="images/doctor.png"></button>
-        <img class="avatar active" src="images/patient.png">
+        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="docl()"><img class="avatar" src="images/doctor.png"></button>
+        <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar" src="images/patient.png"></button>
       </div>
   
       <div class="container">
@@ -199,8 +201,8 @@
     <div class="imgcontainer">
       <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
-      <img class="avatar active" src="images/doctor.png">
-      <button class="buttontrans borderless" style="padding:0px 0px;" onclick="pats()"><img class="avatar" src="images/patient.png"></button>
+      <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar active" src="images/doctor.png"></button>
+        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="pats()"><img class="avatar" src="images/patient.png"></button>
     </div>
 
     <div class="container">
@@ -233,8 +235,8 @@
     <div class="imgcontainer">
       <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
       <h1>Lets Get You Started!</h1>
-      <button class="buttontrans borderless" style="padding:0px 0px;" onclick="docs()"><img class="avatar" src="images/doctor.png"></button>
-      <img class="avatar active" src="images/patient.png">
+      <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="docs()"><img class="avatar" src="images/doctor.png"></button>
+      <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar" src="images/patient.png"></button>
     </div>
 
     <div class="container">

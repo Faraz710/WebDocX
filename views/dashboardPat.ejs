@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--favicon-->
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+
 	<meta charset="UTF-8">
 	<title>WebDocX</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/dashboardPat.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
 </head>
 <body>
+	<!--Alert messages and notification-->
+	<div class="notification card" style="display:none;" id="notification">
+    <% if (errorMessage && errorMessage.length > 0) { %>
+      <script>document.getElementById('notification').style.display='block';document.getElementById('notification').style.backgroundColor='#f8d7da';document.getElementById('notification').style.backgroundImage='none';</script>
+      <span style="color:#721c24;">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><b><%= errorMessage %></b>
+      </span><br>
+    <% } %>
+
+    <% if (successMessage && successMessage.length > 0){ %>
+      <script>document.getElementById('notification').style.display='block';document.getElementById('notification').style.backgroundColor='#d4edda';document.getElementById('notification').style.backgroundImage='none';</script>
+      <span style="color:#155724;">
+        <i class="fa fa-check" aria-hidden="true"></i><b><%= successMessage %></b>
+      </span><br>
+    <% } %>
+    <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
+  </div>
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
 		<button id="doc" >Doctors</button>
-		<button id="logout" style="float:right;">Logout</button>
+		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardPat";
@@ -18,20 +43,6 @@
 				location.href = "/logout";
 			};
 		</script>
-	</div>
-<!--Alert messages-->
-	<div class="alert-msg">
-	    <% if (errorMessage && errorMessage.length > 0) { %>
-	      <div class="alert alert-danger" role="alert">
-	        <%= errorMessage %>
-	      </div>
-	    <% } %>
-	    
-	    <% if (successMessage && successMessage.length > 0){ %>
-	      <div class="alert alert-success" role="alert">
-	        <%= successMessage %>
-	      </div>
-	    <% } %>
 	</div>
 	<h1>Patient Dashboard</h1>
 	<li><a href="/view/doctors/cardiology">Doctors with speciality: cardiology</a></li>

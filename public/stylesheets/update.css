@@ -45,10 +45,7 @@ body {
 	outline: none;
   }
   
-  /*verify icon*/
-.verified{
-    color:lightgreen;
-}
+
   /*round button*/
   .roundbtn{
     font-size: large;

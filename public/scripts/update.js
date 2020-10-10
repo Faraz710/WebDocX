@@ -108,13 +108,20 @@ function dpopen(){
     document.getElementById("cl").style.display="block";
     
 }
-function dpclose(){
+function dpclose(x){
     document.getElementById("dp").style.display="none";
     document.getElementById("op").style.display="block";
     document.getElementById("cl").style.display="none";
+    document.getElementById("upprof").src=x;
+    document.getElementById('profilepic').value =null;
+    document.getElementById("pic").style.color="black";
 }
-function chk(){
+function chk(event){
     if(document.getElementById("profilepic").files.length!=0){
         document.getElementById("pic").style.color="greenyellow";
+        document.getElementById("upprof").src= URL.createObjectURL(event.target.files[0]);
+		document.getElementById("upprof").onload = function() {
+		URL.revokeObjectURL(document.getElementById("upprof").src) // free memory
+		}
     }
 }
