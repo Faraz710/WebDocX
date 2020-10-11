@@ -75,7 +75,7 @@
 					<label for="phn"><b>Phone Number</b></label><span name="show" style="display:none;" id="2"></span>
     				<input type="text"  placeholder="Phone Number" id="phn" name="phoneNumber" style="width:97%" value="<%= myAccount.phoneNumber %>" required>
 					<label for="name"><b>Name</b></label><span name="show" style="display:none;" id="3"></span>
-					<input type="text" id="name" name="name" style="width:97%" value="<%= myAccount.name %>" required>
+					<input type="text" id="name" name="name" style="width:97%" value="hi" required>
 					</span>
 					<span id="medical" style="display:none;">
 					<label for="degree"><b>Medical Degrees</b></label><span name="show" style="display:none;" id="4"></span>
@@ -84,7 +84,7 @@
 					<input type="text" placeholder="Registration Number(Provided by Medical Council)" id="regno" name="reg_no" style="width:97%" value="<%= myAccount.reg_no %>" required>
 					<label for="license"><b>License</b></label><span name="show" style="display:none;" id="6"></span>
 					<% if (typeof myAccount.licensePdf.data !== 'undefined') { %>
-						<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= license %>" />
+						<embed style="width:150px;height:150px;" src="data:<%= ltype %>;base64,<%= license %>" />
 					<% } %>
 					<input type="file" id="license" name="license" style="width:97%" required>
 					<label for="spec"><b>Specialities</b></label><br><span name="show" style="display:none;" id="7"></span>
