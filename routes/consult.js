@@ -17,13 +17,16 @@ router.post("/:doctorId", function(req, res) {
 		symptoms: req.body.syms,
 		description: req.body.description,
 		doctorId: req.params.doctorId,
-		patientId: req.user._id,
+		patientId: req.user,
 		messages: {"message": initial_msg,"time": time}
 	});
 	newConsultation.save().then(() => {
 										req.flash("success", "Consultation registered successfully!!");
   										res.redirect('/dashboardPat');
-  						}).catch(err => console.log(err));
+  						}).catch(err => {
+  										req.flash("error", "Sorry, we failed to register the consultation!! Please try again after some time.");
+  										res.redirect('/dashboardPat');
+  	});
 });
 
 module.exports = router;
