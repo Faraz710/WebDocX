@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>WebDocX</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
 	<script type="text/javascript" src="/scripts/viewdocs.js"></script>
 	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,10 +45,9 @@
 			<% var image = docs[i].profilePic.data.toString('base64'); %>
 			<% var type = docs[i].profilePic.contentType; %>
 			<div class="col-container card">
-				<div class="col column4" style="background-image: url('data:<%= type %>;base64,<%= image %>'); background-size: 100% 250px; background-repeat: no-repeat;">
-				</div>
-				<div class="col column6" align="center">
-					<h2 align="center">Dr. <%= docs[i].name %></h2>
+				<img class="avatar" style="width:100px;height:100px;position:absolute;" src="data:<%= type %>;base64,<%= image %>" />
+				<div align="center">
+					<h2 align="center">Dr. <%= docs[i].name %><i class="fa fa-check-circle verified"  id="verified" style="color:green;"></i></h2>
 					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
 					<h4 class="title">Speciality: <%= docs[0].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>

@@ -13,7 +13,7 @@
                 recognition.onstart = function() {
                     //output.classList.remove("fa-microphone");
                     action.className = "fa";
-                    action.className += " fa-microphone-slash";
+                    action.className += " fa-stop";
                 };
                 
                 recognition.onspeechend = function() {
