@@ -6,6 +6,8 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
+const keys = require("./config/keys");
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
@@ -25,19 +27,23 @@ app.use(express.static("public"));
 app.use(flash());
 
 //Database Configuration
-const db = require("./config/keys").mongoURI;
+const db = keys.mongoURI;
 
 //Establish connection to database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, })
   		.then(() => console.log("Database successfully connected."))
   		.catch(err => console.log(err));
 
+//File upload middleware
+app.use(fileUpload({
+    createParentPath: true
+}));
 
-app.use(session({ 
-  //Encode and decode session
-	secret: 'Webdocx',
-	resave: false,
-  saveUninitialized: false
+app.use(session({
+      //Encode and decode session
+      secret: 'Webdocx',
+      resave: false,
+      saveUninitialized: false
 }));
 
 //Setup passport
@@ -52,23 +58,23 @@ passport.use('patientLocal', new localStrategy(patientStrategy.authenticate()));
 
 //Set user as cookie
 passport.serializeUser(function(user, done) { 
-  done(null, user);
+  done(null, user._id);
 });
 
 //Get user from cookie
 passport.deserializeUser(function(user, done) {
   if(user!=null) {
-    //Delete password from session
+    //Delete important data from session
     delete user.hash;
     delete user.salt;
     delete user.profilePic;
+    delete user.licensePdf;
     done(null, user);
   }
 });
 
 //Intermediate data available to all views
 app.use(function(req, res, next) {
-  res.locals.myAccount = req.user;
 	res.locals.errorMessage = req.flash("error");
 	res.locals.successMessage = req.flash("success");
 	next();
@@ -107,7 +113,7 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 app.use("/view/doctors", isLoggedIn, viewdocs);
 
 // Update Profile
-app.use("/update", isLoggedIn, update);
+app.use("/update", update);
 
 // Consult
 app.use("/consult", isLoggedIn, consult);
