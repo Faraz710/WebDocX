@@ -96,7 +96,6 @@ app.get('/logout', isLoggedIn, function(req, res){
 
 // Doctor Dashboard
 app.get("/dashboardDoc", isLoggedIn, function(req, res) {
-  console.log(req.user);
 	res.render("dashboardDoc");
 });
 
