@@ -62,14 +62,9 @@ passport.serializeUser(function(user, done) {
 });
 
 //Get user from cookie
-passport.deserializeUser(function(user, done) {
-  if(user!=null) {
-    //Delete important data from session
-    delete user.hash;
-    delete user.salt;
-    delete user.profilePic;
-    delete user.licensePdf;
-    done(null, user);
+passport.deserializeUser(function(id, done) {
+  if(id != null) {
+      done(null, id);
   }
 });
 
@@ -101,6 +96,7 @@ app.get('/logout', isLoggedIn, function(req, res){
 
 // Doctor Dashboard
 app.get("/dashboardDoc", isLoggedIn, function(req, res) {
+  console.log(req.user);
 	res.render("dashboardDoc");
 });
 
@@ -110,7 +106,7 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 });
 
 // Display list of doctors
-app.use("/view/doctors", isLoggedIn, viewdocs);
+app.use("/view/doctors", viewdocs);
 
 // Update Profile
 app.use("/update", update);

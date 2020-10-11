@@ -23,7 +23,10 @@ router.post("/:doctorId", function(req, res) {
 	newConsultation.save().then(() => {
 										req.flash("success", "Consultation registered successfully!!");
   										res.redirect('/dashboardPat');
-  						}).catch(err => console.log(err));
+  						}).catch(err => {
+  										req.flash("error", "Sorry, we failed to register the consultation!! Please try again after some time.");
+  										res.redirect('/dashboardPat');
+  	});
 });
 
 module.exports = router;

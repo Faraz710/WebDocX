@@ -10,9 +10,11 @@ router.get("/:speciality", function(req, res) {
 	Doctor.find({speciality:req.params.speciality}, function(err, doctors) {
 		if(err){ 
             req.flash("error", err.message);
-            res.redirect("/view/doctors");
+            res.redirect("/dashboardPat");
         }
-		res.render("viewdocs",{docs:doctors});
+        else {
+        	res.render("viewdocs",{docs:doctors});
+        }
 	});
 });
 

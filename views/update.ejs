@@ -37,6 +37,7 @@
 		</form>
 	</div>
 		<% 
+		console.log(myAccount);
 		if (typeof myAccount.profilePic.data !== 'undefined') {
 			var image = myAccount.profilePic.data.toString('base64');
 			var type = myAccount.profilePic.contentType;

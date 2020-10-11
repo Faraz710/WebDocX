@@ -14,7 +14,9 @@ router.get("/", function(req, res) {
             req.flash("error", err.message);
             res.redirect("/update");
         }
-		res.render("update", {myAccount: account});
+        else {
+        	res.render("update", {myAccount: account});
+        }
 	});
 });
 
@@ -29,7 +31,8 @@ router.post("/profilePic", function(req, res) {
 			}
 		}}, function(err, account) {
 			if (err) {
-				console.log(err);
+				req.flash("error", err.message);
+            	res.redirect("/update");
 			}
 			else {
 				req.flash("success", "Updated profile picture successfully!!");
@@ -61,7 +64,8 @@ router.post("/", function(req, res) {
 			phoneNumber: req.body.phoneNumber
 		}}, function(err, account) {
 			if (err) {
-				console.log(err);
+				req.flash("error", err.message);
+            	res.redirect("/update");
 			}
 			else {
 				req.flash("success", "Updated profile data successfully!!");

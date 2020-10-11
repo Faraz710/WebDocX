@@ -8,7 +8,7 @@ function topFunction() {
   function openForm(name,id) {
     document.getElementById("consultform").action = "/consult/"+id;
     document.getElementById("consult").style.display = "block";
-    document.getElementById("name").innerHTML = "DR."+name;
+    document.getElementById("name").innerHTML = "Dr. "+name;
     document.getElementById("ctag").value=1;
     document.getElementById("stag").value=1;
     for(var i=2;i<=5;i++){
