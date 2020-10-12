@@ -36,9 +36,7 @@
 			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
-		<% 
-		console.log(myAccount);
-		if (typeof myAccount.profilePic.data !== 'undefined') {
+		<% if (typeof myAccount.profilePic.data !== 'undefined') {
 			var image = myAccount.profilePic.data.toString('base64');
 			var type = myAccount.profilePic.contentType;
 		}%>
@@ -50,7 +48,7 @@
 			<div class="col" style="position:relative;width:20%">
 				<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
 				<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" />				
-				<h3>DR.<%= myAccount.name %> <i class="fa fa-check-circle"  id="verified" style="color:green;"></i><!--make this visible if verified--></h3>
+				<h3>DR. <%= myAccount.name %> <i class="fa fa-check-circle"  id="verified" style="color:green;"></i><!--make this visible if verified--></h3>
 				<h3><%= myAccount.username %></h3>
 				</div>
 				<br><br><br>
@@ -65,10 +63,11 @@
 				<img class="avatar center" id="upprof" src="data:<%= type %>;base64,<%= image %>" style="width:250px;height:250px;"/>
 				<button id="op" class="roundbtn" onclick="dpopen()" style=" position:absolute; top:250px; right:340px;"><i class="fa fa-pencil"></i></button>
 				<button id="cl" class="roundbtn" onclick="dpclose('data:<%= type %>;base64,<%= image %>')" style=" position:absolute; top:250px; right:340px;display:none;"><i class="fa fa-times"></i></button>
-				<form id="dp" style="display:none;">
+				<form id="dp" action="/update/profilePic" method="post" style="display:none;" enctype="multipart/form-data">
 					<label  style=" position:absolute; top:260px; right:300px;"><i id="pic" class="fa fa-file-image-o fa-2x"></i><input onchange="chk(event)"  type="file" id="profilepic" style="display:none;" name="profilepic" accept="image/*" required></label>
 					<button class="roundbtn" type="submit" style=" position:absolute; top:250px; right:240px;"><i class="fa fa-chevron-right" ></i></button>
 				</form>
+
 				<form class="form-container" action="/update" method="post"  enctype="multipart/form-data">
 					<span id="personal">
 					<label for="email"><b>Email(Username)</b></label><span name="show" style="display:none;" id="1"></span>
