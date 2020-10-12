@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 //Serve static files in public directory
 app.use(express.static("public"));
 
+//Display flash messages
 app.use(flash());
 
 //Database Configuration
@@ -39,8 +40,8 @@ app.use(fileUpload({
     createParentPath: true
 }));
 
+//Encode and decode session
 app.use(session({
-      //Encode and decode session
       secret: 'Webdocx',
       resave: false,
       saveUninitialized: false
@@ -56,12 +57,12 @@ const patientStrategy = require('./models/patient_schema');
 passport.use('patientLocal', new localStrategy(patientStrategy.authenticate()));
 
 
-//Set user as cookie
+//Set user id as cookie
 passport.serializeUser(function(user, done) { 
   done(null, user._id);
 });
 
-//Get user from cookie
+//Get user id from cookie
 passport.deserializeUser(function(id, done) {
   if(id != null) {
       done(null, id);

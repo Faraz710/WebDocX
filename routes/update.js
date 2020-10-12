@@ -10,11 +10,13 @@ const Patient = require('../models/patient_schema');
 //Display doctor user details
 router.get("/", function(req, res) {
 	Doctor.findOne({_id:req.user}, function(err, account) {
-		if(err){ 
+		if(err) { 
             req.flash("error", err.message);
-            res.redirect("/update");
+            res.redirect("/dashboardDoc");
         }
         else {
+        	//Send account object with request
+        	console.log(account);
         	res.render("update", {myAccount: account});
         }
 	});
