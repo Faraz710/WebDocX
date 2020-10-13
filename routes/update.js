@@ -30,8 +30,8 @@ router.post("/profilePic", function(req, res) {
 				profilePic: {
 					data: req.files.profilepic.data,
 					contentType: req.files.profilepic.mimetype
-			}
-		}}, function(err, account) {
+			}}
+		}, function(err, account) {
 			if (err) {
 				req.flash("error", err.message);
             	res.redirect("/update");
@@ -51,7 +51,7 @@ router.post("/", function(req, res) {
 		{
 			name: req.body.name,
 			qualification: req.body.qualification,
-			//speciality: speciality,
+			speciality: req.body.speciality,
 			experience: req.body.experience,
 			reg_no: req.body.reg_no,
 			licensePdf: {

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 //Consultation schema
 const Consultation = require('../models/consultation_schema');
 
-//Display doctor user details
+//Add new consultation
 router.post("/:doctorId", function(req, res) {
 	var initial_msg = `Hello Doctor, I'm having ${req.body.problem} problem. I'm having the following symptoms: ${req.body.syms}. Detailed description: ${req.body.description}.`
 	var time = Date.now();

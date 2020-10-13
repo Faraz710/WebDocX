@@ -13,6 +13,8 @@ const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
 const update = require('./routes/update');
 const consult = require('./routes/consult');
+const post = require('./routes/post');
+const dashboardDoc = require('./routes/dashboardDoc');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -96,9 +98,7 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 // Doctor Dashboard
-app.get("/dashboardDoc", isLoggedIn, function(req, res) {
-	res.render("dashboardDoc");
-});
+app.use("/dashboardDoc", isLoggedIn, dashboardDoc);
 
 // Patient Dashboard
 app.get("/dashboardPat", isLoggedIn, function(req, res) {
@@ -106,13 +106,16 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 });
 
 // Display list of doctors
-app.use("/view/doctors", viewdocs);
+app.use("/view/doctors", isLoggedIn, viewdocs);
 
 // Update Profile
-app.use("/update", update);
+app.use("/update", isLoggedIn, update);
 
-// Consult
+// Consult a doctor
 app.use("/consult", isLoggedIn, consult);
+
+// Add new post
+app.use("/posts", isLoggedIn, post);
 
 // Incorrect URL
 app.get("*", function(req, res) {

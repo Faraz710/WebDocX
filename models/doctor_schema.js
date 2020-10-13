@@ -51,6 +51,19 @@ const doctorSchema = new Schema({
   phoneNumber: {
     type: String
   },
+  notifications: [{
+    notification: {
+      type: String
+    },
+    seen: {
+      type: Boolean,
+      default: false
+    },
+    time: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   activated: {
     type: Boolean,
     default: false

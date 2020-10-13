@@ -29,8 +29,9 @@ router.get("/page/:page_no/*", function(req, res) {
 		            res.redirect("/dashboardPat");
 		        }
 		        else {
+		        	var totalPages = Math.floor(count / 10) + 1;
 		        	//Send page count along with doctors
-		        	res.render("viewdocs", {docs: doctors, pageCount: Math.floor(count / 10) + 1});
+		        	res.render("viewdocs", {docs: doctors, pageCount: totalPages});
 		        }
         	});
         }
