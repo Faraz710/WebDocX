@@ -47,9 +47,10 @@
 			<div class="col-container card">
 				<img class="avatar" style="width:100px;height:100px;position:absolute;" src="data:<%= type %>;base64,<%= image %>" />
 				<div align="center">
-					<h2 align="center">Dr. <%= docs[i].name %><i class="fa fa-check-circle verified"  id="verified" style="color:green;"></i></h2>
+					<h2 align="center" style="margin:5px;">Dr. <%= docs[i].name %></h2>
+					<h4 style="margin:2px;">(<%= docs[i].qualification %>)</h4>
 					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
-					<h4 class="title">Speciality: <%= docs[0].speciality %></h4>
+					<h4 class="title">Speciality: <%= docs[i].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>
 					<a href="#" class="fa fa-twitter"></a>
 					<a href="#" class="fa fa-google"></a>
