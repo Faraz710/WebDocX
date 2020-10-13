@@ -6,11 +6,13 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
+const keys = require("./config/keys");
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
 const update = require('./routes/update');
-//const consult = require('./routes/consult');
+const consult = require('./routes/consult');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -22,22 +24,27 @@ app.use(bodyParser.json());
 //Serve static files in public directory
 app.use(express.static("public"));
 
+//Display flash messages
 app.use(flash());
 
 //Database Configuration
-const db = require("./config/keys").mongoURI;
+const db = keys.mongoURI;
 
 //Establish connection to database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, })
   		.then(() => console.log("Database successfully connected."))
   		.catch(err => console.log(err));
 
+//File upload middleware
+app.use(fileUpload({
+    createParentPath: true
+}));
 
-app.use(session({ 
-  //Encode and decode session
-	secret: 'Webdocx',
-	resave: false,
-  saveUninitialized: false
+//Encode and decode session
+app.use(session({
+      secret: 'Webdocx',
+      resave: false,
+      saveUninitialized: false
 }));
 
 //Setup passport
@@ -50,25 +57,20 @@ const patientStrategy = require('./models/patient_schema');
 passport.use('patientLocal', new localStrategy(patientStrategy.authenticate()));
 
 
-//Set user as cookie
+//Set user id as cookie
 passport.serializeUser(function(user, done) { 
-  done(null, user);
+  done(null, user._id);
 });
 
-//Get user from cookie
-passport.deserializeUser(function(user, done) {
-  if(user!=null) {
-    //Delete password from session
-    delete user.hash;
-    delete user.salt;
-    delete user.profilePic;
-    done(null, user);
+//Get user id from cookie
+passport.deserializeUser(function(id, done) {
+  if(id != null) {
+      done(null, id);
   }
 });
 
 //Intermediate data available to all views
 app.use(function(req, res, next) {
-  res.locals.myAccount = req.user;
 	res.locals.errorMessage = req.flash("error");
 	res.locals.successMessage = req.flash("success");
 	next();
@@ -104,13 +106,13 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 });
 
 // Display list of doctors
-app.use("/view/doctors", isLoggedIn, viewdocs);
+app.use("/view/doctors", viewdocs);
 
 // Update Profile
-app.use("/update", isLoggedIn, update);
+app.use("/update", update);
 
 // Consult
-//app.use("/consult", consult);
+app.use("/consult", isLoggedIn, consult);
 
 // Incorrect URL
 app.get("*", function(req, res) {

@@ -72,9 +72,35 @@ function scrollFunction() {
     document.getElementById("logobar").style.opacity= 0;
     document.getElementById("clogobar").style.opacity= 1;
     document.getElementById("myBtn").style.visibility= "visible";
+    var element = document.getElementById("mainnav");
+    element.classList.add("card");
   } else {
     document.getElementById("logobar").style.opacity= 1;
     document.getElementById("clogobar").style.opacity= 0;
     document.getElementById("myBtn").style.visibility= "hidden";
+    var element = document.getElementById("mainnav");
+    element.classList.remove("card");
+  }
+}
+function detail(x){
+x.style.display='none'
+document.getElementById("zyx").style.display='block'
+}
+function nodetail(x){
+
+}
+
+//show password
+function myFunction(fid) {
+  var x =document.getElementById("password"+fid);
+  if(document.getElementById(fid).checked==true)
+  {
+    if (x.type === "password") {
+      x.type = "text";
+    }
+  }
+  else
+  {
+    x.type = "password";
   }
 }

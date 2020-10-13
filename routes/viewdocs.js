@@ -5,15 +5,38 @@ const mongoose = require('mongoose');
 //Doctor schema
 const Doctor = require('../models/doctor_schema');
 
-//Display doctors list based on speciality
-router.get("/:speciality", function(req, res) {
-	Doctor.find({speciality:req.params.speciality}, function(err, doctors) {
-		if(err){ 
+//Display doctors list based on page no.
+router.get("/page/:page_no/*", function(req, res) {
+	//Add filter params to query(if present)
+	var query = {};
+	if (req.query.speciality)
+		query.speciality = req.query.speciality;
+	if (req.query.name)
+		query.name = req.query.name;
+	if (req.query.lte)
+		query.experience = { $lte: parseInt(req.query.lte), $gte: parseInt(req.query.gte)};
+
+	Doctor.find(query, function(err, doctors){
+		if(err) { 
             req.flash("error", err.message);
-            res.redirect("/view/doctors");
+            res.redirect("/dashboardPat");
         }
-		res.render("viewdocs",{docs:doctors});
-	});
+        else {
+        	//Count total no. of objects
+        	Doctor.countDocuments(query, function(error, count){
+        		if(err) { 
+		            req.flash("error", err.message);
+		            res.redirect("/dashboardPat");
+		        }
+		        else {
+		        	//Send page count along with doctors
+		        	res.render("viewdocs", {docs: doctors, pageCount: Math.floor(count / 10) + 1});
+		        }
+        	});
+        }
+        //Skip previous profiles as per page no.
+        //Limit to 9 profiles per page
+	}).limit(9).skip(9 * (req.params.page_no - 1));
 });
 
 module.exports = router;

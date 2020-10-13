@@ -20,27 +20,42 @@ router.post("/register", function(req, res) {
 	//Registration form validation
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
+		//Form validation errors
 		req.flash("error", errors);
         res.redirect("/");
 	}
-	const newDoctor = new Doctor({
-		profilePic: {
-			data: fs.readFileSync('./public/images/doctor.png'),
-			contentType: 'image/png'
-		},
-		name: req.body.name,
-		username: req.body.username
-	});
-	Doctor.register(newDoctor, req.body.password, function(err, doctor){
-        if(err){
-            req.flash("error", err.message);
-            res.redirect("/");
-        }
-        passport.authenticate("doctorLocal")(req, res, function(){
-        	req.flash("success", "Successfully registered!!");
-            res.redirect("/"); 
-        });
-    });
+	else {
+		const newDoctor = new Doctor({
+			profilePic: {
+				data: fs.readFileSync('./public/images/doctor.png'),
+				contentType: 'image/png'
+			},
+			name: req.body.name,
+			username: req.body.username
+		});
+		Doctor.register(newDoctor, req.body.password, function(err, doctor){
+	        if(err) {
+	        	//Database error
+	            req.flash("error", err.message);
+	            res.redirect("/");
+	        }
+	        else {
+	        	passport.authenticate("doctorLocal")(req, res, function(){
+	        		//Auto-login after registration
+		            req.login(doctor, function (error) {
+		                if (error) {
+		                    req.flash("error", error.message);
+		            		res.redirect("/");
+		                } 
+		                else {
+		                    req.flash("success", "Successfully registered!!");
+		                    res.redirect("/dashboardDoc"); 
+		                }
+		            });
+	        	});
+	        }
+	    });
+	}
 });
 
 //Doctor Login Auth
