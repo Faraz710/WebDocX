@@ -9,12 +9,13 @@ const Patient = require('../models/patient_schema');
 
 //Display doctor user details
 router.get("/", function(req, res) {
-	Doctor.findOne({_id:req.user}, function(err, account) {
-		if(err){ 
+	Doctor.findOne({_id:req.user._id}, function(err, account) {
+		if(err) { 
             req.flash("error", err.message);
-            res.redirect("/update");
+            res.redirect("/dashboardDoc");
         }
         else {
+        	//Send account object with request
         	res.render("update", {myAccount: account});
         }
 	});
@@ -22,14 +23,14 @@ router.get("/", function(req, res) {
 
 //Update doctor profile pic
 router.post("/profilePic", function(req, res) {
-	Doctor.updateOne({_id: req.user}, {
+	Doctor.updateOne({_id: req.user._id}, {
 			$set: 
 			{
 				profilePic: {
 					data: req.files.profilepic.data,
 					contentType: req.files.profilepic.mimetype
-			}
-		}}, function(err, account) {
+			}}
+		}, function(err, account) {
 			if (err) {
 				req.flash("error", err.message);
             	res.redirect("/update");
@@ -44,15 +45,15 @@ router.post("/profilePic", function(req, res) {
 
 //Update doctor info
 router.post("/", function(req, res) {
-	Doctor.updateOne({_id: req.user}, { 
+	Doctor.updateOne({_id: req.user._id}, { 
 		$set: 
 		{
 			name: req.body.name,
 			qualification: req.body.qualification,
-			//speciality: speciality,
+			speciality: req.body.speciality,
 			experience: req.body.experience,
 			reg_no: req.body.reg_no,
-			licensePdf: {
+			license: {
 				data: req.files.license.data,
 				contentType: req.files.license.mimetype
 			},

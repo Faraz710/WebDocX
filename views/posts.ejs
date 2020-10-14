@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WebDocX</title>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
+	<script type="text/javascript" src="/scripts/viewdocs.js"></script>
+	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<h3>MY POSTS</h3>
+	<% for (var i = 0; i < posts.length; i++) { %>
+		<br><br><%= posts[i] %>
+	<% } %>
+		
+</body>
+</html>

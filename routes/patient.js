@@ -16,6 +16,7 @@ router.post("/register", function(req, res) {
 	//Registration form validation
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
+		//Form validation errors
 		req.flash("error", errors);
         res.redirect("/");
 	}
@@ -30,11 +31,13 @@ router.post("/register", function(req, res) {
 		});
 		Patient.register(newPatient, req.body.password, function(err, patient){
 	        if(err) { 
-		            req.flash("error", err.message);
-		            res.redirect("/");
+	        	//Database error
+		        req.flash("error", err.message);
+		        res.redirect("/");
 		    }
 		    else {
 		        passport.authenticate("patientLocal")(req, res, function(){
+			        //Auto-login after registration
 			        req.login(patient, function (error) {
 			            if (error) {
 			                req.flash("error", error.message);
@@ -50,6 +53,7 @@ router.post("/register", function(req, res) {
 		});
 	}
 });
+
 //Patient Login Auth
 router.post("/login", passport.authenticate('patientLocal', {
 	successRedirect: '/dashboardPat',
