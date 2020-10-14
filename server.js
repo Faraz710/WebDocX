@@ -13,6 +13,8 @@ const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
 const update = require('./routes/update');
 const consult = require('./routes/consult');
+const post = require('./routes/post');
+const dashboardDoc = require('./routes/dashboardDoc');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -24,6 +26,7 @@ app.use(bodyParser.json());
 //Serve static files in public directory
 app.use(express.static("public"));
 
+//Display flash messages
 app.use(flash());
 
 //Database Configuration
@@ -39,8 +42,8 @@ app.use(fileUpload({
     createParentPath: true
 }));
 
+//Encode and decode session
 app.use(session({
-      //Encode and decode session
       secret: 'Webdocx',
       resave: false,
       saveUninitialized: false
@@ -56,20 +59,27 @@ const patientStrategy = require('./models/patient_schema');
 passport.use('patientLocal', new localStrategy(patientStrategy.authenticate()));
 
 
-//Set user as cookie
+//Set user data as cookie
 passport.serializeUser(function(user, done) { 
-  done(null, user._id);
+  done(null, user);
 });
 
 //Get user from cookie
-passport.deserializeUser(function(id, done) {
-  if(id != null) {
-      done(null, id);
+passport.deserializeUser(function(user, done) {
+  if(user != null) {
+    delete user.hash;
+    delete user.salt;
+    delete user.profilePic;
+    delete user.phoneNumber;
+    delete user.home;
+    delete user.license;
+    done(null, user);
   }
 });
 
 //Intermediate data available to all views
 app.use(function(req, res, next) {
+  res.locals.currentAccount = req.user;
 	res.locals.errorMessage = req.flash("error");
 	res.locals.successMessage = req.flash("success");
 	next();
@@ -95,9 +105,7 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 // Doctor Dashboard
-app.get("/dashboardDoc", isLoggedIn, function(req, res) {
-	res.render("dashboardDoc");
-});
+app.use("/dashboardDoc", isLoggedIn, dashboardDoc);
 
 // Patient Dashboard
 app.get("/dashboardPat", isLoggedIn, function(req, res) {
@@ -105,13 +113,16 @@ app.get("/dashboardPat", isLoggedIn, function(req, res) {
 });
 
 // Display list of doctors
-app.use("/view/doctors", viewdocs);
+app.use("/view/doctors", isLoggedIn, viewdocs);
 
 // Update Profile
-app.use("/update", update);
+app.use("/update", isLoggedIn, update);
 
-// Consult
+// Consult a doctor
 app.use("/consult", isLoggedIn, consult);
+
+// Add new post
+app.use("/posts", isLoggedIn, post);
 
 // Incorrect URL
 app.get("*", function(req, res) {

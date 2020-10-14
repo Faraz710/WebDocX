@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="/scripts/dashboardPat.js"></script>
 </head>
 <body>
+	<%= JSON.stringify(currentAccount) %>
 	<!--Alert messages and notification-->
 	<div class="notification card" style="display:none;" id="notification">
     <% if (errorMessage && errorMessage.length > 0) { %>
@@ -73,5 +74,15 @@
 		};
 	</script>
 	<h1>Patient Dashboard</h1>
+<<<<<<< HEAD
+=======
+	<li><a href="/view/doctors/page/1/?speciality=cardiology">Doctors with speciality: cardiology....page 1</a></li>
+	<li><a href="/view/doctors/page/2/?speciality=cardiology">Doctors with speciality: cardiology....page 2</a></li>
+	<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
+	<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>
+	<li><a href="/view/doctors/page/1/?speciality=nephrology">Doctors with speciality: nephrology....page 1</a></li>
+	<li><a href="/view/doctors/page/1/?speciality=urology">Doctors with speciality: urology....page 1</a></li>
+	<li><a href="/view/doctors/page/1/?speciality=neurology">Doctors with speciality: neurology....page 1</a></li>
+>>>>>>> 765d5fa352871ade072786127f11840972a793c2
 </body>
 </html>

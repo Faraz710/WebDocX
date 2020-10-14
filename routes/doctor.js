@@ -20,6 +20,7 @@ router.post("/register", function(req, res) {
 	//Registration form validation
 	const {errors, isValid} = validateRegisterInput(req.body);
 	if (!isValid) {
+		//Form validation errors
 		req.flash("error", errors);
         res.redirect("/");
 	}
@@ -34,11 +35,13 @@ router.post("/register", function(req, res) {
 		});
 		Doctor.register(newDoctor, req.body.password, function(err, doctor){
 	        if(err) {
+	        	//Database error
 	            req.flash("error", err.message);
 	            res.redirect("/");
 	        }
 	        else {
 	        	passport.authenticate("doctorLocal")(req, res, function(){
+	        		//Auto-login after registration
 		            req.login(doctor, function (error) {
 		                if (error) {
 		                    req.flash("error", error.message);
