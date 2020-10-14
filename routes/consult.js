@@ -17,7 +17,7 @@ router.post("/:doctorId", function(req, res) {
 		symptoms: req.body.syms,
 		description: req.body.description,
 		doctorId: req.params.doctorId,
-		patientId: req.user,
+		patientId: req.user._id,
 		messages: {"message": initial_msg,"time": time}
 	});
 	newConsultation.save().then(() => {

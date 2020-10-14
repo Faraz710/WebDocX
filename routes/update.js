@@ -9,14 +9,13 @@ const Patient = require('../models/patient_schema');
 
 //Display doctor user details
 router.get("/", function(req, res) {
-	Doctor.findOne({_id:req.user}, function(err, account) {
+	Doctor.findOne({_id:req.user._id}, function(err, account) {
 		if(err) { 
             req.flash("error", err.message);
             res.redirect("/dashboardDoc");
         }
         else {
         	//Send account object with request
-        	console.log(account);
         	res.render("update", {myAccount: account});
         }
 	});
@@ -24,7 +23,7 @@ router.get("/", function(req, res) {
 
 //Update doctor profile pic
 router.post("/profilePic", function(req, res) {
-	Doctor.updateOne({_id: req.user}, {
+	Doctor.updateOne({_id: req.user._id}, {
 			$set: 
 			{
 				profilePic: {
@@ -46,7 +45,7 @@ router.post("/profilePic", function(req, res) {
 
 //Update doctor info
 router.post("/", function(req, res) {
-	Doctor.updateOne({_id: req.user}, { 
+	Doctor.updateOne({_id: req.user._id}, { 
 		$set: 
 		{
 			name: req.body.name,
@@ -54,7 +53,7 @@ router.post("/", function(req, res) {
 			speciality: req.body.speciality,
 			experience: req.body.experience,
 			reg_no: req.body.reg_no,
-			licensePdf: {
+			license: {
 				data: req.files.license.data,
 				contentType: req.files.license.mimetype
 			},

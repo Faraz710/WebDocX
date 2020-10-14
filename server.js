@@ -59,20 +59,27 @@ const patientStrategy = require('./models/patient_schema');
 passport.use('patientLocal', new localStrategy(patientStrategy.authenticate()));
 
 
-//Set user id as cookie
+//Set user data as cookie
 passport.serializeUser(function(user, done) { 
-  done(null, user._id);
+  done(null, user);
 });
 
-//Get user id from cookie
-passport.deserializeUser(function(id, done) {
-  if(id != null) {
-      done(null, id);
+//Get user from cookie
+passport.deserializeUser(function(user, done) {
+  if(user != null) {
+    delete user.hash;
+    delete user.salt;
+    delete user.profilePic;
+    delete user.phoneNumber;
+    delete user.home;
+    delete user.license;
+    done(null, user);
   }
 });
 
 //Intermediate data available to all views
 app.use(function(req, res, next) {
+  res.locals.currentAccount = req.user;
 	res.locals.errorMessage = req.flash("error");
 	res.locals.successMessage = req.flash("success");
 	next();

@@ -11,7 +11,7 @@ const Post = require('../models/post_schema');
 
 //Display all personal posts
 router.get("/", function(req, res) {
-	Post.find({patientId: req.user}, function(err, posts){
+	Post.find({patientId: req.user._id}, function(err, posts){
 		if(err) { 
             req.flash("error", err.message);
             res.redirect("/posts");
@@ -31,7 +31,7 @@ router.post("/new", function(req, res) {
 		speciality: req.body.speciality,
 		symptoms: req.body.symptoms,
 		description: req.body.description,
-		patientId: req.user
+		patientId: req.user._id
 	});
 	newPost.save().then(() => {
 							req.flash("success", "Posted successfully!!");
@@ -44,7 +44,7 @@ router.post("/new", function(req, res) {
 
 //Delete post
 router.delete("/delete/:postId", function(req, res) {
-	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user}, function(err, post) {
+	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user._id}, function(err, post) {
 			if (err) {
 				req.flash("error", err.message);
             	res.redirect("/posts");
@@ -59,7 +59,7 @@ router.delete("/delete/:postId", function(req, res) {
 
 //Edit post
 router.post("/edit/:postId", function(req, res) {
-	Post.updateOne({_id: req.params.postId, patientId: req.user}, req.body, function(err, post) {
+	Post.updateOne({_id: req.params.postId, patientId: req.user._id}, req.body, function(err, post) {
 			if (err) {
 				req.flash("error", err.message);
             	res.redirect("/posts");

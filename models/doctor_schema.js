@@ -33,7 +33,7 @@ const doctorSchema = new Schema({
   reg_no: {
     type: String
   },
-  licensePdf: {
+  license: {
     data: Buffer,
     contentType: String
   },
