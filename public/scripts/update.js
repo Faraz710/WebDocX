@@ -1,12 +1,11 @@
-function spec(){
-    var i=parseInt(document.getElementById("cspec").value);
-    var i=i+1;
-    var i=i.toString();
-    document.getElementById("cspec").value=i;
-    document.getElementById("spec"+i).style.display="block";
-    if(i==5)
-    {
-      document.getElementById("specadd").style.display = "none";
+function ls(){
+    if(document.getElementById('lic').style.display=='none'){
+        document.getElementById('lic').style.display = "block";
+        document.getElementById('vbtn').innerHTML = "(Close)";
+    }
+    else{
+        document.getElementById('lic').style.display = "none";
+        document.getElementById('vbtn').innerHTML = "(View)";
     }
 }
 
@@ -48,23 +47,16 @@ function cnf()
     document.getElementById("a").style.color = "grey";
 
     var x = document.getElementsByTagName("input");
-    for(var i=2;i<=16;i++){
+    for(var i=2;i<=12;i++){
     x[i].style.display="none";
     }
-
-    document.getElementById("specadd").style.display = "none";
     var j;
 
-    for(i=1;i<=10;i++){
+    for(i=1;i<=11;i++){
         j=i;
     i=i.toString();
     document.getElementById(i).style.display="block";
-    if(i<7)
     document.getElementById(i).innerHTML =x[j+1].value;
-    else if(i==7)
-        document.getElementById(i).innerHTML =x[9].value+" "+x[10].value+" "+x[11].value+" "+x[12].value+" "+x[13].value;
-    else
-    document.getElementById(i).innerHTML =x[j+6].value;
     }
 }
 function bck()
@@ -80,26 +72,13 @@ function bck()
     document.getElementById("a").style.color = "grey";
 
     var x = document.getElementsByTagName("input");
-    for(var i=2;i<=9;i++){
+    for(var i=2;i<=12;i++){
     x[i].style.display="block";
     }
-    for(i=10;i<=13;i++){
-        if(x[i].value!="")
-        x[i].style.display="block";
-        else
-        {
-        x[8].value=i-9;
-        break;
-        }
-    }
-    for(var i=14;i<=16;i++){
-        x[i].style.display="block";
-        }
-    for(i=1;i<=10;i++){
+    for(i=1;i<=11;i++){
         i=i.toString();
         document.getElementById(i).style.display="none";
         }
-    document.getElementById("specadd").style.display = "block";
 
 }
 function dpopen(){

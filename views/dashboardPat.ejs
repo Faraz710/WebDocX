@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/dashboardPat.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
+	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
+	<script type="text/javascript" src="/scripts/dashboardPat.js"></script>
 </head>
 <body>
 	<!--Alert messages and notification-->
@@ -33,7 +35,7 @@
   </div>
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
-		<button id="doc" >Doctors</button>
+		<button id="doc" onclick="docdrop()">Doctors <i class="fa fa-caret-down"></i></button>
 		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
@@ -43,11 +45,33 @@
 				location.href = "/logout";
 			};
 		</script>
+		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
+		<form action="#"style="float:right;">
+			<input type="text" placeholder="Search.." id="search" name="search">
+			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
+		</form>
 	</div>
+	<div id="drop" class="dropdiv">
+		<button id="cardiology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Cardiology</button>
+		<button id="nephrology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Nephrology</button>
+		<button id="urology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Urology</button>
+		<button id="neurology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Neurology</button>
+	</div>
+	<!--Viewdocs links-->
+	<script>
+		document.getElementById("cardiology").onclick = function () {
+    	location.href = "/view/doctors/cardiology";
+		};
+		document.getElementById("nephrology").onclick = function () {
+    	location.href = "/view/doctors/nephrology";
+		};
+		document.getElementById("urology").onclick = function () {
+    	location.href = "/view/doctors/urology";
+		};
+		document.getElementById("neurology").onclick = function () {
+    	location.href = "/view/doctors/neurology";
+		};
+	</script>
 	<h1>Patient Dashboard</h1>
-	<li><a href="/view/doctors/cardiology">Doctors with speciality: cardiology</a></li>
-	<li><a href="/view/doctors/nephrology">Doctors with speciality: nephrology</a></li>
-	<li><a href="/view/doctors/urology">Doctors with speciality: urology</a></li>
-	<li><a href="/view/doctors/neurology">Doctors with speciality: neurology</a></li>
 </body>
 </html>

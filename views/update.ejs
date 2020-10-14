@@ -17,14 +17,9 @@
 				location.href = "/dashboardDoc";
 			};
 		</script>
-		<button class="dropdown" style="background-color:white;color:black;float:left;">Doctors<i class="fa fa-caret-down"></i></button>
-		<div class="dropdown-content">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-		</div>
+		<button class="dropdown" style="background-color:white;color:black;float:left;">Update</button>
 		
-		<button style="float:right;" id="logout">Logout</button>
+		<button style="float:right;" id="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script>
 			document.getElementById("logout").onclick = function () {
 			location.href = "/logout";
@@ -75,33 +70,29 @@
 					<label for="phn"><b>Phone Number</b></label><span name="show" style="display:none;" id="2"></span>
     				<input type="text"  placeholder="Phone Number" id="phn" name="phoneNumber" style="width:97%" value="<%= myAccount.phoneNumber %>" required>
 					<label for="name"><b>Name</b></label><span name="show" style="display:none;" id="3"></span>
-					<input type="text" id="name" name="name" style="width:97%" value="hi" required>
+					<input type="text" id="name" name="name" style="width:97%" value="<%= myAccount.name %>" required>
 					</span>
 					<span id="medical" style="display:none;">
 					<label for="degree"><b>Medical Degrees</b></label><span name="show" style="display:none;" id="4"></span>
 					<input type="text" placeholder="Medical Degrees" id="degree" name="qualification" style="width:97%" value="<%= myAccount.qualification %>" required>
 					<label for="regno"><b>Registration Number</b></label><span name="show" style="display:none;" id="5"></span>
 					<input type="text" placeholder="Registration Number(Provided by Medical Council)" id="regno" name="reg_no" style="width:97%" value="<%= myAccount.reg_no %>" required>
-					<label for="license"><b>License</b></label><span name="show" style="display:none;" id="6"></span>
-					<% if (typeof myAccount.licensePdf.data !== 'undefined') { %>
+					<label for="license"><b>License</b></label><span name="show" style="display:none;" id="6" ></span><button id="vbtn" type="button" onclick="ls()" style="background-color: transparent;border-width: 0px;">(View)</button>
+					<div id="lic" style="display:none;"><% if (typeof myAccount.licensePdf.data !== 'undefined') { %>
 						<embed style="width:150px;height:150px;" src="data:<%= ltype %>;base64,<%= license %>" />
-					<% } %>
-					<input type="file" id="license" name="license" style="width:97%" required>
-					<label for="spec"><b>Specialities</b></label><br><span name="show" style="display:none;" id="7"></span>
-					<input type="hidden" id="cspec" value=1>
-					<input type="text" placeholder="specialities1" id="spec1" name="specs" required style="float:left;">
-					<input type="text" placeholder="specialities2" id="spec2" name="specs" style="display:none; float:left">
-					<input type="text" placeholder="specialities3" id="spec3" name="specs" style="display:none; float:left">
-					<input type="text" placeholder="specialities4" id="spec4" name="specs" style="display:none; float:left">
-					<input type="text" placeholder="specialities5" id="spec5" name="specs" style="display:none; float:left">
-					<button type="button" onclick="spec()" class="addbtn" id="specadd"><b>+</b></button>
+					<% } %></div><br>
+					<input type="file" id="license" name="license" style="width:97%" value="<%= myAccount.licensePdf %>" required>
+					<label for="spec"><b>Speciality</b></label><br><span name="show" style="display:none;" id="7"></span>
+					<input type="text" placeholder="speciality" id="spec" name="specs" required style="width:97%;" value="<%= myAccount.speciality %>">
+					<label for="spec"><b>Experience(In years)</b></label><br><span name="show" style="display:none;" id="8"></span>
+					<input type="text" placeholder="Experience of work in years" id="exp" name="exp" required style="width:97%;" value="<%= myAccount.experience %>">
 					</span>
 					<span id="address" style="display:none;">
-					<br><label for="addr"><b>Address</b></label><span name="show" style="display:none;" id="8"></span>
+					<br><label for="addr"><b>Address</b></label><span name="show" style="display:none;" id="9"></span>
 					<input type="text"  placeholder="Address"id="addr" name="address" style="width:97%" value="<%= myAccount.home.address %>" required>
-					<label for="city"><b>City</b></label><span name="show" style="display:none;" id="9"></span>
+					<label for="city"><b>City</b></label><span name="show" style="display:none;" id="10"></span>
 					<input type="text" placeholder="City" id="city" name="city" style="width:97%" value="<%= myAccount.home.city %>" required>
-					<label for="country"><b>Country</b></label><span name="show" style="display:none;" id="10"></span>
+					<label for="country"><b>Country</b></label><span name="show" style="display:none;" id="11"></span>
 					<input type="text" placeholder="Country" id="country" name="country" style="width:97%" value="<%= myAccount.home.country %>" required>
 					</span>
 					<br><br>

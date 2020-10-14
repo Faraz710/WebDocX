@@ -33,19 +33,26 @@
 	  </div>
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
-		<button id="doc" >Doctors</button>
-		<button id="logout" style="float:right;">Logout</button>
+		<button id="update" >Update</button>
+		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardPat";
+			};
+			document.getElementById("update").onclick = function () {
+				location.href = "/update";
 			};
 			document.getElementById("logout").onclick = function () {
 				location.href = "/logout";
 			};
 		</script>
+		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
+		<form action="#"style="float:right;">
+			<input type="text" placeholder="Search.." id="search" name="search">
+			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
+		</form>
 	</div>
 	<h1>Doctor Dashboard</h1>
-	<li><a href="/update">Update</a></li>
 
 	
 </body>
