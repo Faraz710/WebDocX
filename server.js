@@ -29,6 +29,9 @@ app.use(express.static("public"));
 //Display flash messages
 app.use(flash());
 
+//Make Mongoose use `findOneAndUpdate()`
+mongoose.set('useFindAndModify', false);
+
 //Database Configuration
 const db = keys.mongoURI;
 

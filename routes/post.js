@@ -45,14 +45,14 @@ router.post("/new", function(req, res) {
 //Delete post
 router.delete("/delete/:postId", function(req, res) {
 	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user._id}, function(err, post) {
-			if (err) {
-				req.flash("error", err.message);
-            	res.redirect("/posts");
-			}
-			else {
-				req.flash("success", "Deleted post successfully!!");
-  				res.redirect('/posts');
-			}
+		if (err) {
+			req.flash("error", err.message);
+           	res.redirect("/posts");
+		}
+		else {
+			req.flash("success", "Deleted post successfully!!");
+  			res.redirect('/posts');
+		}
 	});
 });
 

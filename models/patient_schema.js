@@ -15,6 +15,19 @@ const patientSchema = new Schema({
     type: String,
     required: true
   },
+  notifications: [{
+    message: {
+      type: String
+    },
+    seen: {
+      type: Boolean,
+      default: false
+    },
+    time: {
+      type: Date,
+      default: Date.now
+    }
+  }],
   date: {
     type: Date,
     default: Date.now
