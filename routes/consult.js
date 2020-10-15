@@ -52,17 +52,15 @@ router.post("/:doctorId", function(req, res) {
 //Delete consultation when doctor rejects consultation request
 router.delete("/reject/:consultationId", function(req, res) {
 	Consultation.findOneAndRemove({_id: req.params.consultationId, doctorId: req.user._id}, function(err, consultation) {
-		if (err) {
-			req.flash("error", err.message);
+		if (err || !consultation) {
+			req.flash("error", "You are trying to delete a request you don't have!");
            	res.redirect("/dashboardDoc");
 		}
 		else {
 			//Notify patient about rejected consultation
 			const newNotification = {
-				message: `Your consultation request to ${req.user.name} regarding the problem: ${req.problem.issue} has been rejected as it fell out of his scope. We suggest you request another doctor for consultation.`
+				message: `Your consultation request to ${req.user.name} regarding the problem: ${consultation.problem.issue} has been rejected as it fell out of his scope. We suggest you request another doctor for consultation.`
 			};
-			console.log(newNotification);
-			console.log(consultation);
 
 			Patient.updateOne({_id: consultation.patientId}, { 
 				$push: {
