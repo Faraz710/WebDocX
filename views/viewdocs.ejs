@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>WebDocX</title>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/viewdocs.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
 	<script type="text/javascript" src="/scripts/viewdocs.js"></script>
 	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
@@ -12,24 +12,17 @@
 <body>
 
 
-	<div class="topnav card">
-		
-		<button id="dash" style="float:left">Dashboard</button>
+	<div class="topnav">
+		<button id="dash" >Dashboard</button>
+		<button id="doc" onclick="docdrop()" style="background-color:white;color:black;">Doctors<i class="fa fa-caret-down"></i></button>
+		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
+		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardPat";
 			};
-		</script>
-		<button class="dropdown" style="background-color:white;color:black;float:left;">Doctors<i class="fa fa-caret-down"></i></button>
-		<div class="dropdown-content">
-			<a href="#">Link 1</a>
-			<a href="#">Link 2</a>
-			<a href="#">Link 3</a>
-		</div>
-		<button style="float:right;" id="logout">Logout</button>
-		<script>
 			document.getElementById("logout").onclick = function () {
-			location.href = "/logout";
+				location.href = "/logout";
 			};
 		</script>
 		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
@@ -38,7 +31,28 @@
 			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
-	
+	<div id="drop" class="dropdiv">
+		<button id="cardiology">Cardiology</button>
+		<button id="nephrology">Nephrology</button>
+		<button id="urology">Urology</button>
+		<button id="neurology">Neurology</button>
+	</div>
+	<!--Viewdocs links-->
+	<script>
+		document.getElementById("cardiology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=cardiology";
+		};
+		document.getElementById("nephrology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=nephrology";
+		};
+		document.getElementById("urology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=urology";
+		};
+		document.getElementById("neurology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=neurology";
+		};
+	</script>
+	<button style="background-color:black;border-width:0px;font-size:large;border-radius:50px;color:white;right:1%;position:fixed;z-index: 1;"><i class="fa fa-filter" aria-hidden="true"></i></button></div>
 	<div class="row">
 		<% for (var i = 0; i < docs.length; i++) { %>
 		<div class="column">
@@ -47,9 +61,10 @@
 			<div class="col-container card">
 				<img class="avatar" style="width:100px;height:100px;position:absolute;" src="data:<%= type %>;base64,<%= image %>" />
 				<div align="center">
-					<h2 align="center">Dr. <%= docs[i].name %><i class="fa fa-check-circle verified"  id="verified" style="color:green;"></i></h2>
+					<h2 align="center" style="margin:5px;">Dr. <%= docs[i].name %></h2>
+					<h4 style="margin:2px;">(<%= docs[i].qualification %>)</h4>
 					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
-					<h4 class="title">Speciality: <%= docs[0].speciality %></h4>
+					<h4 class="title">Speciality: <%= docs[i].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>
 					<a href="#" class="fa fa-twitter"></a>
 					<a href="#" class="fa fa-google"></a>

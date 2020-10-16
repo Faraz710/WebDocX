@@ -12,9 +12,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/dashboardPat.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
+	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
+	<script type="text/javascript" src="/scripts/dashboardPat.js"></script>
 </head>
 <body>
-	<%= JSON.stringify(currentAccount) %>
+	<!--<%= JSON.stringify(currentAccount) %>-->
 	<!--Alert messages and notification-->
 	<div class="notification card" style="display:none;" id="notification">
     <% if (errorMessage && errorMessage.length > 0) { %>
@@ -34,7 +36,8 @@
   </div>
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
-		<button id="doc" >Doctors</button>
+		<button id="doc" onclick="docdrop()">Doctors <i class="fa fa-caret-down"></i></button>
+		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
 		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
@@ -44,14 +47,49 @@
 				location.href = "/logout";
 			};
 		</script>
+		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
+		<form action="#"style="float:right;">
+			<input type="text" placeholder="Search.." id="search" name="search">
+			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
+		</form>
 	</div>
-	<h1>Patient Dashboard</h1>
-	<li><a href="/view/doctors/page/1/?speciality=cardiology">Doctors with speciality: cardiology....page 1</a></li>
-	<li><a href="/view/doctors/page/2/?speciality=cardiology">Doctors with speciality: cardiology....page 2</a></li>
-	<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
-	<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>
-	<li><a href="/view/doctors/page/1/?speciality=nephrology">Doctors with speciality: nephrology....page 1</a></li>
-	<li><a href="/view/doctors/page/1/?speciality=urology">Doctors with speciality: urology....page 1</a></li>
-	<li><a href="/view/doctors/page/1/?speciality=neurology">Doctors with speciality: neurology....page 1</a></li>
+	<div id="drop" class="dropdiv">
+		<button id="cardiology" >Cardiology</button>
+		<button id="nephrology">Nephrology</button>
+		<button id="urology">Urology</button>
+		<button id="neurology">Neurology</button>
+	</div>
+	<!--Viewdocs links-->
+	<script>
+		document.getElementById("cardiology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=cardiology";
+		};
+		document.getElementById("nephrology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=nephrology";
+		};
+		document.getElementById("urology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=urology";
+		};
+		document.getElementById("neurology").onclick = function () {
+    	location.href = "/view/doctors/page/1/?speciality=neurology";
+		};
+	</script>
+	<div class="col-container">
+		<div class="col" style="position:relative;width:20%">
+			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
+			<img class="avatar" style="width:150px;height:150px;" src="/images/patient.png" />			
+			<h3><%= currentAccount.name %></h3>
+			<h3><%= currentAccount.username %></h3>
+			</div>
+		</div>
+	
+		<div class="col card" id="update" style=" width:70%">
+			<h1>Patient Dashboard</h1>
+			<li><a href="/view/doctors/page/1/?speciality=cardiology">Doctors with speciality: cardiology....page 1</a></li>
+			<li><a href="/view/doctors/page/2/?speciality=cardiology">Doctors with speciality: cardiology....page 2</a></li>
+			<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
+			<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>
+		</div>
+	</div>
 </body>
 </html>
