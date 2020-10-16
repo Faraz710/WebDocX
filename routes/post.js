@@ -31,7 +31,8 @@ router.post("/new", function(req, res) {
 		speciality: req.body.speciality,
 		symptoms: req.body.symptoms,
 		description: req.body.description,
-		patientId: req.user._id
+		patientId: req.user._id,
+		patientName: req.user.name
 	});
 	newPost.save().then(() => {
 							req.flash("success", "Posted successfully!!");
