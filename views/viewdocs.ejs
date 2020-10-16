@@ -14,7 +14,8 @@
 
 	<div class="topnav">
 		<button id="dash" >Dashboard</button>
-		<button id="doc" onclick="docdrop()" style="background-color:white;color:black;">Doctors <i class="fa fa-caret-down"></i></button>
+		<button id="doc" onclick="docdrop()" style="background-color:white;color:black;">Doctors<i class="fa fa-caret-down"></i></button>
+		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
 		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
@@ -31,26 +32,27 @@
 		</form>
 	</div>
 	<div id="drop" class="dropdiv">
-		<button id="cardiology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Cardiology</button>
-		<button id="nephrology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Nephrology</button>
-		<button id="urology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Urology</button>
-		<button id="neurology" style="width:100%;height:50px;font-size:20px;border-width:2px;">Neurology</button>
+		<button id="cardiology">Cardiology</button>
+		<button id="nephrology">Nephrology</button>
+		<button id="urology">Urology</button>
+		<button id="neurology">Neurology</button>
 	</div>
 	<!--Viewdocs links-->
 	<script>
 		document.getElementById("cardiology").onclick = function () {
-    	location.href = "/view/doctors/cardiology";
+    	location.href = "/view/doctors/page/1/?speciality=cardiology";
 		};
 		document.getElementById("nephrology").onclick = function () {
-    	location.href = "/view/doctors/nephrology";
+    	location.href = "/view/doctors/page/1/?speciality=nephrology";
 		};
 		document.getElementById("urology").onclick = function () {
-    	location.href = "/view/doctors/urology";
+    	location.href = "/view/doctors/page/1/?speciality=urology";
 		};
 		document.getElementById("neurology").onclick = function () {
-    	location.href = "/view/doctors/neurology";
+    	location.href = "/view/doctors/page/1/?speciality=neurology";
 		};
 	</script>
+	<button style="background-color:black;border-width:0px;font-size:large;border-radius:50px;color:white;right:1%;position:fixed;z-index: 1;"><i class="fa fa-filter" aria-hidden="true"></i></button></div>
 	<div class="row">
 		<% for (var i = 0; i < docs.length; i++) { %>
 		<div class="column">

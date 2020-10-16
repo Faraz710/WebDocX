@@ -77,15 +77,12 @@
 					<input type="text" placeholder="Medical Degrees" id="degree" name="qualification" style="width:97%" value="<%= myAccount.qualification %>" required>
 					<label for="regno"><b>Registration Number</b></label><span name="show" style="display:none;" id="5"></span>
 					<input type="text" placeholder="Registration Number(Provided by Medical Council)" id="regno" name="reg_no" style="width:97%" value="<%= myAccount.reg_no %>" required>
-<<<<<<< HEAD
 					<label for="license"><b>License</b></label><span name="show" style="display:none;" id="6" ></span><button id="vbtn" type="button" onclick="ls()" style="background-color: transparent;border-width: 0px;">(View)</button>
-					<div id="lic" style="display:none;"><% if (typeof myAccount.licensePdf.data !== 'undefined') { %>
-=======
-					<label for="license"><b>License</b></label><span name="show" style="display:none;" id="6"></span>
-					<% if (typeof myAccount.license.data !== 'undefined') { %>
->>>>>>> 765d5fa352871ade072786127f11840972a793c2
-						<embed style="width:150px;height:150px;" src="data:<%= ltype %>;base64,<%= license %>" />
-					<% } %></div><br>
+					<div id="lic" style="display:none;">
+						<% if (typeof myAccount.license.data !== 'undefined') { %>
+							<embed style="width:150px;height:150px;" src="data:<%= ltype %>;base64,<%= license %>" />
+						<% } %>
+					</div><br>
 					<input type="file" id="license" name="license" style="width:97%" value="<%= myAccount.licensePdf %>" required>
 					<label for="spec"><b>Speciality</b></label><br><span name="show" style="display:none;" id="7"></span>
 					<input type="text" placeholder="speciality" id="spec" name="specs" required style="width:97%;" value="<%= myAccount.speciality %>">
