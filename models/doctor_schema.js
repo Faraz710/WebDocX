@@ -52,7 +52,7 @@ const doctorSchema = new Schema({
     type: String
   },
   notifications: [{
-    notification: {
+    message: {
       type: String
     },
     seen: {

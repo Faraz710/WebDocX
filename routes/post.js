@@ -31,7 +31,8 @@ router.post("/new", function(req, res) {
 		speciality: req.body.speciality,
 		symptoms: req.body.symptoms,
 		description: req.body.description,
-		patientId: req.user._id
+		patientId: req.user._id,
+		patientName: req.user.name
 	});
 	newPost.save().then(() => {
 							req.flash("success", "Posted successfully!!");
@@ -45,14 +46,14 @@ router.post("/new", function(req, res) {
 //Delete post
 router.delete("/delete/:postId", function(req, res) {
 	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user._id}, function(err, post) {
-			if (err) {
-				req.flash("error", err.message);
-            	res.redirect("/posts");
-			}
-			else {
-				req.flash("success", "Deleted post successfully!!");
-  				res.redirect('/posts');
-			}
+		if (err) {
+			req.flash("error", err.message);
+           	res.redirect("/posts");
+		}
+		else {
+			req.flash("success", "Deleted post successfully!!");
+  			res.redirect('/posts');
+		}
 	});
 });
 

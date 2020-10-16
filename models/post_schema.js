@@ -21,6 +21,9 @@ const postSchema = new Schema({
 	patientId: {
 		type: Schema.Types.ObjectId
 	},
+	patientName: {
+		type: String
+	},
 	time: {
 		type: Date,
     	default: Date.now
