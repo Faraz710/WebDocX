@@ -11,7 +11,6 @@ body {
     background-image:linear-gradient(315deg, #e7eff9 0%, #cfd6e6 74%);
     padding: 10px;
   }
-
   .col-container {
     display: table;
     width: 100%;
@@ -84,41 +83,9 @@ body {
   color: red;
   cursor: pointer;
 }
-
-#post input[type=text], #post input[type=password],#post textarea {
-	width:70px;
-	padding: 15px;
-	margin: 5px 10px 0px 10px;
-  border: none;
-  border-radius:50px;
-	background: #f1f1f1;
-  }
-  
-  /* When the inputs get focus, do something */
-  #post input[type=text]:focus,  #post input[type=password]:focus, #post textarea:focus {
-	background-color: #ddd;
-	outline: none;
-  }
-  #post .sub {
-    background-color: grey;
-    color: black;
-    font-size: medium;
-    padding: 15px 5px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.8;
-    }
-  .addbtn{
-    background-color: transparent;
-    color: black;
-    font-size: medium;
-    padding: 15px 5px;
-    border: none;
-    cursor: pointer;
-    width: 50px;
-    margin-bottom:10px;
-    opacity: 0.8;
-    }
-  
+.tags{
+  border-radius: 20px;
+  border-width:0px;
+  background-color: lightgreen;
+  font-size:20px;
+}
