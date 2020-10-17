@@ -102,18 +102,18 @@ app.use(function(req, res, next) {
 	next();
 })
 
-//API Routes
-// Homepage
-app.get("/", function(req,res) {
+//API ROUTES
+//Homepage
+app.get("/", stillLoggedIn, function(req,res) {
 	res.render("home");
 });
-// Patient Registration and Login
+//Patient Registration and Login
 app.use("/patient/auth", patient);
 
-// Doctor Registration and Login
+//Doctor Registration and Login
 app.use("/doctor/auth", doctor);
 
-// Logout
+//Logout
 app.get('/logout', isLoggedIn, function(req, res){
   //Passport destroys user's session data
   req.logout();
@@ -121,58 +121,98 @@ app.get('/logout', isLoggedIn, function(req, res){
   res.redirect('/');
 });
 
-// Doctor Dashboard
-app.use("/dashboardDoc", isLoggedIn, isDoctor, dashboardDoc);
+//Doctor Dashboard
+app.use("/dashboardDoc", isDoctor, dashboardDoc);
 
-// Patient Dashboard
-app.get("/dashboardPat", isLoggedIn, isPatient, function(req, res) {
+//Patient Dashboard
+app.get("/dashboardPat", isPatient, function(req, res) {
   res.render("dashboardPat");
 });
 
-// Display list of doctors
-app.use("/view/doctors", isLoggedIn, isPatient, viewdocs);
+//Display list of doctors
+app.use("/view/doctors", isPatient, viewdocs);
 
-// Update Profile
-app.use("/update", isLoggedIn, isDoctor, update);
+//Update Profile
+app.use("/update", isDoctor, update);
 
-// Consult a doctor
+//Consult a doctor
 app.use("/consult", isLoggedIn, consult);
 
-// Add new post
+//Add new post
 app.use("/posts", isLoggedIn, post);
 
-// Incorrect URL
+//Incorrect URL
 app.get("*", function(req, res) {
 	res.render("error");
 });
 
+
+//MIDDLEWARES
 //Middleware to check if user is logged in
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
+  if(req.isAuthenticated()){
+    return next();
+  }
 	req.flash("error", "Login to continue!!");
-    res.redirect("/")
+  res.redirect("/");
+}
+
+//Middleware to check if user is still logged in
+function stillLoggedIn(req, res, next){
+  //Redirect to respective dashboard if logged in
+  if(req.isAuthenticated()){
+    if(req.user.category == "patients") {
+      res.redirect("/dashboardPat");
+    }
+    if(req.user.category == "doctors"){
+      res.redirect("/dashboardDoc");
+    }
+  }
+  //Redirect to home if not logged in
+  else {
+    return next();
+  }
 }
 
 //Middleware to check if user is a patient
 function isPatient(req, res, next){
-    if(req.user.category == "patients"){
-        return next();
+  //Check if logged in
+  if(req.isAuthenticated()) {
+    //Check if patient
+    if(req.user.category == "patients") {
+      return next();
     }
-  req.flash("error", "You are unauthorized to access this page!!");
-  res.redirect("/dashboardDoc")
+    else {
+      req.flash("error", "You are unauthorized to access this page!!");
+      res.redirect("/dashboardDoc");
+    }
+  }
+  else {
+    req.flash("error", "Login to continue!!");
+    res.redirect("/");
+  }
 }
 
 //Middleware to check if user is a doctor
 function isDoctor(req, res, next){
+  //Check if logged in
+  if(req.isAuthenticated()) {
+    //Check if doctor
     if(req.user.category == "doctors"){
-        return next();
+      return next();
     }
-  req.flash("error", "You are unauthorized to access this page!!");
-  res.redirect("/dashboardPat")
+    else {
+      req.flash("error", "You are unauthorized to access this page!!");
+      res.redirect("/dashboardPat");
+    }
+  }
+  else {
+    req.flash("error", "Login to continue!!");
+    res.redirect("/");
+  }
 }
 
+//Set port for server to listen on
 const port = process.env.PORT || 3000;
 app.listen(port, function() {
 	console.log(`Listening on port ${port}...`);
