@@ -35,9 +35,13 @@
     <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
 	<div class="topnav">
-		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
+		<button id="dash" style="background-color:white;color:black; ">Dashboard</button>
 		<button id="doc" onclick="docdrop()">Doctors <i class="fa fa-caret-down"></i></button>
 		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
+		<span id="lg" style="clear:both; position:absolute;top:15px;left:40%;">
+		<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
+		<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
+		</span>
 		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
@@ -83,13 +87,39 @@
 			</div>
 		</div>
 	
-		<div class="col card" id="update" style=" width:70%">
-			<h1>Patient Dashboard</h1>
-			<li><a href="/view/doctors/page/1/?speciality=cardiology">Doctors with speciality: cardiology....page 1</a></li>
-			<li><a href="/view/doctors/page/2/?speciality=cardiology">Doctors with speciality: cardiology....page 2</a></li>
-			<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
-			<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>
+		<div class="col" id="update" style=" width:70%">
+			<!--<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
+			<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>-->
+			<form class="card" id="post" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;" action="/posts/new" method="Post">
+				<h1 style="margin-left:30%">Post your Problem</h1>
+				<input type="text" placeholder="Enter your Medical Problem" id="problems" name="title" style="width:40%;float:left;" onchange="error()" required>
+				<input type="text" placeholder="Speciality" id="speciality" name="speciality" style="width:40%" onchange="error()" required><br>
+				<!--take getElementByname(tags) for tag array-->
+				<input type="hidden" id="ctag" value=1>
+				<input type="text" placeholder="tag1" id="tag1" name="tags" style="float:left;" onchange="error()">
+				<input type="text" placeholder="tag2" id="tag2" name="tags" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="tag3" id="tag3" name="tags" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="tag4" id="tag4" name="tags" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="tag5" id="tag5" name="tags" style="display:none; float:left" onchange="error()">
+				<button type="button" onclick="tag()" class="addbtn" id="tagadd"><b>+</b></button><br>
+				<input type="hidden" id="csym" value=1>
+				<input type="text" placeholder="symptom1" id="sym1" name="symptoms" style="float:left" onchange="error()">
+				<input type="text" placeholder="symptom2" id="sym2" name="symptoms" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="symptom3" id="sym3" name="symptoms" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="symptom4" id="sym4" name="symptoms" style="display:none; float:left" onchange="error()">
+				<input type="text" placeholder="symptom5" id="sym5" name="symptoms" style="display:none; float:left" onchange="error()">
+				<button type="button" onclick="sym()" class="addbtn" id="symadd"><b>+</b></button>
+				<textarea placeholder="Description" id="description" name="description" style="width:90%; clear:both" onchange="error()" required rows="1" required></textarea>
+				<input type="hidden" name="patientId" value="<%= currentAccount._id %>">
+				<input type="hidden" name="patientName" value="<%= currentAccount.name %>">
+				<input type="hidden" name="time" value="<%=new Date()%>">
+				<button id="sub" type="button" class="sub">Post</button>
+			</form>
+			
 		</div>
 	</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>
+
+
 </body>
 </html>

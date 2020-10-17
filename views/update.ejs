@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--favicon-->
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+<link rel="manifest" href="/favicon/site.webmanifest">
+
 	<meta charset="UTF-8">
 	<title>WebDocX</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/update.css">
@@ -18,7 +24,11 @@
 			};
 		</script>
 		<button class="dropdown" style="background-color:white;color:black;float:left;">Update</button>
-		
+		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
+		<span id="lg" style="clear:both; position:absolute;top:15px;left:40%;">
+			<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
+			<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
+			</span>
 		<button style="float:right;" id="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script>
 			document.getElementById("logout").onclick = function () {
@@ -104,5 +114,6 @@
 				</form>
 			</div>
 		</div>
+		<button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>
 </body>
 </html>
