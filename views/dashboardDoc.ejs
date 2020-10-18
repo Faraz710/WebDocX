@@ -13,6 +13,7 @@
 	  <link rel="stylesheet" type="text/css" href="/stylesheets/dashboardDoc.css">
 	  <link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
 	  <script type="text/javascript" src="/scripts/dashboardDoc.js"></script>
+	  <script type="text/javascript" src="/scripts/nav.js"></script>
 	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
 </head>
 <body>
@@ -34,10 +35,14 @@
 		<% } %>
 		<span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
 	  </div>
+
+	  
+
+
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;">Dashboard</button>
 		<button id="update" >Update</button>
-		<button type="button" style="width:50px;"><i class="fa fa-bell-o" aria-hidden="true"></i></button>
+		<button id="not" onclick="notdrop()" type="button" style="position:relative;width:70px;"><i class="fa fa-bell-o" aria-hidden="true"></i><span id="count" class="counter"><%= currentAccount.notifications.length%></span></button>
 		<span id="lg" style="clear:both; position:absolute;top:15px;left:40%;">
 			<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 			<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
@@ -61,6 +66,84 @@
 		</form>
 	</div>
 	
+	<!--user notification-->
+	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
+		<b>&nbsp;&nbsp;Notifications</b>
+		<% for(var i=currentAccount.notifications.length-1;i>=0;i--){ %>
+		<div class="unotification" id="n<%=i%>">
+			<%= currentAccount.notifications[i].message%>
+			<span id="close" onclick="document.getElementById('n<%=i%>').style.display='none'" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
+			<% 
+					var tdat= new Date().getDate();
+					var tday= new Date().getDay();
+					var ty= new Date().getFullYear();
+					var tm= new Date().getMonth();
+					var th= new Date().getHours();
+					var tmin= new Date().getMinutes();
+					var tsec= new Date().getSeconds();
+					var dat= currentAccount.notifications[i].time.getDate();
+					var day= currentAccount.notifications[i].time.getDay();
+					var y= currentAccount.notifications[i].time.getFullYear();
+					var m= currentAccount.notifications[i].time.getMonth();
+					var h= currentAccount.notifications[i].time.getHours();
+					var min= currentAccount.notifications[i].time.getMinutes();
+					var sec= currentAccount.notifications[i].time.getSeconds();
+					if(ty!=y)
+					{
+						ty=ty+0;
+						y=y+0;
+						var p= ty-y;
+						p=p.toString();
+						p=p+"y";
+					}
+					else if(tm!=m)
+					{
+						tm=tm+0;
+						m=m+0;
+						var p= tm-m;
+						p=p.toString();
+						p=p+"m";
+					}
+					else if(tdat!=dat)
+					{
+						tdat=tdat+0;
+						dat=dat+0;
+						var p= tdat-dat;
+						p=p.toString();
+						p=p+"d";
+					}
+					else if(th!=h)
+					{
+						th=th+0;
+						h=h+0;
+						var p= th-h;
+						p=p.toString();
+						p=p+"h";
+					}
+					else if(tmin!=min)
+					{
+						tmin=tmin+0;
+						min=min+0;
+						var p= tmin-min;
+						p=p.toString();
+						p=p+"min";
+					}
+					else if(tsec!=sec)
+					{
+						tsec=tsec+0;
+						sec=sec+0;
+						var p= tsec-sec;
+						p=p.toString();
+						p=p+"sec";
+					}
+					%>
+					<br>
+				<span style="float:left;color:grey"><%= p %> ago</span>
+		</div>
+
+		<% } %>
+	</div>
+
 	<div class="col-container">
 		<div class="col" style="position:relative;width:20%">
 			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
@@ -78,7 +161,7 @@
 		
 		<div class="col" style=" width:70%">
 			<% for (var i =posts.length-1 ; i >=0; i--) { %>
-		<div class="card" id="update" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
+		<div class="card" id="update" style=" position:relative;width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
 			<div>
 				<img class="avatar" style="width:50px;height:50px; float:left;" src="/images/patient.png" />
 				<h3 style="float:left;"><%= posts[i].patientName %></h3>
@@ -87,17 +170,19 @@
 				<% }} %>
 				
 			</div>
+				<button id="accept" type="button" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
 			<div style="clear:both;">
-				<b style="float:left;"><%= posts[i].title %></b>
-				<br>
+				<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
+				<br><br>
 				<b style="float:left;">Symptoms:</b>
 				<span ><%= posts[i].symptoms[0] %></span>
 				<% for (var j = 1; j < posts[i].symptoms.length-1; j++) {if(posts[i].symptoms[j]!=""){ %>
-				<span > ,<%= posts[i].symptoms[j] %>,</span>
+				<span > ,<%= posts[i].symptoms[j] %></span>
 				<% } }%>
-			</div>
+				
+			</div><br>
 			<div style="clear:both;">
-			<span><%= posts[i].description %></span>
+			<span><%= posts[i].description %></span><br><br>
 			</div>
 			<div style="clear:both;">
 				<% 
