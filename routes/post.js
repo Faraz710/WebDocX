@@ -26,7 +26,7 @@ router.get("/", function(req, res) {
 router.post("/new", function(req, res) {
 	var time = Date.now();
 	const newPost = new Post({
-		title: req.body.problem,
+		title: req.body.title,
 		tags: req.body.tags,
 		speciality: req.body.speciality,
 		symptoms: req.body.symptoms,
