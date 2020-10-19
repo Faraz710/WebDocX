@@ -75,20 +75,15 @@ passport.deserializeUser(function(data, done) {
     patientStrategy.findById(data.userId, function(err, account) {      
       var user = account.toJSON();
       user.category = data.userCategory;
-      delete user.profilePic;
       done(err, user);
     });
   }
 
   //Doctor login
   else {
-    doctorStrategy.findById(data.userId, function(err, account) {
+    doctorStrategy.findById(data.userId, {license: 0}, function(err, account) {
       var user = account.toJSON();
       user.category = data.userCategory;
-      delete user.profilePic;
-      delete user.phoneNumber;
-      delete user.home;
-      delete user.license;
       done(err, user);
     });
   }

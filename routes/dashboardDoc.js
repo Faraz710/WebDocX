@@ -9,9 +9,9 @@ app.use(bodyParser.json());
 //Post schema
 const Post = require('../models/post_schema');
 
-//Display patients' posts
+//Display posts with doctor's speciality/ no speciality specified
 router.get("/", function(req, res) {
-	Post.find({}, function(err, posts){
+	Post.find({$or: [{speciality:req.user.speciality},{speciality: {$exists: false}}]}, function(err, posts){
 		if(err) { 
             req.flash("error", err.message);
             res.render("dashboardDoc");

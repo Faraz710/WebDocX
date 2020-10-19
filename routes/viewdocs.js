@@ -31,7 +31,7 @@ router.get("/page/:page_no/*", function(req, res) {
 		        else {
 		        	var totalPages = Math.floor(count / 10) + 1;
 		        	//Send page count along with doctors
-		        	res.render("viewdocs", {docs: doctors, pageCount: totalPages});
+		        	res.render("viewdocs", {docs: doctors, pageCount: totalPages, params: query});
 		        }
         	});
         }
