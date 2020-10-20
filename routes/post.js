@@ -2,15 +2,16 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+const auth = require('../middleware/authorisation.js');
 
 //Post schema
 const Post = require('../models/post_schema');
 
+//Consultation schema
+const Consultation = require('../models/consultation_schema');
+
 //Display all personal posts
-router.get("/", function(req, res) {
+router.get("/", auth.isDoctor, function(req, res) {
 	Post.find({patientId: req.user._id}, function(err, posts){
 		if(err) { 
             req.flash("error", err.message);
@@ -23,7 +24,7 @@ router.get("/", function(req, res) {
 });
 
 //Create new post
-router.post("/new", function(req, res) {
+router.post("/new", auth.isPatient, function(req, res) {
 	var time = Date.now();
 	const newPost = new Post({
 		title: req.body.title,
@@ -44,7 +45,7 @@ router.post("/new", function(req, res) {
 });
 
 //Delete post
-router.delete("/delete/:postId", function(req, res) {
+router.delete("/delete/:postId", auth.isPatient, function(req, res) {
 	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user._id}, function(err, post) {
 		if (err) {
 			req.flash("error", err.message);
@@ -59,7 +60,7 @@ router.delete("/delete/:postId", function(req, res) {
 
 
 //Edit post
-router.post("/edit/:postId", function(req, res) {
+router.post("/edit/:postId", auth.isPatient, function(req, res) {
 	Post.updateOne({_id: req.params.postId, patientId: req.user._id}, req.body, function(err, post) {
 			if (err) {
 				req.flash("error", err.message);
@@ -71,5 +72,48 @@ router.post("/edit/:postId", function(req, res) {
 			}
 	});
 });
+/*
+//Doctor accept problem post
+router.post("/accept/:postId", auth.isDoctor, function(req, res) {
+	const newConsultation = new Consultation({
+		problem: {
+			issue: req.body.title,
+			tags: req.body.tags
+		},
+		symptoms: req.body.symptoms,
+		description: req.body.description,
+		doctorId: req.user._id,
+		patientId: req.body.patientId
+	});
+	newConsultation.save().then(() => {
+		//Notify patient about accepted consultation
+		const newNotification = {
+			message: `Your consultation post regarding the problem: ${req.body.problem.issue} has been accepted by ${req.user.name}. A new consultation has been established for you.`
+		};
+
+		Patient.updateOne({_id: req.body.patientId}, { 
+			$push: {
+				notifications: newNotification 
+			}
+		}, function(err, patient) {
+			if (err) {
+				req.flash("error", err.message);
+	  			res.redirect('/dashboardDoc');
+			}
+		});
+		Post.findOneAndRemove({_id: req.params.postId}, function(err, post) {
+			if (err) {
+				req.flash("error", err.message);
+	  			res.redirect('/dashboardDoc');
+			}
+			else {
+				res.redirect('/dashboardDoc');
+			}
+		});
+	}).catch(err => {
+  		req.flash("error", err.message);
+	    res.redirect("/dashboardDoc");
+  	});
+});*/
 
 module.exports = router;

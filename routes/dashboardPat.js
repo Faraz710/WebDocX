@@ -6,17 +6,9 @@ const mongoose = require('mongoose');
 //Post schema
 const Post = require('../models/post_schema');
 
-//Display posts with doctor's speciality/ no speciality specified
+//Display patient dashboard
 router.get("/", function(req, res) {
-	Post.find({$or: [{speciality:req.user.speciality},{speciality: {$exists: false}}]}, function(err, posts){
-		if(err) { 
-            req.flash("error", err.message);
-            res.render("dashboardDoc");
-        }
-        else {
-        	res.render("dashboardDoc", {posts: posts});
-        }
-	});
+	res.render("dashboardPat");
 });
 
 router.post("/read/:id", function(req, res) {

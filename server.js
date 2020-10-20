@@ -15,6 +15,8 @@ const update = require('./routes/update');
 const consult = require('./routes/consult');
 const post = require('./routes/post');
 const dashboardDoc = require('./routes/dashboardDoc');
+const dashboardPat = require('./routes/dashboardPat');
+const auth = require('./middleware/authorisation.js');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -99,7 +101,7 @@ app.use(function(req, res, next) {
 
 //API ROUTES
 //Homepage
-app.get("/", stillLoggedIn, function(req,res) {
+app.get("/", auth.stillLoggedIn, function(req,res) {
 	res.render("home");
 });
 //Patient Registration and Login
@@ -109,7 +111,7 @@ app.use("/patient/auth", patient);
 app.use("/doctor/auth", doctor);
 
 //Logout
-app.get('/logout', isLoggedIn, function(req, res){
+app.get('/logout', function(req, res){
   //Passport destroys user's session data
   req.logout();
   req.flash("success", "Logged out successfully!!");
@@ -117,95 +119,27 @@ app.get('/logout', isLoggedIn, function(req, res){
 });
 
 //Doctor Dashboard
-app.use("/dashboardDoc", isDoctor, dashboardDoc);
+app.use("/dashboardDoc", auth.isDoctor, dashboardDoc);
 
 //Patient Dashboard
-app.get("/dashboardPat", isPatient, function(req, res) {
-  res.render("dashboardPat");
-});
+app.use("/dashboardPat", auth.isPatient, dashboardPat);
 
 //Display list of doctors
-app.use("/view/doctors", isPatient, viewdocs);
+app.use("/view/doctors", auth.isPatient, viewdocs);
 
 //Update Profile
-app.use("/update", isDoctor, update);
+app.use("/update", auth.isDoctor, update);
 
 //Consult a doctor
-app.use("/consult", isLoggedIn, consult);
+app.use("/consult", consult);
 
 //Add new post
-app.use("/posts", isLoggedIn, post);
+app.use("/posts", post);
 
 //Incorrect URL
 app.get("*", function(req, res) {
 	res.render("error");
 });
-
-
-//MIDDLEWARES
-//Middleware to check if user is logged in
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-	req.flash("error", "Login to continue!!");
-  res.redirect("/");
-}
-
-//Middleware to check if user is still logged in
-function stillLoggedIn(req, res, next){
-  //Redirect to respective dashboard if logged in
-  if(req.isAuthenticated()){
-    if(req.user.category == "patients") {
-      res.redirect("/dashboardPat");
-    }
-    if(req.user.category == "doctors"){
-      res.redirect("/dashboardDoc");
-    }
-  }
-  //Redirect to home if not logged in
-  else {
-    return next();
-  }
-}
-
-//Middleware to check if user is a patient
-function isPatient(req, res, next){
-  //Check if logged in
-  if(req.isAuthenticated()) {
-    //Check if patient
-    if(req.user.category == "patients") {
-      return next();
-    }
-    else {
-      req.flash("error", "You are unauthorized to access this page!!");
-      res.redirect("/dashboardDoc");
-    }
-  }
-  else {
-    req.flash("error", "Login to continue!!");
-    res.redirect("/");
-  }
-}
-
-//Middleware to check if user is a doctor
-function isDoctor(req, res, next){
-  //Check if logged in
-  if(req.isAuthenticated()) {
-    //Check if doctor
-    if(req.user.category == "doctors"){
-      return next();
-    }
-    else {
-      req.flash("error", "You are unauthorized to access this page!!");
-      res.redirect("/dashboardPat");
-    }
-  }
-  else {
-    req.flash("error", "Login to continue!!");
-    res.redirect("/");
-  }
-}
 
 //Set port for server to listen on
 const port = process.env.PORT || 3000;

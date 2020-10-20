@@ -21,6 +21,27 @@ router.get("/", function(req, res) {
 	});
 });
 
+//Update patient profile pic
+router.post("/profilePic", function(req, res) {
+	Patient.updateOne({_id: req.user._id}, {
+			$set: 
+			{
+				profilePic: {
+					data: req.files.profilepic.data,
+					contentType: req.files.profilepic.mimetype
+			}}
+		}, function(err, account) {
+			if (err) {
+				req.flash("error", err.message);
+            	res.redirect("/dashboardPat");
+			}
+			else {
+				req.flash("success", "Updated profile picture successfully!!");
+  				res.redirect('/dashboardPat');
+		}
+	});
+});
+
 //Update doctor profile pic
 router.post("/profilePic", function(req, res) {
 	Doctor.updateOne({_id: req.user._id}, {
@@ -40,7 +61,6 @@ router.post("/profilePic", function(req, res) {
   				res.redirect('/update');
 		}
 	});
-
 });
 
 //Update doctor info
