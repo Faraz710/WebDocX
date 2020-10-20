@@ -17,7 +17,6 @@
 	<script type="text/javascript" src="/scripts/nav.js"></script>
 </head>
 <body>
-	<!--<%= JSON.stringify(currentAccount) %>-->
 	<!--Alert messages and notification-->
 	<div class="notification card" style="display:none;" id="notification">
     <% if (errorMessage && errorMessage.length > 0) { %>
@@ -160,14 +159,16 @@
 	<div class="col-container">
 		<div class="col" style="position:relative;width:20%">
 			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
-			<img class="avatar" style="width:150px;height:150px;" src="/images/patient.png" />			
+			<% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+				var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+				var type = currentAccount.profilePic.contentType;
+			}%>
+			<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" />			
 			<h3><%= currentAccount.name %></h3>
 			<h3><%= currentAccount.username %></h3>
 			</div>
 		</div>
 		<div class="col" id="update" style=" width:70%">
-			<!--<li><a href="/view/doctors/page/1/?speciality=cardiology&name=doctor1">Doctors with speciality: cardiology and name=doctor1  page 1</a></li>
-			<li><a href="/view/doctors/page/1/?speciality=cardiology&lte=6&gte=4">Doctors with speciality: cardiology and experience greater than equal 4 and less than equal 6  page 1</a></li>-->
 			<form class="card" id="post" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;" action="/posts/new" method="Post">
 				<h1 style="margin-left:30%">Post your Problem</h1>
 				<input type="text" placeholder="Enter your Medical Problem" id="problems" name="title" style="width:40%;float:left;" onchange="error()" required>

@@ -50,7 +50,7 @@
 		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
-				location.href = "/dashboardPat";
+				location.href = "/dashboardDoc";
 			};
 			document.getElementById("update").onclick = function () {
 				location.href = "/update";
@@ -147,7 +147,11 @@
 	<div class="col-container">
 		<div class="col" style="position:relative;width:20%">
 			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
-			<img class="avatar" style="width:150px;height:150px;" src="/images/doctor.png" /><!--need the pic-->			
+			<% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+				var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+				var type = currentAccount.profilePic.contentType;
+			}%>
+			<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" />		
 			<h3>DR. <%= currentAccount.name %> <i class="fa fa-check-circle"  id="verified" style="color:green;"></i><!--make this visible if verified--></h3>
 			<h3><%= currentAccount.username %></h3>
 			</div>
