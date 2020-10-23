@@ -82,9 +82,7 @@
 	<!--user notification-->
 	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
 		<b>&nbsp;&nbsp;Notifications</b>
-		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ 
-			if(!currentAccount.notifications[i].seen){ 
-				co++;%>
+		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ if(!currentAccount.notifications[i].seen){ co++;%>
 		<div class="unotification" id="n<%=i%>">
 			<%= currentAccount.notifications[i].message%>
 			<form id="noti<%=i%>" action="/dashboardPat/read/<%= currentAccount.notifications[i]._id%>" method="post" >
