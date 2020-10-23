@@ -136,6 +136,7 @@
 		background-color:#e7eff9;
 		background-image:linear-gradient(315deg, #e7eff9 0%, #cfd6e6 74%);
 		padding: 10px;
+		text-align: center;
 	  }
 	  .unotification{
 		position: relative;

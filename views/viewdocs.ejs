@@ -60,6 +60,9 @@
 		
 	</div>
 	<button style="background-color:black;border-width:0px;font-size:large;border-radius:50px;color:white;right:1%;position:fixed;z-index: 1;"><i class="fa fa-filter" aria-hidden="true"></i></button></div>
+	<div style="background-color:white;border-width:0px;font-size:large;color:black;right:1%;position:fixed;z-index: 1;">
+		hi
+	</div>
 	<!--speciality option-->
 	<div id="drop"class="dropdiv">
 		<button id="cardiology">Cardiology</button>
@@ -228,7 +231,13 @@
 </div>
 <script>
 	function pagination(n){
-	location.href = "/view/doctors/page/"+n+"/?speciality=<%= docs[0].speciality %>";
+		var x = location.href;
+		var v;
+		for(var i=0;i<x.length-1;i++){
+		if(x[i]=='=')
+		v=i;
+		}
+	location.href = "/view/doctors/page/"+n+"/?speciality="+x.substring(v+1,x.length);
 	}
 </script>
 <button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>

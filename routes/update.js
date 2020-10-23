@@ -22,7 +22,7 @@ router.get("/", function(req, res) {
 });
 
 //Update patient profile pic
-router.post("/profilePic", function(req, res) {
+router.post("/patient/profilePic", function(req, res) {
 	Patient.updateOne({_id: req.user._id}, {
 			$set: 
 			{

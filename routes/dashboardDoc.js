@@ -8,7 +8,7 @@ const Post = require('../models/post_schema');
 
 //Display posts with doctor's speciality/ no speciality specified
 router.get("/", function(req, res) {
-	Post.find({$or: [{speciality:req.user.speciality},{speciality: {$exists: false}}]}, function(err, posts){
+	Post.find({$or: [{speciality:req.user.speciality},{speciality: 'general'}]}, function(err, posts){
 		if(err) { 
             req.flash("error", err.message);
             res.render("dashboardDoc");

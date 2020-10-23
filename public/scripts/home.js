@@ -104,3 +104,7 @@ function myFunction(fid) {
     x.type = "password";
   }
 }
+
+function loginerror(n){
+  document.getElementById('notification').innerHTML="Found It<br>";
+}

@@ -7,6 +7,7 @@ const localStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
+const methodOverride = require('method-override');
 const keys = require("./config/keys");
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
@@ -24,6 +25,9 @@ app.set("view engine", "ejs");
 //Parse incoming request body
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+//Override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
 
 //Serve static files in public directory
 app.use(express.static("public"));
@@ -128,7 +132,7 @@ app.use("/dashboardPat", auth.isPatient, dashboardPat);
 app.use("/view/doctors", auth.isPatient, viewdocs);
 
 //Update Profile
-app.use("/update", auth.isDoctor, update);
+app.use("/update", update);
 
 //Consult a doctor
 app.use("/consult", consult);
