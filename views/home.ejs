@@ -22,7 +22,7 @@
       <span style="color:#721c24;">
         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><b><%= errorMessage %></b>
       </span><br>
-    <% } %>
+    <% }%>
 
     <% if (successMessage && successMessage.length > 0){ %>
       <script>document.getElementById('notification').style.backgroundColor='#d4edda';document.getElementById('notification').style.backgroundImage='none';</script>
@@ -136,10 +136,10 @@
       </div>
   
       <div class="container">
-        <label for="email"><b>Username</b></label>
+        <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
         <input type="text" placeholder="Enter Mail" id="email" name="username" required>
   
-        <label for="password"><b>Password</b></label>
+        <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
         <input type="password" placeholder="Enter Password" id="password01" name="password" required>
         <input type="checkbox" id="01" onclick="myFunction('01')">Show Password<br>
         <!--<label style=" position:absolute; top:260px; right:300px;"><i class="fa fa-eye" aria-hidden="true"></i><input type="checkbox" id="01" onclick="myFunction('01')" style="display:none;"></label>-->
@@ -154,7 +154,7 @@
   </div>
 
   <!--Patient Login Form-->
-  <div id="id02" class="modal">
+  <div id="id02" class="modal" >
   
     <form class="modal-content animate" action="/patient/auth/login" method="post">
       <div class="imgcontainer">
@@ -165,10 +165,10 @@
       </div>
   
       <div class="container">
-        <label for="email"><b>Username</b></label>
+        <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
         <input type="text" placeholder="Enter Mail" id="email" name="username" required>
   
-        <label for="password"><b>Password</b></label>
+        <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
         <input type="password" placeholder="Enter Password" id="password02" name="password" required>
         <input type="checkbox" id="02" onclick="myFunction('02')">Show Password<br>
           
@@ -207,18 +207,19 @@
     </div>
 
     <div class="container">
-      <label for="name"><b>Name</b></label>
+
+      <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Full Name" id="name" name="name" required>
 
-      <label for="email"><b>Username</b></label>
+      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Enter Mail" id="email" name="username" required>
 
-      <label for="password"><b>Password</b></label>
+      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
       <input type="password" placeholder="Enter Password" id="password04" name="password" required>
       <input type="checkbox" id="04" onclick="myFunction('04')">Show Password<br>
 
-      <label for="cpassword"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpassword" name="password2" required>
+      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
+      <input type="password" placeholder="Confirm your Password" id="cpassword" name="password2" required>
         
       <label>
         <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
@@ -241,18 +242,18 @@
     </div>
 
     <div class="container">
-      <label for="name"><b>Name</b></label>
+      <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Full Name" id="name" name="name" required>
 
-      <label for="email"><b>Username</b></label>
+      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Enter Mail" id="email" name="username" required>
 
-      <label for="password"><b>Password</b></label>
+      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
       <input type="password" placeholder="Enter Password" id="password05" name="password" required>
       <input type="checkbox" id="05" onclick="myFunction('05')">Show Password<br>
 
-      <label for="cpassword"><b>Confirm Password</b></label>
-      <input type="password" placeholder="Enter Password" id="cpassword" name="password2" required>
+      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
+      <input type="password" placeholder="Confirm your Password" id="cpassword" name="password2" required>
         
       <label>
         <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.

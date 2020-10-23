@@ -101,3 +101,48 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
+
+  form[name=epost] input[type=text], form[name=epost] input[type=password],form[name=epost] textarea,form[name=epost] select {
+    width:70px;
+    padding: 15px;
+    margin: 5px 10px 0px 10px;
+    border: none;
+    border-radius:50px;
+    background: #f1f1f1;
+    }
+    
+    /* When the inputs get focus, do something */
+    form[name=epost] input[type=text]:focus,  form[name=epost] input[type=password]:focus, form[name=epost] textarea:focus,form[name=epost] select:focus {
+    background-color: #ddd;
+    outline: none;
+    }
+    form[name=epost] .cnf {
+      background-color: grey;
+      color: black;
+      font-size: medium;
+      padding: 15px 5px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+      opacity: 0.8;
+      }
+    .addbtn{
+      background-color: transparent;
+      color: black;
+      font-size: medium;
+      padding: 15px 5px;
+      border: none;
+      cursor: pointer;
+      width: 50px;
+      margin-bottom:10px;
+      opacity: 0.8;
+      }
+  
+      .roundbtn{
+        font-size: large;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border-width: 0px;
+      }

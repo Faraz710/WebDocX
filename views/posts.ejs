@@ -171,48 +171,50 @@
 	<div class="col-container">
 		<div class="col" style="position:relative;width:20%">
 			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
-			<img class="avatar" style="width:150px;height:150px;" src="/images/patient.png" /><!--need the pic-->			
+				<% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+					var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+					var type = currentAccount.profilePic.contentType;
+				}%>
+			<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" /><!--need the pic-->			
 			<h3><%= currentAccount.name %></h3>
 			<h3><%= currentAccount.username %></h3>
 			</div>
 			<br><br><br>
 			<div align="center" style="top:300px; position:absolute;padding:16px;">
-				<a  id="p" onclick="" style="color:black;"><b>Personal Info</b></a><br><br>
-				<a  id="m" onclick=""><b>Medical Info</b></a><br><br>
-				<a  id="a" onclick=""><b>Address</b></a>
+				<!--left side below patient profile data-->
 			</div>
 		</div>
 		
 		<div class="col" style=" width:70%">
 			<% for (var i =posts.length-1 ; i >=0; i--) { %>
-		<div class="card" id="update" style=" position:relative;width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
-			<div>
-				<img class="avatar" style="width:50px;height:50px; float:left;" src="/images/patient.png" />
-				<h3 style="float:left;"><%= posts[i].patientName %></h3>
-				<% for (var j = 0; j < posts[i].tags.length; j++) {if(posts[i].tags[j]!=""){ %>
-					<button class="tags" type="button" style=" float:right;"><%= posts[i].tags[j] %></button>
-				<% }} %>
+			<div class="card" id="update<%=i%>" style=" position:relative;width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
+				<div>
+					<img class="avatar" style="width:50px;height:50px; float:left;" src="/images/patient.png" />
+					<h3 style="float:left;"><%= posts[i].patientName %></h3>
+					<% for (var j = 0; j < posts[i].tags.length; j++) {if(posts[i].tags[j]!=""){ %>
+						<button class="tags" type="button" style=" float:right;"><%= posts[i].tags[j] %></button>
+					<% }} %>
 				
-			</div>
-			<form method="POST" action="/posts/delete/<%=posts[i]._id%>?_method=DELETE">
-			  <button type="submit"class="sub" style="background-color: red;right:-20px;top:100px"><i class="fa fa-times" aria-hidden="true"></i></button>
-			</form>
-			<button id="accept" type="button" class="sub" style="background-color: rgb(60, 184, 206);right:-20px;top:150px"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-			<div style="clear:both;">
-				<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
-				<br><br>
-				<b style="float:left;">Symptoms:</b>
-				<span ><%= posts[i].symptoms[0] %></span>
-				<% for (var j = 1; j < posts[i].symptoms.length-1; j++) {if(posts[i].symptoms[j]!=""){ %>
-				<span > ,<%= posts[i].symptoms[j] %></span>
-				<% } }%>
+				</div>
+				<form method="POST" action="/posts/delete/<%=posts[i]._id%>?_method=DELETE">
+					<button type="submit"class="sub" style="background-color: red;right:-20px;top:100px"><i class="fa fa-times" aria-hidden="true"></i></button>
+			  	</form>
+				<button id="edit" type="button" class="sub" onclick="editpost('<%=i%>')" style="background-color: rgb(60, 184, 206);right:-20px;top:150px"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<div style="clear:both;">
+					<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
+					<br><br>
+					<b style="float:left;">Symptoms:</b>
+					<span ><%= posts[i].symptoms[0] %></span>
+					<% for (var j = 1; j < posts[i].symptoms.length-1; j++) {if(posts[i].symptoms[j]!=""){ %>
+						<span > ,<%= posts[i].symptoms[j] %></span>
+					<% } }%>
 				
-			</div><br>
-			<div style="clear:both;">
-			<span><%= posts[i].description %></span><br><br>
-			</div>
-			<div style="clear:both;">
-				<% 
+				</div><br>
+				<div style="clear:both;">
+					<span><%= posts[i].description %></span><br><br>
+				</div>
+				<div style="clear:both;">
+					<% 
 					var tdat= new Date().getDate();
 					var tday= new Date().getDay();
 					var ty= new Date().getFullYear();
@@ -277,12 +279,52 @@
 					}
 					%>
 					<br><br>
-				<span style="float:left;color:grey"><%= posts[i].time.toDateString() %></span>
-				<span style="float:right;color:grey"><%= p %></span>
+					<span style="float:left;color:grey"><%= posts[i].time.toDateString() %></span>
+					<span style="float:right;color:grey"><%= p %></span>
+				</div>
+				<!--<%= posts[i] %>-->
 			</div>
-			<!--<%= posts[i] %>-->
-		</div>
-		<% } %>
+			<form class="card" name="epost" id="epost<%=i%>" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;display:none;position:relative;" action="/edit/<%= posts[i]._id %>" method="Post">
+			<h1 style="margin-left:30%">Edit Your Post</h1>
+			<input type="text" placeholder="Enter your Medical Problem" value="<%= posts[i].title %>" id="problems<%=i%>" name="title" style="width:40%;float:left;" onchange="error('<%=i%>')" onfocus="error('<%=i%>')" required>
+			<select id="speciality<%=i%>" name="speciality" style="width:45%">
+				<option value="<%= posts[i].speciality %>"><%= posts[i].speciality %></option>
+				<option value="general">General</option>
+				<option value="cardiology" >Cardiology</option>
+				<option value="nephrology">Nephrology</option>
+				<option value="neurology">Neurology</option>
+				<option value="urology">Urology</option>
+			  </select><br>
+			<!--take getElementByname(tags) for tag array-->
+			<% var co=0; for (var j = 0; j < posts[i].tags.length; j++) {if(posts[i].tags[j]!=""){ co++; %>
+				<input type="text" value="<%=posts[i].tags[j] %>" placeholder="tag<%=j+1 %>" id="tag<%=i%><%=j+1 %>" name="tags" style="float:left;" onfocus="error('<%=i%>')" onchange="error('<%=i%>')">
+			<% }else{ %>
+				<input type="text" placeholder="tag<%=j+1 %>" id="tag<%=i%><%=j+1 %>" name="tags" style="display:none; float:left" onfocus="error('<%=i%>')" onchange="error('<%=i%>')">
+			<% } } %>
+			<input type="hidden" id="ctag<%=i%>" value='<%=co %>'>
+			<button type="button" onclick="tag('<%=i%>')" class="addbtn" id="tagadd<%=i%>"><b>+</b></button><br>
+
+			
+			<% var co=0; for (var j = 0; j < posts[i].symptoms.length; j++) {if(posts[i].symptoms[j]!=""){ co++; %>
+				<input type="text" value="<%=posts[i].symptoms[j] %>" placeholder="symptom<%=j+1 %>" id="sym<%=i%><%=j+1 %>" name="symptoms" style="float:left;" onfocus="error('<%=i%>')" onchange="error('<%=i%>')">
+			<% }else{ %>
+				<input type="text" placeholder="symptom<%=j+1 %>" id="sym<%=i%><%=j+1 %>" name="symptoms" style="display:none; float:left" onfocus="error('<%=i%>')" onchange="error('<%=i%>')">
+			<% } } %>
+			<input type="hidden" id="csym<%=i%>" value='<%=co %>'>
+			<button type="button" onclick="sym('<%=i%>')" class="addbtn" id="symadd<%=i%>"><b>+</b></button>
+			<textarea placeholder="Description" id="description<%=i%>" name="description" style="width:90%; clear:both" onfocus="error('<%=i%>')" onchange="error('<%=i%>')" required rows="1" required><%=posts[i].description%></textarea>
+			<input type="hidden" name="patientId" value="<%= currentAccount._id %>">
+			<input type="hidden" name="patientName" value="<%= currentAccount.name %>">
+			<input type="hidden" name="time" value="<%= posts[i].time %>">
+			<button id="cnf<%=i%>" type="button" class="cnf">Confirm</button>
+			<button type="button" class="sub" style="background-color: red;left:-20px;top:50%" onclick="ceditpost('<%=i%>')"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+			</form>
+			<% } if(posts.length==0){ %>
+			<div class="card" id="update" style=" position:relative;width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;text-align: center;">
+			<h3>You have no posts To show!</h3>
+			<button type="button" style="border-width: 0px;width:20%;border-radius: 20px;padding:20px;background-color: rgb(121, 201, 233)" onclick="location.href='/dashboardPat';">Add New Post</button>
+			</div>
+			<% } %>
 		</div>
 	</div>
 	<button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>

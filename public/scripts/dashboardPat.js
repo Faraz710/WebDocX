@@ -49,8 +49,8 @@ function sym(){
 }
 function error(){
     var e=0;
-    var l=new Array("problems","speciality","description");
-    for(var x=0;x<3;x++)
+    var l=new Array("problems","description");
+    for(var x=0;x<2;x++)
     {
         if(document.getElementById(l[x]).value==""){
             document.getElementById(l[x]).style.backgroundColor="#f0a6a1";

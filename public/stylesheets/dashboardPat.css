@@ -85,7 +85,7 @@ body {
   cursor: pointer;
 }
 
-#post input[type=text], #post input[type=password],#post textarea {
+#post input[type=text], #post input[type=password],#post textarea,#post select {
 	width:70px;
 	padding: 15px;
 	margin: 5px 10px 0px 10px;
@@ -95,7 +95,7 @@ body {
   }
   
   /* When the inputs get focus, do something */
-  #post input[type=text]:focus,  #post input[type=password]:focus, #post textarea:focus {
+  #post input[type=text]:focus,  #post input[type=password]:focus, #post textarea:focus,#post select:focus {
 	background-color: #ddd;
 	outline: none;
   }
@@ -120,5 +120,13 @@ body {
     width: 50px;
     margin-bottom:10px;
     opacity: 0.8;
+    }
+
+    .roundbtn{
+      font-size: large;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border-width: 0px;
     }
   

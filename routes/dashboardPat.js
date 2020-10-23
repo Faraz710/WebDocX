@@ -12,13 +12,13 @@ router.get("/", function(req, res) {
 });
 
 router.post("/read/:id", function(req, res) {
-	Doctor.updateOne({_id: req.user._id, "notifications._id": req.params.id}, {
+	Patient.updateOne({_id: req.user._id, "notifications._id": req.params.id}, {
 			$set: 
 			{
 				"notifications.$.seen": true
 			}
 		}, function(err, notif) {
-			res.redirect("dashboardDoc");
+			res.redirect("dashboardPat");
 	});
 });
 
