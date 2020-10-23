@@ -69,10 +69,12 @@
 	<!--user notification-->
 	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
 		<b>&nbsp;&nbsp;Notifications</b>
-		<% for(var i=currentAccount.notifications.length-1;i>=0;i--){ %>
+		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ if(!currentAccount.notifications[i].seen){ co++;%>
 		<div class="unotification" id="n<%=i%>">
 			<%= currentAccount.notifications[i].message%>
-			<span id="close" onclick="document.getElementById('n<%=i%>').style.display='none'" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
+			<form id="noti<%=i%>" action="/dashboardPat/read/<%= currentAccount.notifications[i]._id%>" method="post" >
+			<span id="close" onclick="document.getElementById('noti<%=i%>').submit();" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
+			</form>
 			<% 
 					var tdat= new Date().getDate();
 					var tday= new Date().getDay();
@@ -141,7 +143,7 @@
 				<span style="float:left;color:grey"><%= p %> ago</span>
 		</div>
 
-		<% } %>
+		<% }%><script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
 	</div>
 
 	<div class="col-container">
