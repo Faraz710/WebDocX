@@ -116,8 +116,8 @@ function chk(event){
     if(document.getElementById("profilepic").files.length!=0){
         document.getElementById("pic").style.color="greenyellow";
         document.getElementById("upprof").src= URL.createObjectURL(event.target.files[0]);
-		document.getElementById("upprof").onload = function() {
-		URL.revokeObjectURL(document.getElementById("upprof").src) // free memory
-		}
+        document.getElementById("upprof").onload = function() {
+        URL.revokeObjectURL(document.getElementById("upprof").src) // free memory
+        }
     }
 }

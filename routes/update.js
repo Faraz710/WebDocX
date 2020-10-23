@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const auth = require('../middleware/authorisation.js');
 
 //Doctor schema
 const Doctor = require('../models/doctor_schema');
@@ -8,7 +9,7 @@ const Doctor = require('../models/doctor_schema');
 const Patient = require('../models/patient_schema');
 
 //Display doctor user details
-router.get("/", function(req, res) {
+router.get("/", auth.isDoctor, function(req, res) {
 	Doctor.findOne({_id:req.user._id}, function(err, account) {
 		if(err) { 
             req.flash("error", err.message);
@@ -22,7 +23,7 @@ router.get("/", function(req, res) {
 });
 
 //Update patient profile pic
-router.post("/patient/profilePic", function(req, res) {
+router.post("/patient/profilePic", auth.isPatient, function(req, res) {
 	Patient.updateOne({_id: req.user._id}, {
 			$set: 
 			{
@@ -43,7 +44,7 @@ router.post("/patient/profilePic", function(req, res) {
 });
 
 //Update doctor profile pic
-router.post("/profilePic", function(req, res) {
+router.post("/profilePic", auth.isDoctor, function(req, res) {
 	Doctor.updateOne({_id: req.user._id}, {
 			$set: 
 			{
@@ -64,7 +65,7 @@ router.post("/profilePic", function(req, res) {
 });
 
 //Update doctor info
-router.post("/", function(req, res) {
+router.post("/", auth.isDoctor, function(req, res) {
 	Doctor.updateOne({_id: req.user._id}, { 
 		$set: 
 		{

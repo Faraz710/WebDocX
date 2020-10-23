@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -8,7 +9,6 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const methodOverride = require('method-override');
-const keys = require("./config/keys");
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
@@ -39,7 +39,7 @@ app.use(flash());
 mongoose.set('useFindAndModify', false);
 
 //Database Configuration
-const db = keys.mongoURI;
+const db = process.env.MONGODB_URI;
 
 //Establish connection to database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, })
@@ -53,7 +53,7 @@ app.use(fileUpload({
 
 //Encode and decode session
 app.use(session({
-      secret: 'Webdocx',
+      secret: process.env.SECRET_KEY,
       resave: false,
       saveUninitialized: false
 }));

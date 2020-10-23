@@ -47,7 +47,6 @@ router.post("/new", auth.isPatient, function(req, res) {
 //Delete post
 router.delete("/delete/:postId", auth.isPatient, function(req, res) {
 	Post.findOneAndRemove({_id: req.params.postId, patientId: req.user._id}, function(err, post) {
-		console.log(post);
 		if (err) {
 			req.flash("error", err.message);
            	res.redirect("/posts");
