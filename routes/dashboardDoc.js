@@ -26,7 +26,7 @@ router.post("/read/:id", function(req, res) {
 				"notifications.$.seen": true
 			}
 		}, function(err, notif) {
-			res.redirect("dashboardDoc");
+			res.redirect("/dashboardDoc");
 	});
 });
 

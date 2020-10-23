@@ -163,7 +163,13 @@
 				var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
 				var type = currentAccount.profilePic.contentType;
 			}%>
-			<img class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" />			
+			<img id="upprof" class="avatar" style="width:150px;height:150px;" src="data:<%= type %>;base64,<%= image %>" />	
+			<button id="op" class="roundbtn" onclick="dpopen()" style="position: absolute;top:40%;right:20px;"><i class="fa fa-pencil"></i></button>		
+			<button id="cl" class="roundbtn" onclick="dpclose('data:<%= type %>;base64,<%= image %>')" style=" position:absolute;top:40%;right:20px;display:none;z-index: 2;"><i class="fa fa-times"></i></button>
+				<form id="dp" action="/update/patient/profilePic" method="post" style="display:none;" enctype="multipart/form-data">
+					<label  style=" position:absolute; top:44%;right:-20px;"><i id="pic" class="fa fa-file-image-o fa-2x"></i><input onchange="chk(event)"  type="file" id="profilepic" style="display:none;" name="profilepic" accept="image/*" required></label>
+					<button class="roundbtn" type="submit" style=" position:absolute; top:40%;right:-80px;"><i class="fa fa-chevron-right" ></i></button>
+				</form>
 			<h3><%= currentAccount.name %></h3>
 			<h3><%= currentAccount.username %></h3>
 			</div>

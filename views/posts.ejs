@@ -11,9 +11,10 @@
 	<title>WebDocX</title>
 	<link rel="stylesheet" type="text/css" href="/stylesheets/posts.css">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
-	<script type="text/javascript" src="/scripts/viewdocs.js"></script>
+	<script type="text/javascript" src="/scripts/posts.js"></script>
 	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
 	<script type="text/javascript" src="/scripts/nav.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -193,8 +194,10 @@
 				<% }} %>
 				
 			</div>
-			<button id="ignore" type="button" class="sub" style="background-color: red;right:-20px;top:100px"><i class="fa fa-times" aria-hidden="true"></i></button>
-				<button id="accept" type="button" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
+			<form method="POST" action="/posts/delete/<%=posts[i]._id%>?_method=DELETE">
+			  <button type="submit"class="sub" style="background-color: red;right:-20px;top:100px"><i class="fa fa-times" aria-hidden="true"></i></button>
+			</form>
+			<button id="accept" type="button" class="sub" style="background-color: rgb(60, 184, 206);right:-20px;top:150px"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 			<div style="clear:both;">
 				<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
 				<br><br>

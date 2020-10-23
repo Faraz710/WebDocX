@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -7,7 +8,7 @@ const localStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
-const keys = require("./config/keys");
+const methodOverride = require('method-override');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
@@ -25,6 +26,9 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+//Override with POST having ?_method=DELETE
+app.use(methodOverride('_method'));
+
 //Serve static files in public directory
 app.use(express.static("public"));
 
@@ -35,7 +39,7 @@ app.use(flash());
 mongoose.set('useFindAndModify', false);
 
 //Database Configuration
-const db = keys.mongoURI;
+const db = process.env.MONGODB_URI;
 
 //Establish connection to database
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true, })
@@ -49,7 +53,7 @@ app.use(fileUpload({
 
 //Encode and decode session
 app.use(session({
-      secret: 'Webdocx',
+      secret: process.env.SECRET_KEY,
       resave: false,
       saveUninitialized: false
 }));
@@ -128,7 +132,7 @@ app.use("/dashboardPat", auth.isPatient, dashboardPat);
 app.use("/view/doctors", auth.isPatient, viewdocs);
 
 //Update Profile
-app.use("/update", auth.isDoctor, update);
+app.use("/update", update);
 
 //Consult a doctor
 app.use("/consult", consult);
