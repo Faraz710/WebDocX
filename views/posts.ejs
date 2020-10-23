@@ -284,7 +284,7 @@
 				</div>
 				<!--<%= posts[i] %>-->
 			</div>
-			<form class="card" name="epost" id="epost<%=i%>" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;display:none;position:relative;" action="/edit/<%= posts[i]._id %>" method="Post">
+			<form class="card" name="epost" id="epost<%=i%>" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;display:none;position:relative;" action="/posts/edit/<%= posts[i]._id %>" method="Post">
 			<h1 style="margin-left:30%">Edit Your Post</h1>
 			<input type="text" placeholder="Enter your Medical Problem" value="<%= posts[i].title %>" id="problems<%=i%>" name="title" style="width:40%;float:left;" onchange="error('<%=i%>')" onfocus="error('<%=i%>')" required>
 			<select id="speciality<%=i%>" name="speciality" style="width:45%">
