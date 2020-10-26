@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose");
+const passportLocalMongoose = require("passport-local-mongoose");
+
 const Schema = mongoose.Schema;
 // Create patient schema
 const patientSchema = new Schema({
@@ -31,6 +32,12 @@ const patientSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  resetPasswordToken : {
+    type: String
+  },
+  tokenExpiry: {
+    type: Date
   }
 });
 
