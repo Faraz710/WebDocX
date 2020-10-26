@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const methodOverride = require('method-override');
+const auth = require('./middleware/authorisation.js');
 const patient = require('./routes/patient');
 const doctor = require('./routes/doctor');
 const viewdocs = require('./routes/viewdocs');
@@ -17,7 +18,7 @@ const consult = require('./routes/consult');
 const post = require('./routes/post');
 const dashboardDoc = require('./routes/dashboardDoc');
 const dashboardPat = require('./routes/dashboardPat');
-const auth = require('./middleware/authorisation.js');
+const resetPassword = require('./routes/resetPassword');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -101,13 +102,14 @@ app.use(function(req, res, next) {
 	res.locals.errorMessage = req.flash("error");
 	res.locals.successMessage = req.flash("success");
 	next();
-})
+});
 
 //API ROUTES
 //Homepage
 app.get("/", auth.stillLoggedIn, function(req,res) {
 	res.render("home");
 });
+
 //Patient Registration and Login
 app.use("/patient/auth", patient);
 
@@ -121,6 +123,9 @@ app.get('/logout', function(req, res){
   req.flash("success", "Logged out successfully!!");
   res.redirect('/');
 });
+
+//Forgot Password
+app.use("/reset", resetPassword);
 
 //Doctor Dashboard
 app.use("/dashboardDoc", auth.isDoctor, dashboardDoc);
