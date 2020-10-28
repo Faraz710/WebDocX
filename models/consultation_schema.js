@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Doctor = require('./doctor_schema');
+const Patient = require('./patient_schema');
+
 const consultationSchema = new Schema({
 	problem: {
 		issue: {
@@ -16,11 +19,13 @@ const consultationSchema = new Schema({
 	description: {
 		type: String
 	},
-	doctorId: {
-		type: Schema.Types.ObjectId
+	doctor: {
+		type: Schema.Types.ObjectId,
+		ref: 'Doctor'
 	},
-	patientId: {
-		type: Schema.Types.ObjectId
+	patient: {
+		type: Schema.Types.ObjectId,
+		ref: 'Patient'
 	},
 	messages: [{
 		message: {
@@ -41,4 +46,4 @@ const consultationSchema = new Schema({
 	}
 });
 
-module.exports = Consultation = mongoose.model("Consultations", consultationSchema);
+module.exports = Consultation = mongoose.model("Consultation", consultationSchema);

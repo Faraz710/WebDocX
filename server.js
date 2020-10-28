@@ -19,6 +19,7 @@ const post = require('./routes/post');
 const dashboardDoc = require('./routes/dashboardDoc');
 const dashboardPat = require('./routes/dashboardPat');
 const resetPassword = require('./routes/resetPassword');
+const prescription = require('./routes/prescription');
 
 //Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -128,7 +129,7 @@ app.get('/logout', function(req, res){
 app.use("/reset", resetPassword);
 
 //Doctor Dashboard
-app.use("/dashboardDoc", auth.isDoctor, dashboardDoc);
+app.use("/dashboardDoc", auth.isDoctor, auth.isActivated, dashboardDoc);
 
 //Patient Dashboard
 app.use("/dashboardPat", auth.isPatient, dashboardPat);
@@ -139,11 +140,14 @@ app.use("/view/doctors", auth.isPatient, viewdocs);
 //Update Profile
 app.use("/update", update);
 
+//Add new post
+app.use("/posts", post);
+
 //Consult a doctor
 app.use("/consult", consult);
 
-//Add new post
-app.use("/posts", post);
+//Generate prescription
+app.use("/prescription", prescription);
 
 //Incorrect URL
 app.get("*", function(req, res) {
