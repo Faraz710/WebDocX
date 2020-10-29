@@ -212,7 +212,18 @@
 				<input type="hidden" name="time" value="<%=new Date()%>">
 				<button id="sub" type="button" class="sub">Post</button>
 			</form>
-			
+		</div>
+		<div class="pres">
+			<h1>Prescriptions</h1>
+			<% 	if (prescriptions.length > 0) {
+				prescriptions.forEach(prescription => {
+					var pdf = prescription.pdf.data.toString('base64');
+					var type = prescription.pdf.contentType;
+					if (typeof prescription.pdf.data !== 'undefined') { %>
+						<a href="data:<%= type %>;base64,<%= pdf %>" download> Download </a><br>
+					<% }
+				});
+			} %>
 		</div>
 	</div>
 <button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>

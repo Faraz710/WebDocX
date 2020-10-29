@@ -9,7 +9,7 @@ module.exports = {
       if(req.user.category == "patients") {
         res.redirect("/dashboardPat");
       }
-      if(req.user.category == "doctors"){
+      if(req.user.category == "doctors") {
         res.redirect("/dashboardDoc");
       }
     }
@@ -54,6 +54,17 @@ module.exports = {
     else {
       req.flash("error", "Login to continue!!");
       res.redirect("/");
+    }
+  },
+
+  //Middlware to redirect doctors to update page if account is not activated
+  isActivated: function(req, res, next) {
+    if (req.user.activated === false) { //change this after project is complete
+      return next();
+    }
+    else {
+      req.flash("error","Kindly update profile information first! If you have already filled, kindly wait for the account activation mail.");
+      res.redirect("/update");
     }
   }
 }

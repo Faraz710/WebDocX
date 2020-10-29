@@ -6,7 +6,6 @@ const auth = require('../middleware/authorisation.js');
 
 //Post schema
 const Post = require('../models/post_schema');
-
 //Consultation schema
 const Consultation = require('../models/consultation_schema');
 
@@ -74,7 +73,7 @@ router.post("/edit/:postId", auth.isPatient, function(req, res) {
 });
 /*
 //Doctor accept problem post
-router.post("/accept/:postId", auth.isDoctor, function(req, res) {
+router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, res) {
 	const newConsultation = new Consultation({
 		problem: {
 			issue: req.body.title,

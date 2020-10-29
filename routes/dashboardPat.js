@@ -5,14 +5,18 @@ const mongoose = require('mongoose');
 
 //Post schema
 const Post = require('../models/post_schema');
+//Prescription schema
+const Prescription = require('../models/prescription_schema');
 
 //Display patient dashboard
 router.get("/", function(req, res) {
-	res.render("dashboardPat");
+	Prescription.find({'patient._id': req.user._id}, function(err, prescriptions) {
+		res.render("dashboardPat", {prescriptions: prescriptions});
+	});
 });
 
 router.post("/read/:id", function(req, res) {
-	Patient.updateOne({_id: req.user._id, "notifications._id": req.params.id}, {
+	Patient.updateOne({_id: req.user._id, 'notifications._id': req.params.id}, {
 			$set: 
 			{
 				"notifications.$.seen": true

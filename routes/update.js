@@ -30,7 +30,8 @@ router.post("/patient/profilePic", auth.isPatient, function(req, res) {
 				profilePic: {
 					data: req.files.profilepic.data,
 					contentType: req.files.profilepic.mimetype
-			}}
+				}
+			}
 		}, function(err, account) {
 			if (err) {
 				req.flash("error", err.message);
