@@ -155,11 +155,10 @@
 					<br>
 				<span style="float:left;color:grey"><%= p %> ago</span>
 		</div>
-
-		<% }%><script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
+		<% }%><script>if('<%=co%>'!=0 || '<%=co%>'!=NULL){document.getElementById('count').innerHTML="<%=co%>"}else{document.getElementById('count').style.display="none"}</script><% } %>
 	</div>
 	<div class="col-container">
-		<div class="col" style="position:relative;width:20%">
+		<div class="col" style="position:relative;width:20%;">
 			<div class="card" align="center" style="top:0px; position:absolute;padding:16px; width:80%">
 			<% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
 				var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
@@ -180,8 +179,8 @@
 					<a  href="/posts" style="color:black;"><b>My Posts</b></a><br><br>
 				</div>
 		</div>
-		<div class="col" id="update" style=" width:70%">
-			<form class="card" id="post" style=" width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;" action="/posts/new" method="Post">
+		<div class="col" id="update" style=" width:50%;" >
+			<form class="card" id="post" style=" width:93%; margin-bottom: 10px;border-radius: 10px;padding:20px;" action="/posts/new" method="Post">
 				<h1 style="margin-left:30%">Post your Problem</h1>
 				<input type="text" placeholder="Enter your Medical Problem" id="problems" name="title" style="width:40%;float:left;" onchange="error()" required>
 				<select id="speciality" name="speciality" style="width:40%">
@@ -213,17 +212,22 @@
 				<button id="sub" type="button" class="sub">Post</button>
 			</form>
 		</div>
-		<div class="pres">
+		<div class="col" id="pres" style=" width:20%;">
 			<h1>Prescriptions</h1>
-			<% 	if (prescriptions.length > 0) {
-				prescriptions.forEach(prescription => {
-					var pdf = prescription.pdf.data.toString('base64');
-					var type = prescription.pdf.contentType;
-					if (typeof prescription.pdf.data !== 'undefined') { %>
-						<a href="data:<%= type %>;base64,<%= pdf %>" download> Download </a><br>
-					<% }
-				});
-			} %>
+				<% 	if (prescriptions.length > 0) {
+					prescriptions.forEach(prescription => {
+						var pdf = prescription.pdf.data.toString('base64');
+						var type = prescription.pdf.contentType;
+						if (typeof prescription.pdf.data !== 'undefined') { %>
+							<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
+							<b>Dr.<%=prescription.doctor.name%></b>
+							<a href="data:<%= type %>;base64,<%= pdf %>" style="float:right;" download><i class="fa fa-arrow-down" aria-hidden="true"></i> </a><br>
+							<span style="color:grey;"><%=prescription.issuingDate.toDateString();%></span>
+							</div>
+							<br>
+						<% }
+					});
+				} %>
 		</div>
 	</div>
 <button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>

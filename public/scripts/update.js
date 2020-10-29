@@ -74,8 +74,14 @@ function cnf()
     i=i.toString();
     document.getElementById(i).style.display="block";
     document.getElementById(i).innerHTML =x[j+1].value;
+    if(x[j+1].value==""){
+        document.getElementById(i).innerHTML="*Required*"
+        document.getElementById(i).style.color="red";
+    }
     }
 }
+
+
 function bck()
 {
     document.getElementById("personal").style.display = "block";
