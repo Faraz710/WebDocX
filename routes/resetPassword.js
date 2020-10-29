@@ -103,7 +103,7 @@ router.get("/doctor/:token", function(req, res) {
             res.redirect("/");
 		}
 		else {
-			res.render("resetPassword", {account: doctor, category: 'doctors'});
+			res.render("resetPassword", {account: doctor, category: 'doctor'});
 		}
 	});
 });
@@ -117,7 +117,7 @@ router.get("/patient/:token", function(req, res) {
             res.redirect("/");
 		}
 		else {
-			res.render("resetPassword", {account: patient, category: 'patients'});
+			res.render("resetPassword", {account: patient, category: 'patient'});
 		}
 	});
 });
