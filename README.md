@@ -52,3 +52,9 @@ yarn install
 The application will setup on port `3000`.
 
 Feel free to send pull requests if you wish to contribute to the website.
+
+## Contributors
+
+[//]: contributor-faces
+
+ <a href="https://github.com/Faraz710"><img src="https://avatars1.githubusercontent.com/u/64319789?s=400&v=4" title="Faraz" width="80" height="80"></a> <a href="https://github.com/harsh8461-project"><img src="https://avatars1.githubusercontent.com/u/69069039?s=400&v=4" title="Harsh" width="80" height="80"></a>
