@@ -5,7 +5,7 @@ const auth = require('../middleware/authorisation.js');
 
 //Consultation schema
 const Consultation = require('../models/consultation_schema');
-
+//Doctor schema
 const Doctor = require('../models/doctor_schema');
 
 //Add new consultation
@@ -20,8 +20,8 @@ router.post("/:doctorId", auth.isPatient, function(req, res) {
 		},
 		symptoms: req.body.syms,
 		description: req.body.description,
-		doctorId: req.params.doctorId,
-		patientId: req.user._id,
+		doctor: req.params.doctorId,
+		patient: req.user._id,
 		messages: {"message": initial_msg,"time": time}
 	});
 	newConsultation.save().then(() => {
@@ -51,7 +51,7 @@ router.post("/:doctorId", auth.isPatient, function(req, res) {
 });
 
 //Delete consultation when doctor rejects consultation request
-router.delete("/reject/:consultationId", auth.isDoctor, function(req, res) {
+router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, function(req, res) {
 	Consultation.findOneAndRemove({_id: req.params.consultationId, doctorId: req.user._id}, function(err, consultation) {
 		if (err || !consultation) {
 			req.flash("error", "You are trying to delete a request you don't have!");

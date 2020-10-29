@@ -76,4 +76,4 @@ const doctorSchema = new Schema({
 });
 
 doctorSchema.plugin(passportLocalMongoose);
-module.exports = Doctor = mongoose.model("Doctors", doctorSchema);
+module.exports = Doctor = mongoose.model("Doctor", doctorSchema);
