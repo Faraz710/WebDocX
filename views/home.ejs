@@ -148,7 +148,7 @@
         <label>
           <input type="checkbox" checked="checked" id="remember" name="remember"> Remember me
         </label>
-        <span class="psw"><a href="#" style="color:black;">Forgot password?</a></span>
+        <span class="psw"><a onclick="document.getElementById('dfpwd').style.display='block'" style="color:black;">Forgot password?</a></span>
       </div>
     </form>
   </div>
@@ -176,7 +176,7 @@
         <label>
           <input type="checkbox" checked="checked" id="remember" name="remember"> Remember me
         </label>
-        <span class="psw"><a href="#" style="color:black;">Forgot password?</a></span>
+        <span class="psw"><a onclick="document.getElementById('pfpwd').style.display='block'" style="color:black;">Forgot password?</a></span>
       </div>
     </form>
   </div>
@@ -263,5 +263,44 @@
     </div>
   </form>
 </div> 
+
+<!--doctor forgot pwd-->
+<div id="dfpwd" class="modal">
+  
+  <form class="modal-content animate" action="/reset/forgot/doctor" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('dfpwd').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <h1>Enter Your Mail!</h1>
+    </div>
+
+    <div class="container">
+
+      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
+      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
+
+      <button type="submit" id="Send" class="buttongreen borderless">Send a mail</button>
+    </div>
+  </form>
+</div>
+
+<!--patient forgot pwd-->
+<div id="pfpwd" class="modal">
+  
+  <form class="modal-content animate" action="/reset/forgot/patient" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('pfpwd').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <h1>Enter Your Mail!</h1>
+    </div>
+
+    <div class="container">
+
+      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
+      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
+
+      <button type="submit" id="send" class="buttongreen borderless">Send a mail</button>
+    </div>
+  </form>
+</div>
+
 </body>
 </html>
