@@ -1,120 +1,129 @@
 <!DOCTYPE html>
 <html>
     <head>
+            <!--favicon-->
+            <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+            <link rel="manifest" href="/favicon/site.webmanifest">
+          
+            <meta charset="UTF-8">
+            <title>WebDocX</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <style>
-            .info {
-                color: #555555;
-                text-align: center;
+            body{
+                margin:50px;
+                font-family: Sans-Serif;
             }
-
-            .info span {
-                color: #111111;
-            }
-
-            .patient {
-                float:left;
-                text-align: left;
-            }
-
-            .metadata {
-                float:right;
-                text-align: right;
-            }
-
-            .medicines {
-                color: #555555;
-            }
-
-            .medicines span {
-                color: #111111;
-            }
-            
-            .clear { clear:both; }
-
             #logo {
-                position: absolute;
-                margin-left: 2.5%;
-                height: 30pt;
-                width: 30pt;
+                height: 70px;
+                width: 100px;
             }
-            p {
-              margin: 2pt;
-            }
-
             hr {
                 color: #555555;
+                clear:both;
             }
-
-            body {
-              font-family: Sans-Serif;
+            table{
+                width:100%;
+            }
+            th{
+                border-style: solid;
+                border-width: 1px;
+            }
+            td{
+                text-align:center;
             }
         </style>
     </head>
     <body>
         <div>
-            <img id="logo" src="data:image/png;base64,<%=logoBuffer%>" alt="Webdocx">
-        </div>
-        <div style="width: 95%; height: 100%; margin: 0 2.5%;">
-            <div style="font-size: 7pt">	
-                <% if (prescription) { %>
-                    <div class="info"> 
-			         <p><span>Dr. <%= prescription.doctor.name %></span></p>
-			         <p><%= prescription.doctor.qualification %></p>
-			         <p>Medical Registration Number: <%= prescription.doctor.reg_no %></p>
-                    </div>
-                    <hr>
-                    
-                    <div class="info patient">
-                        <p><span><%= prescription.patient.name %></span></p>
-                        <p>Age: <%= prescription.patient.age %>, Gender: <%= prescription.patient.gender %>.</p>
-                    </div>
-
-                    <div class="info metadata">
-                        <p>Prescription Id: <%= prescription._id %></p>
-                        <p><%= prescription.issuingDate %></p>
-                    </div>
-                    <div class="clear"></div>
-                    <br>
-                    <div class="info" style="text-align: left">
-                        <p><span>Symptoms:</span> <%= prescription.symptoms %></p>
-                        <p><span>Diagnosis:</span> <%= prescription.diagnosis %></p>
-                    </div>
-
-                    <div class="medicines">
-                        <h2> <span> Medicines </span></h2>
-                        
-                        <% if (prescription.medicines.length > 0) { %>
+            <% if (prescription) { %>
+                <div>
+                    <img id="logo" src="/images/logo.png" alt="Webdocx">
+                    <span style="float:right;">
+                        <b>
+                        Dr. <%= prescription.doctor.name %><br>
+                        <%= prescription.doctor.qualification %><br>
+                        <%= prescription.doctor.reg_no %>
+                        </b>
+                    </span>
+                </div>
+                <hr>
+                <div>
+                    <span style="float:left;">
+                        <b>Name:</b><%= prescription.patient.name %><br>
+                        <b>Age:</b><%= prescription.patient.age %><br>
+                        <b>Gender:</b><%= prescription.patient.gender %>
+                    </span>
+                    <span style="float:right;">
+                        <b>Prescription Id:</b><%= prescription._id %><br>
+                        <b>Date:</b><%= prescription.issuingDate.toDateString(); %><br>
+                        <b>Time:</b><%= prescription.issuingDate.toLocaleTimeString(); %>
+                    </span>
+                </div>
+                <hr>
+                <div>
+                    <span>
+                        <b>Symptoms:</b><%= prescription.symptoms %><br><br>
+                        <b>Diagnosis:</b><%= prescription.diagnosis %><br>
+                    </span>
+                </div>
+                <div>
+                    <h2 style="margin-left: 45%;">Medicines</h2>
+                    <% if (prescription.medicines.length > 0) { %>
+                        <table>
+                            <tr>
+                                <th>Sno</th>
+                                <th>Name</th>
+                                <th>Frequency</th>
+                                <th>Duration</th>
+                                <th>Instruction</th>
+                            </tr>
                             <% prescription.medicines.forEach(medicine => {%>
-                            <div>
-                                <p><span><%= medicine.name %></span></p>
-                                <div style="float:left"><p><%= medicine.dosage %> time(s) a day x <%= medicine.duration %> days</p></div>
-                                <div style="float:right"><p><%= medicine.instruction %></p></div>
-                                <div class="clear"></div>
-                                <br>
+                                <tr>
+                                    <td>1</td>
+                                    <td><%= medicine.name %></td>
+                                    <td><%= medicine.dosage %></td>
+                                    <td><%= medicine.duration %></td>
+                                    <td><%= medicine.instruction %></td>
+                                </tr>
                             <%  });%>
-                            </div>
-                        <% }%>
-                    </div>
-
-                    <hr>
-                    <div class="info" style="text-align: left">
-                        <p><span>Additional remarks:</span> <%= prescription.remarks %></p>
-                        <br>
-                    </div>
-
-                    <div class="info" style="float:right;margin-top:10%">
+                        </table>
+                    <% }%>
+                </div>
+                <br><br>
+                <div>
+                    <b>Additional Remarks:</b><br>
+                    <%= prescription.remarks %>
+                </div>
+                <div>
+                    <span style="float:right;">
                         <% if (typeof prescription.doctor.digitalSign.data !== 'undefined') {
                             var image = Buffer.from(prescription.doctor.digitalSign.data).toString('base64');
                             var type = prescription.doctor.digitalSign.contentType;
                         }%>
-                        <img style="width:35px;height:35px;" src="data:<%= type %>;base64,<%= image %>" /> 
-                        <p> Doctor's Signature<br>
-                        <%= prescription.issuingDate %></p>
-                    </div>
-                    <div class="clear"></div>
-
-                <% } %>
-            </div>
+                        <img style="width:70px;height:40px;" src="data:<%= type %>;base64,<%= image %>"><br>
+                        <b>Dr. <%= prescription.doctor.name %></b><br>
+                        <%= prescription.issuingDate.toDateString()%>
+                    </span>
+                </div>
+                <hr>
+                <div style="display:table; width:100%">
+                    <span style="display:table-cell;text-align: center;width:33%">
+                        <b><i class="fa fa-envelope-o" aria-hidden="true"></i></b><br>
+                        <a style="color: grey;" href = "mailto: webdoc.2019@gmail.com">webdoc.2019@gmail.com</a>
+                    </span>
+                    <span style="display:table-cell;text-align: center;">
+                        <b><i class="fa fa-phone" aria-hidden="true"></i></b><br>
+                        <a style="color: grey;" href="tel:123-456-7890">123-456-7890</a>
+                    </span>
+                    <span style="display:table-cell;text-align: center;">
+                        <b><i class="fa fa-clock-o" aria-hidden="true"></i></b><br>
+                        We are available 24 x 7!
+                    </span>
+                </div>
+            <% } %>
         </div>
     </body>
 </html>

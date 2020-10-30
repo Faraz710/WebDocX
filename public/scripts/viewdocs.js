@@ -57,5 +57,48 @@ function scrollFunction() {
       }
 }
 
+function slide(){
+  if(document.getElementById('arr').className=="fa fa-chevron-left"){
+  document.getElementById('option').style.display='block';
+  document.getElementById('sl').style.right="50px";
+  document.getElementById('arr').className="fa fa-chevron-right";
+  }
+  else{
+    document.getElementById('option').style.display='none';
+    document.getElementById('sl').style.right="0px";
+    document.getElementById('arr').className="fa fa-chevron-left";
+  }
+}
+
+
+function filter(n){
+  var min=document.getElementById('mine').value;
+  var max=document.getElementById('maxe').value;
+  document.getElementById('echk').style.display="block";
+  document.getElementById('echk').checked = true;
+  document.getElementById('expchk').innerHTML=min+"-"+max;
+  var x;
+  min=parseInt(min);
+  max=parseInt(max);
+  for(var i=0;i<n;i++){
+    x=document.getElementById(i).children[0].children[1].children[2];
+    if(!(x.value>=min && x.value<=max)){
+      document.getElementById(i).style.display='none';
+    }
+    else{
+      document.getElementById(i).style.display='block';
+    }
+  }
+}
+
+function removefilter(n){
+  document.getElementById('echk').style.display="none";
+  document.getElementById('echk').checked = false;
+  document.getElementById('expchk').innerHTML="";
+  for(var i=0;i<n;i++){
+      document.getElementById(i).style.display='block';
+  }
+}
+
 
 
