@@ -63,26 +63,28 @@
 		<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 	</form>
 </div>
-<div id="drop" class="dropdiv">
-	<button id="cardiology" >Cardiology</button>
-	<button id="nephrology">Nephrology</button>
-	<button id="urology">Urology</button>
-	<button id="neurology">Neurology</button>
-</div>
+<span id="drop" class="dropdiv" style="overflow:scroll; height:200px;">
+	<button onclick="opt('cardiology')" id="cardiology" >Cardiology</button>
+	<button onclick="opt('nephrology')" id="nephrology">Nephrology</button>
+	<button onclick="opt('urology')" id="urology">Urology</button>
+	<button onclick="opt('neurology')" id="neurology">Neurology</button>
+	<button onclick="opt('imunnology')" id="immunology">Immunology</button> 
+	<button onclick="opt('anesthesiology')" id="anesthesiology">Anesthesiology</button> 
+	<button onclick="opt('dermatology')" id="dermatology">Dermatoloy</button> 
+	<button onclick="opt('endocrinology')" id="endocrinology">Endocrinology</button> 
+	<button onclick="opt('gastroenteroloy')" id="gastroenteroloy">Gastroenteroloy</button> 
+	<button onclick="opt('hepatology')" id="hepatology">Hepatology</button> 
+	<button onclick="opt('gynecology')" id="gynecology">Gynecology</button> 
+	<button onclick="opt('pathology')" id="pathology">Pathology</button> 
+	<button onclick="opt('pulmonology')" id="pulmonology">Pulmonology</button> 
+	<button onclick="opt('psycology')" id="psychology">Psychology</button> 
+	<button onclick="opt('otology')" id="otology">Otology</button>
+</span>
 <!--Viewdocs links-->
 <script>
-	document.getElementById("cardiology").onclick = function () {
-	location.href = "/view/doctors/page/1/?speciality=cardiology";
-	};
-	document.getElementById("nephrology").onclick = function () {
-	location.href = "/view/doctors/page/1/?speciality=nephrology";
-	};
-	document.getElementById("urology").onclick = function () {
-	location.href = "/view/doctors/page/1/?speciality=urology";
-	};
-	document.getElementById("neurology").onclick = function () {
-	location.href = "/view/doctors/page/1/?speciality=neurology";
-	};
+	function opt(s){
+			location.href = "/view/doctors/page/1/?speciality="+s;
+		}
 </script>
 <!--user notification-->
 <div style="left:200px;width:400px;" id="unotification" class="dropdiv">

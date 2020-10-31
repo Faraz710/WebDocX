@@ -55,7 +55,7 @@ router.post("/generate/:consultationId", function(req, res) {
 router.get("/view/:prescriptionId", function(req, res) {
 	Prescription.findOne({_id: req.params.prescriptionId}, function(err, prescription) {
 		const logo = fs.readFileSync('./public/images/logo.png').toString('base64');
-		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo}, (err, template) => {
+		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo});/*, (err, template) => {
 			if (err) {
 		        req.flash("error", err.message);
 				res.redirect("/prescription/generate");
@@ -94,7 +94,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 					});
 				});
 		    }
-		});
+		});*/
 	});
 });
 

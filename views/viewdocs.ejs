@@ -59,31 +59,46 @@
 		</form>
 		
 	</div>
-	<button style="background-color:black;border-width:0px;font-size:large;border-radius:50px;color:white;right:1%;position:fixed;z-index: 1;"><i class="fa fa-filter" aria-hidden="true"></i></button></div>
-	<div style="background-color:white;border-width:0px;font-size:large;color:black;right:1%;position:fixed;z-index: 1;">
+	<button id="sl" class="slider" onclick="slide()" style="right:0%;top:60px;width:40px;display:hidden;color:white;position:fixed;"><i id="arr" class="fa fa-chevron-left" aria-hidden="true"></i></button>
+	<div id="option" class="slider" style="right:0%;top:60px;height:100px;width:50px;display:none;border-top-left-radius: 0px;" >
+		<button onclick="document.getElementById('filter').style.display='block'" style="background-color:black;border-width:0px;font-size:large;border-radius:10px;color:white;width:100%;border-top-left-radius: 0px;"><i class="fa fa-filter" aria-hidden="true"></i></button>
+	</div>
+	<div id="filter" class="slider" style="right:0%;top:60px;width:150px;display:none;" >
+		<div style="padding:20px;">
+			<b>Experience</b><br><br>
+			Min:&nbsp;<input type="number" value="1" id="mine" style="width:60%;padding: 5px 15px;margin: 0px 0px 0px 0px;border: none;background: #f1f1f1;"><br><br>
+			Max:<input type="number" value="40" id="maxe" style="width:60%;padding: 5px 15px;margin: 0px 0px 0px 0px;border: none;background: #f1f1f1;"><br><br>
+			<button class="card" onclick="filter('<%=docs.length%>')" style="border-width: 0px;width:100%;border-radius:10px;"><b>Filter</b></button>
+			<button class="card" onclick="document.getElementById('filter').style.display='none';" style="background-color:red;border-width: 0px;width:100%;border-radius:10px;"><b>Close</b></button>
+			<br><br>
+			<input style="display:none;float:left;" onclick="removefilter('<%=docs.length%>')" type="checkbox" id="echk">
+			<label id="expchk"></label><br>
+		</div>
 		
 	</div>
 	<!--speciality option-->
-	<div id="drop"class="dropdiv">
-		<button id="cardiology">Cardiology</button>
-		<button id="nephrology">Nephrology</button>
-		<button id="urology">Urology</button>
-		<button id="neurology">Neurology</button>
-	</div>
+	<span id="drop" class="dropdiv" style="overflow:scroll; height:200px;">
+		<button onclick="opt('cardiology')" id="cardiology" >Cardiology</button>
+		<button onclick="opt('nephrology')" id="nephrology">Nephrology</button>
+		<button onclick="opt('urology')" id="urology">Urology</button>
+		<button onclick="opt('neurology')" id="neurology">Neurology</button>
+		<button onclick="opt('imunnology')" id="immunology">Immunology</button> 
+		<button onclick="opt('anesthesiology')" id="anesthesiology">Anesthesiology</button> 
+		<button onclick="opt('dermatology')" id="dermatology">Dermatoloy</button> 
+		<button onclick="opt('endocrinology')" id="endocrinology">Endocrinology</button> 
+		<button onclick="opt('gastroenteroloy')" id="gastroenteroloy">Gastroenteroloy</button> 
+		<button onclick="opt('hepatology')" id="hepatology">Hepatology</button> 
+		<button onclick="opt('gynecology')" id="gynecology">Gynecology</button> 
+		<button onclick="opt('pathology')" id="pathology">Pathology</button> 
+		<button onclick="opt('pulmonology')" id="pulmonology">Pulmonology</button> 
+		<button onclick="opt('psycology')" id="psychology">Psychology</button> 
+		<button onclick="opt('otology')" id="otology">Otology</button>
+	</span>
 	<!--Viewdocs links-->
 	<script>
-		document.getElementById("cardiology").onclick = function () {
-    	location.href = "/view/doctors/page/1/?speciality=cardiology";
-		};
-		document.getElementById("nephrology").onclick = function () {
-    	location.href = "/view/doctors/page/1/?speciality=nephrology";
-		};
-		document.getElementById("urology").onclick = function () {
-    	location.href = "/view/doctors/page/1/?speciality=urology";
-		};
-		document.getElementById("neurology").onclick = function () {
-    	location.href = "/view/doctors/page/1/?speciality=neurology";
-		};
+		function opt(s){
+			location.href = "/view/doctors/page/1/?speciality="+s;
+		}
 	</script>
 	<!--user notification-->
 	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
@@ -166,7 +181,7 @@
 	</div>
 	<div class="row">
 		<% for (var i = 0; i < docs.length; i++) { %>
-		<div class="column">
+		<div id="<%=i%>" class="column">
 			<% var image = docs[i].profilePic.data.toString('base64'); %>
 			<% var type = docs[i].profilePic.contentType; %>
 			<div class="col-container card">
@@ -174,7 +189,7 @@
 				<div align="center">
 					<h2 align="center" style="margin:5px;">Dr. <%= docs[i].name %></h2>
 					<h4 style="margin:2px;">(<%= docs[i].qualification %>)</h4>
-					<button class="buttongreen borderless"><%= docs[i].experience %> Years Exp</button>
+					<button class="buttongreen borderless" value="<%= docs[i].experience %>"><%= docs[i].experience %> Years Exp</button>
 					<h4 class="title">Speciality: <%= docs[i].speciality %></h4>
 					<a href="#" class="fa fa-facebook"></a>
 					<a href="#" class="fa fa-twitter"></a>
@@ -241,7 +256,13 @@
 		}
 	location.href = "/view/doctors/page/"+n+"/?speciality="+x.substring(v+1,x.length);
 	}
+
 </script>
+
+<!--filter option form-->
+
+
+
 <button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>
 </body>
 </html>

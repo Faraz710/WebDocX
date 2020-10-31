@@ -268,3 +268,16 @@ html {
   .form-container .btn:hover, .open-button:hover {
 	opacity: 1;
   }
+
+  .slider{
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	background-color:black;
+	border-width:0px;
+	font-size:large;
+	color:white;
+	position:fixed;
+	z-index: 1;
+	width:100px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
