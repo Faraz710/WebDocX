@@ -40,7 +40,10 @@
         <div>
             <% if (prescription) { %>
                 <div>
-                    <img id="logo" src="/images/logo.png" alt="Webdocx">
+                    <img id="logo" src="data:image/png;base64,<%= logoBuffer %>" alt="Webdocx">
+                    <span>
+                        <h2>WebDocX.</h2>
+                    </span>
                     <span style="float:right;">
                         <b>
                         Dr. <%= prescription.doctor.name %><br>

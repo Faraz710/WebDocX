@@ -55,21 +55,16 @@ router.post("/generate/:consultationId", function(req, res) {
 router.get("/view/:prescriptionId", function(req, res) {
 	Prescription.findOne({_id: req.params.prescriptionId}, function(err, prescription) {
 		const logo = fs.readFileSync('./public/images/logo.png').toString('base64');
-		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo});/*, (err, template) => {
+		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo}, (err, template) => {
 			if (err) {
 		        req.flash("error", err.message);
 				res.redirect("/prescription/generate");
 		    } 
 		    else {
 		    	const options = {
-		            "height": "9.25in",
-		            "width": "8.5in",
-		            "header": {
-		                "height": "2mm"
-		            },
-		            "footer": {
-		                "height": "2mm",
-		            },
+		            "height": "10.5in",
+					"margin-bottom": "0in",
+		            "width": "8in"
 		        };
 		        pdf.create(template, options).toBuffer(function(err, buffer) {
 				 	Prescription.updateOne({_id: req.params.prescriptionId}, {
@@ -94,7 +89,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 					});
 				});
 		    }
-		});*/
+		});
 	});
 });
 

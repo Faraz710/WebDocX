@@ -1,3 +1,25 @@
+function loaded()
+{
+  var x = location.href;
+	var par=x.split('?')[1];
+  var par_arr=par.split('&');
+  for(var i=0;i<par_arr.length;i++)
+  {
+    var ap=par_arr[i].split('=');
+    if(ap[0]=='lte')
+    {
+      var max=ap[1];
+      document.getElementById('echk').style.display="block";
+      document.getElementById('echk').checked = true;
+    }
+    else if(ap[0]=='gte')
+    {
+      var min=ap[1];
+      document.getElementById('expchk').innerHTML=min+"-"+max;
+    }
+  }
+}
+
 function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -71,34 +93,57 @@ function slide(){
 }
 
 
-function filter(n){
+function filter(){
   var min=document.getElementById('mine').value;
   var max=document.getElementById('maxe').value;
-  document.getElementById('echk').style.display="block";
-  document.getElementById('echk').checked = true;
-  document.getElementById('expchk').innerHTML=min+"-"+max;
-  var x;
   min=parseInt(min);
   max=parseInt(max);
-  for(var i=0;i<n;i++){
-    x=document.getElementById(i).children[0].children[1].children[2];
-    if(!(x.value>=min && x.value<=max)){
-      document.getElementById(i).style.display='none';
-    }
-    else{
-      document.getElementById(i).style.display='block';
+  var x = location.href;
+	var par=x.split('?')[1];
+  var par_arr=par.split('&');
+  var ck=0;
+  for(var i=0;i<par_arr.length;i++)
+  {
+    var ap=par_arr[i].split('=');
+    if(ap[0]=='lte'){
+      ck=1;
     }
   }
+  var r=new RegExp(/\/[0-9]+\//gm);
+  x=x.replace(r,'/1/');
+  if(ck==0){
+    location.href = x+'&lte='+max+'&gte='+min;
+  }
+  else{
+    var r1=new RegExp(/&lte\=[0-9]+/gm);
+    x=x.replace(r1,'&lte='+max);
+    var r2=new RegExp(/&gte\=[0-9]+/gm);
+    x=x.replace(r2,'&gte='+min);
+    location.href=x;
+  }
+  
 }
 
-function removefilter(n){
-  document.getElementById('echk').style.display="none";
-  document.getElementById('echk').checked = false;
-  document.getElementById('expchk').innerHTML="";
-  for(var i=0;i<n;i++){
-      document.getElementById(i).style.display='block';
-  }
+function removefilter(){
+  var x = location.href;
+  var r1=new RegExp(/&lte\=[0-9]/gm);
+  x=x.replace(r1,'');
+  var r2=new RegExp(/&gte\=[0-9]/gm);
+  x=x.replace(r2,'');
+  var r=new RegExp(/\/[0-9]+\//gm);
+  x=x.replace(r,'/1/');
+  location.href=x;
 }
+
+
+	function pagination(n){
+		var x = location.href;
+		var v;
+		var r=new RegExp(/\/[0-9]+\//gm);
+		v=x.replace(r,'/'+n+'/');
+		location.href =v;
+	}
+
 
 
 
