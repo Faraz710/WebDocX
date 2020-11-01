@@ -67,9 +67,23 @@
 		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ if(!currentAccount.notifications[i].seen){ co++;%>
 		<div class="unotification" id="n<%=i%>">
 			<%= currentAccount.notifications[i].message%>
-			<form id="noti<%=i%>" action="/dashboardPat/read/<%= currentAccount.notifications[i]._id%>" method="post" >
-			<span id="close" onclick="document.getElementById('noti<%=i%>').submit();" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
+			<form id="noti<%=i%>">
+			<span id="close" onclick="sub('<%= currentAccount.notifications[i]._id%>','n<%=i%>')" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
 			</form>
+				<script>
+					function sub(n_id,nid){
+						var xhttp = new XMLHttpRequest();
+						xhttp.onreadystatechange = function() {
+						  if (this.readyState == 4 && this.status == 200) {
+							document.getElementById(nid).style.display="none";
+							var cc=parseInt(document.getElementById('count').innerHTML)-1;
+							document.getElementById('count').innerHTML=cc;
+						  }
+						};
+						  xhttp.open("POST", "/dashboardDoc/read/"+n_id, true);
+						  xhttp.send();
+						  }
+				</script>
 			<% 
 					var tdat= new Date().getDate();
 					var tday= new Date().getDay();

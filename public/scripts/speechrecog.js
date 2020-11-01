@@ -1,3 +1,4 @@
+const { search } = require("../../routes/viewdocs");
 
 			/* JS comes here */
 		    function runSpeechRecognition() {
@@ -30,4 +31,7 @@
               
                  // start recognition
                  recognition.start();
+
+                 document.getElementById('searchdiv').style.display='block';
+                 document.getElementById('sv').innerHTML=document.getElementById('search').value;
 	        }
