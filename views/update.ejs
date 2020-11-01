@@ -36,19 +36,19 @@
 	  </div>
 
 	<div class="topnav">
-		<button id="dash" style="float:left">Dashboard</button>
+		<button id="dash" style="float:left"><i class="fa fa-home" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardDoc";
 			};
 		</script>
-		<button class="dropdown" style="background-color:white;color:black;float:left;">Update</button>
+		<button class="dropdown" style="background-color:white;color:black;float:left;"><i class="fa fa-user" aria-hidden="true"></i></button>
 		<button id="not" onclick="notdrop()"type="button" style="position:relative;width:70px;"><i class="fa fa-bell-o" aria-hidden="true"></i><span id="count" class="counter"><%= myAccount.notifications.length%></span></button>
 		<span id="lg" style="clear:both; position:absolute;top:15px;left:40%;">
 			<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 			<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
 			</span>
-		<button style="float:right;" id="logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+		<button style="float:right;" id="logout"><i class="fa fa-power-off" aria-hidden="true"></i></button>
 		<script>
 			document.getElementById("logout").onclick = function () {
 			location.href = "/logout";
@@ -62,28 +62,38 @@
 	</div>
 
 	<!--user notification-->
-	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
-		<b>&nbsp;&nbsp;Notifications</b>
-		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ if(!currentAccount.notifications[i].seen){ co++;%>
-		<div class="unotification" id="n<%=i%>">
-			<%= currentAccount.notifications[i].message%>
-			<form id="noti<%=i%>">
-			<span id="close" onclick="sub('<%= currentAccount.notifications[i]._id%>','n<%=i%>')" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
-			</form>
+	<div style="left:160px;width:400px; padding:10px;overflow:scroll; max-height:400px;" id="unotification" class="dropdiv">
+		<b style="margin:20px;">Notifications</b>
+		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){if(!currentAccount.notifications[i].seen){ co++;%>
+			<div class="unotification" id="n<%=i%>">
+				<b id="urm<%=i%>"><%= currentAccount.notifications[i].message%></b>
+				<span id="rm<%=i%>" style="display:none;"><%= currentAccount.notifications[i].message%></span>
+				<form id="noti<%=i%>">
+				<span id="close" onclick="sub('<%= currentAccount.notifications[i]._id%>','<%=i%>')" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
+				</form>
 				<script>
 					function sub(n_id,nid){
 						var xhttp = new XMLHttpRequest();
 						xhttp.onreadystatechange = function() {
 						  if (this.readyState == 4 && this.status == 200) {
-							document.getElementById(nid).style.display="none";
 							var cc=parseInt(document.getElementById('count').innerHTML)-1;
 							document.getElementById('count').innerHTML=cc;
+							document.getElementById('noti'+nid).style.display='none';
+							document.getElementById('urm'+nid).style.display='none';
+							document.getElementById('rm'+nid).style.display='block';
+							document.getElementById('m'+nid).style.display='none';
 						  }
 						};
 						  xhttp.open("POST", "/dashboardDoc/read/"+n_id, true);
 						  xhttp.send();
 						  }
 				</script>
+				<!--<span id="m<%=i%>" style="position:absolute;top:45%;right:2%;float:right;color:rgb(59, 40, 231);"><i class="fa fa-circle" aria-hidden="true"></i></span>-->
+				<%} else{%>
+					<div class="unotification" id="n<%=i%>">
+					<%= currentAccount.notifications[i].message%>
+				<%}%>
+			
 			<% 
 					var tdat= new Date().getDate();
 					var tday= new Date().getDay();
@@ -113,7 +123,7 @@
 						m=m+0;
 						var p= tm-m;
 						p=p.toString();
-						p=p+"m";
+						p=p+"month";
 					}
 					else if(tdat!=dat)
 					{
@@ -152,7 +162,7 @@
 				<span style="float:left;color:grey"><%= p %> ago</span>
 		</div>
 
-		<% }%><script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
+		<script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
 	</div>
 
 		<% if (typeof myAccount.profilePic.data !== 'undefined') {

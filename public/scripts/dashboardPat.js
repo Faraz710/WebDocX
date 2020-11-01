@@ -92,3 +92,18 @@ function chk(event){
   }
   }
 }
+
+function sb(n){
+  if(n=="m"){
+    document.getElementById('msg').style.display="block";
+    document.getElementById('pres').style.display="none";
+    document.getElementById('mi').style.backgroundColor="rgb(219, 212, 212)";
+    document.getElementById('pi').style.backgroundColor="transparent";
+  }
+  else if(n=="p"){
+    document.getElementById('msg').style.display="none";
+    document.getElementById('pres').style.display="block";
+    document.getElementById('pi').style.backgroundColor="rgb(219, 212, 212)";
+    document.getElementById('mi').style.backgroundColor="transparent";
+  }
+}

@@ -41,7 +41,7 @@
             <% if (prescription) { %>
                 <div>
                     <img id="logo" src="data:image/png;base64,<%= logoBuffer %>" alt="Webdocx">
-                    <span>
+                    <span align="center">
                         <h2>WebDocX.</h2>
                     </span>
                     <span style="float:right;">
@@ -57,7 +57,7 @@
                     <span style="float:left;">
                         <b>Name:</b><%= prescription.patient.name %><br>
                         <b>Age:</b><%= prescription.patient.age %><br>
-                        <b>Gender:</b><%= prescription.patient.gender %>
+                        <b>Gender:</b><%= prescription.patient.sex %>
                     </span>
                     <span style="float:right;">
                         <b>Prescription Id:</b><%= prescription._id %><br>
