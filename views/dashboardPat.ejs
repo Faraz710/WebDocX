@@ -35,15 +35,15 @@
     <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
 	<div class="topnav">
-		<button id="dash" style="background-color:white;color:black; ">Dashboard</button>
-		<button id="doc" onclick="docdrop()">Doctors <i class="fa fa-caret-down"></i></button>
+		<button id="dash" style="background-color:white;color:black;"><i class="fa fa-home" aria-hidden="true"></i></button>
+		<button id="doc" onclick="docdrop()"><i class="fa fa-user-md" aria-hidden="true"></i> <i class="fa fa-caret-down"></i></button>
 		<button id="not" onclick="notdrop()"type="button" style="position:relative;width:70px;"><i class="fa fa-bell-o" aria-hidden="true"></i><span id="count" class="counter"></span></button>
 		
 		<span id="lg" style="clear:both; position:absolute;top:15px;left:40%;">
 		<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 		<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
 		</span>
-		<button id="logout" style="float:right;">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></button>
+		<button id="logout" style="float:right;"><i class="fa fa-power-off" aria-hidden="true"></i></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardPat";
@@ -65,19 +65,19 @@
 		<span onclick="document.getElementById('searchdiv').style.display='none'" style="position:absolute;right:10px;top:5px;"><i class="fa fa-times" aria-hidden="true"></i></span>
 		<div class="radio-toolbar">
 			<input type="radio" id="name" name="sopt" value="name" checked>
-			<label for="name">Name</label>
+			<label for="name">NAME</label>
 		
 			<input type="radio" id="speciality" name="sopt" value="speciality">
-			<label for="speciality">Speciality</label>
+			<label for="speciality">SPECIALITY</label>
 		
-			<input type="radio" id="xxxx" name="sopt" value="xxxx">
-			<label for="xxxx">xxxx</label> 
+			<input type="radio" id="mail" name="sopt" value="mail">
+			<label for="mail">MAIL</label> 
 
-			<input type="radio" id="yy" name="sopt" value="yy">
-			<label for="yy">yy</label>
+			<input type="radio" id="qualifications" name="sopt" value="qualifications">
+			<label for="qualifications">QUALIFICATIONS</label>
 
-			<input type="radio" id="zzzzzzz" name="sopt" value="zzzzzzz">
-			<label for="zzzzzzz">zzzzzzz</label>
+			<input type="radio" id="tags" name="sopt" value="tags">
+			<label for="tags">TAG</label>
 			
 		</div>
 
@@ -112,28 +112,17 @@
 		}
 	</script>
 	<!--user notification-->
-	<div style="left:200px;width:400px;" id="unotification" class="dropdiv">
-		<b>&nbsp;&nbsp;Notifications</b>
-		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){ if(!currentAccount.notifications[i].seen){ co++;%>
-		<div class="unotification" id="n<%=i%>">
-			<%= currentAccount.notifications[i].message%>
-			<form id="noti<%=i%>">
-			<span id="close" onclick="sub('<%= currentAccount.notifications[i]._id%>','n<%=i%>')" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
-			</form>
-				<script>
-					function sub(n_id,nid){
-						var xhttp = new XMLHttpRequest();
-						xhttp.onreadystatechange = function() {
-						  if (this.readyState == 4 && this.status == 200) {
-							document.getElementById(nid).style.display="none";
-							var cc=parseInt(document.getElementById('count').innerHTML)-1;
-							document.getElementById('count').innerHTML=cc;
-						  }
-						};
-						  xhttp.open("POST", "/dashboardPat/read/"+n_id, true);
-						  xhttp.send();
-						  }
-				</script>
+	<div style="left:160px;width:400px; padding:10px;overflow:scroll; max-height:400px;" id="unotification" class="dropdiv">
+		<b style="margin:20px;">Notifications</b>
+		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){if(!currentAccount.notifications[i].seen){ co++;%>
+			<div onclick="sub('<%= currentAccount.notifications[i]._id%>','<%=i%>')" class="unotification" id="n<%=i%>">
+				<b id="urm<%=i%>"><%= currentAccount.notifications[i].message%></b>
+				<span id="rm<%=i%>" style="display:none;"><%= currentAccount.notifications[i].message%></span>
+				<%} else{%>
+					<div class="unotification" id="n<%=i%>">
+					<%= currentAccount.notifications[i].message%>
+				<%}%>
+			
 			<% 
 					var tdat= new Date().getDate();
 					var tday= new Date().getDay();
@@ -163,7 +152,7 @@
 						m=m+0;
 						var p= tm-m;
 						p=p.toString();
-						p=p+"m";
+						p=p+"month";
 					}
 					else if(tdat!=dat)
 					{
@@ -201,7 +190,23 @@
 					<br>
 				<span style="float:left;color:grey"><%= p %> ago</span>
 		</div>
-		<% }%><script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
+		<script>
+			function sub(n_id,nid){
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+				  if (this.readyState == 4 && this.status == 200) {
+							var cc=parseInt(document.getElementById('count').innerHTML)-1;
+							document.getElementById('count').innerHTML=cc;
+							document.getElementById('noti'+nid).style.display='none';
+							document.getElementById('urm'+nid).style.display='none';
+							document.getElementById('rm'+nid).style.display='block';
+				  }
+				};
+				  xhttp.open("POST", "/dashboardPat/read/"+n_id, true);
+				  xhttp.send();
+				  }
+		</script>
+		<script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
 	</div>
 	<div class="col-container">
 		<div class="col" style="position:relative;width:20%;">
@@ -222,7 +227,7 @@
 			</div>
 			<br><br><br><br><br><br><br><br><br><br><br><br>
 				<div align="center">
-					<a  href="/posts" style="color:black;"><b>My Posts</b></a><br><br>
+					<a  href="/posts" style="color:grey;"><b>My Posts</b></a><br><br>
 				</div>
 		</div>
 		<div class="col" id="update" style=" width:50%;" >
@@ -270,14 +275,19 @@
 				<button id="sub" type="button" class="sub">Post</button>
 			</form>
 		</div>
-		<div class="col" id="pres" style=" width:20%;">
-			<h1>Prescriptions</h1>
+		<div class="col" style=" width:20%;">
+			<div style="width:100%;display:table">
+				<h1 id="mi" onclick="sb('m')" align="center" style="display:table-cell;background-color: rgb(219, 212, 212);padding:5px;border-radius: 10px;"><i class="fa fa-comments" aria-hidden="true"></i></h1>
+				<h1 id="pi" onclick="sb('p')" align="center" style="display:table-cell;padding:5px;border-radius: 10px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></h1>
+			</div>
+			<br>
+			<div id="pres" style="display:none;">
 				<% 	if (prescriptions.length > 0) {
 					prescriptions.forEach(prescription => {
 						var pdf = prescription.pdf.data.toString('base64');
 						var type = prescription.pdf.contentType;
 						if (typeof prescription.pdf.data !== 'undefined') { %>
-							<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
+							<div class="card" style="clear:both;margin-bottom: 10px;border-radius: 10px;padding:20px;">
 							<b>Dr.<%=prescription.doctor.name%></b>
 							<a href="data:<%= type %>;base64,<%= pdf %>" style="float:right;" download><i class="fa fa-arrow-down" aria-hidden="true"></i> </a><br>
 							<span style="color:grey;"><%=prescription.issuingDate.toDateString();%></span>
@@ -291,6 +301,12 @@
 						<b>No Prescriptions to Show</b>
 					</div>
 				<%}%>
+			</div>
+			<div id="msg" >
+				<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
+					<b>Messaging is not activated yet</b>
+				</div>
+			</div>
 		</div>
 	</div>
 <button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>

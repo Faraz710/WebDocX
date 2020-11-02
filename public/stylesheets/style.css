@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
 body {
   font-family: Arial;
   margin:0;
