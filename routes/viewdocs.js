@@ -35,9 +35,12 @@ router.get("/page/:page_no/*", function(req, res) {
 		        }
         	});
         }
-        //Skip previous profiles as per page no.
         //Limit to 9 profiles per page
-	}).limit(9).skip(9 * (req.params.page_no - 1));
+	}).limit(9)
+       //Skip previous profiles as per page no.
+	  .skip(9 * (req.params.page_no - 1))
+	  //accomodate case sensitivity
+	  .collation({locale: 'en', strength: 2});
 });
 
 module.exports = router;

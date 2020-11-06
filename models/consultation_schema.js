@@ -27,20 +27,31 @@ const consultationSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Patient'
 	},
-	messages: [{
+	chat: [{
 		message: {
-			type: String
+			type: Schema.Types.Mixed
+		},
+		type: {
+			type: String,
+			default: 'text'
+		},
+		from: {
+			type: Schema.Types.ObjectId
 		},
 		time: {
 			type: Date,
-    		default: Date.now
+			default: Date.now
+		},
+		read: {
+			type: Boolean,
+			default: false
 		}
 	}],
-	solved: {
+	isSolved: {
 		type: Boolean,
 		default: false
 	},
-	publish: {
+	isAccepted: {
 		type: Boolean,
 		default: false
 	}

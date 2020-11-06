@@ -71,7 +71,7 @@ router.post("/edit/:postId", auth.isPatient, function(req, res) {
 			}
 	});
 });
-/*
+
 //Doctor accept problem post
 router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, res) {
 	const newConsultation = new Consultation({
@@ -81,16 +81,17 @@ router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, re
 		},
 		symptoms: req.body.symptoms,
 		description: req.body.description,
-		doctorId: req.user._id,
-		patientId: req.body.patientId
+		isAccepted: true,
+		doctor: req.user._id,
+		patient: req.body.patientId
 	});
 	newConsultation.save().then(() => {
 		//Notify patient about accepted consultation
 		const newNotification = {
-			message: `Your consultation post regarding the problem: ${req.body.problem.issue} has been accepted by ${req.user.name}. A new consultation has been established for you.`
+			message: `Your consultation post regarding the problem: ${req.body.title} has been accepted by ${req.user.name}. A new consultation has been established for you.`
 		};
 
-		Patient.updateOne({_id: req.body.patientId}, { 
+		Patient.findOneAndUpdate({_id: req.body.patientId}, { 
 			$push: {
 				notifications: newNotification 
 			}
@@ -113,6 +114,6 @@ router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, re
   		req.flash("error", err.message);
 	    res.redirect("/dashboardDoc");
   	});
-});*/
+});
 
 module.exports = router;

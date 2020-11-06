@@ -16,6 +16,7 @@ const viewdocs = require('./routes/viewdocs');
 const update = require('./routes/update');
 const consult = require('./routes/consult');
 const post = require('./routes/post');
+const chat = require('./routes/chat');
 const dashboardDoc = require('./routes/dashboardDoc');
 const dashboardPat = require('./routes/dashboardPat');
 const resetPassword = require('./routes/resetPassword');
@@ -143,8 +144,11 @@ app.use("/update", update);
 //Add new post
 app.use("/posts", post);
 
-//Consult a doctor
-app.use("/consult", consult);
+//Consultation request handling
+app.use("/consult/request", consult);
+
+//Chat platform
+app.use("/consultation", chat);
 
 //Generate prescription
 app.use("/prescription", prescription);

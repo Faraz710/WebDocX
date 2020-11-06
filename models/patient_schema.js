@@ -24,6 +24,9 @@ const patientSchema = new Schema({
       type: Boolean,
       default: false
     },
+    url: {
+      type: String
+    },
     time: {
       type: Date,
       default: Date.now
