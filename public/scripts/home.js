@@ -1,6 +1,3 @@
-
-
-
 function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -110,4 +107,24 @@ function myFunction(fid) {
 
 function loginerror(n){
   document.getElementById('notification').innerHTML="Found It<br>";
+}
+
+function gender(n)
+{
+  if(document.getElementById('type'+n).checked){
+  document.getElementById('explain'+n).style.display='block';
+  }
+  else{
+    document.getElementById('explain'+n).style.display='none';
+  }
+}
+
+function v(n){
+  if(document.getElementById('genderinfo'+n).style.display=='block')
+  {
+    document.getElementById('genderinfo'+n).style.display='none';
+  }
+  else{
+    document.getElementById('genderinfo'+n).style.display='block';
+  }
 }

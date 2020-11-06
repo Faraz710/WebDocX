@@ -37,7 +37,10 @@
 	  </div>
 
 	  
-
+	  <% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+		var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+		var type = currentAccount.profilePic.contentType;
+	}%>
 
 	<div class="topnav">
 		<button id="dash" style="background-color:white;color:black;"><i class="fa fa-home" aria-hidden="true"></i></button>
@@ -47,16 +50,13 @@
 			<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 			<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
 			</span>
-		<button id="logout" style="float:right;"><i class="fa fa-power-off" aria-hidden="true"></i></button>
+			<button id="logdrop" onclick="logdrop()" style="float:right;"><img id="prof" class="avatar" style="width:40px;height:40px;" src="data:<%= type %>;base64,<%= image %>" /></button>
 		<script type="text/javascript">
 			document.getElementById("dash").onclick = function () {
 				location.href = "/dashboardDoc";
 			};
 			document.getElementById("update").onclick = function () {
 				location.href = "/update";
-			};
-			document.getElementById("logout").onclick = function () {
-				location.href = "/logout";
 			};
 		</script>
 		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
@@ -65,6 +65,17 @@
 			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
+
+	<!--Logout menu-->
+	<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
+		<button onclick="location.href='/update'" id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
+		<button id="" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
+		<button id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+	</span>
+	<script>
+	document.getElementById("logout").onclick = function () {
+		location.href = "/logout";
+	};</script>
 	
 	<!--user notification-->
 	<div style="left:160px;width:400px; padding:10px;overflow:scroll; max-height:400px;" id="unotification" class="dropdiv">
@@ -184,9 +195,9 @@
 				
 			</div>
 		</div>
-		<div class="col" style=" width:70%">
+		<div class="col" style=" width:50%;">
 			<% for (var i =posts.length-1 ; i >=0; i--) { %>
-		<div class="card" id="update" style=" position:relative;width:65%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
+			<div class="card" id="update" style=" position:relative;width:93%; margin-bottom: 10px;border-radius: 10px;padding:20px;">
 			<div>
 				<img class="avatar" style="width:50px;height:50px; float:left;" src="/images/patient.png" />
 				<h3 style="float:left;"><%= posts[i].patientName %></h3>
@@ -279,9 +290,22 @@
 				<span style="float:right;color:grey"><%= p %></span>
 			</div>
 			<!--<%= posts[i] %>-->
+			</div>
+			<% } %>
 		</div>
-		<% } %>
+
+		<div class="col" style=" width:20%;">
+			<div style="width:100%;display:table">
+				<h1 id="mi"  align="center" style="display:table-cell;background-color: rgb(219, 212, 212);padding:5px;border-radius: 10px;"><i class="fa fa-comments" aria-hidden="true"></i></h1>
+			</div>
+			<br>
+			<div id="msg" >
+				<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
+					<b>Messaging is not activated yet</b>
+				</div>
+			</div>
 		</div>
+		
 	</div>
 	<button onclick="topFunction()" id="myBtn" title="Go to top" style="visibility: hidden;"><b>&uarr;</b></button>
 </body>

@@ -126,9 +126,9 @@ function filter(){
 
 function removefilter(){
   var x = location.href;
-  var r1=new RegExp(/&lte\=[0-9]/gm);
+  var r1=new RegExp(/&lte\=[0-9]+/gm);
   x=x.replace(r1,'');
-  var r2=new RegExp(/&gte\=[0-9]/gm);
+  var r2=new RegExp(/&gte\=[0-9]+/gm);
   x=x.replace(r2,'');
   var r=new RegExp(/\/[0-9]+\//gm);
   x=x.replace(r,'/1/');

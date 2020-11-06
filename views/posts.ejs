@@ -36,6 +36,10 @@
 	<span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
 
+  <% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+	var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+	var type = currentAccount.profilePic.contentType;
+}%>
   
 <div class="topnav">
 	<button id="dash" ><i class="fa fa-home" aria-hidden="true"></i></button>
@@ -45,18 +49,12 @@
 		<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 		<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
 		</span>
-	<button id="logout" style="float:right;"><i class="fa fa-power-off" aria-hidden="true"></i></button>
-	<script type="text/javascript">
-		document.getElementById("dash").onclick = function () {
-			location.href = "/dashboardPat";
-		};
-		document.getElementById("update").onclick = function () {
-			location.href = "/update";
-		};
-		document.getElementById("logout").onclick = function () {
-			location.href = "/logout";
-		};
-	</script>
+		<button id="logdrop" onclick="logdrop()" style="float:right;"><img id="prof" class="avatar" style="width:40px;height:40px;" src="data:<%= type %>;base64,<%= image %>" /></button>
+		<script type="text/javascript">
+			document.getElementById("dash").onclick = function () {
+				location.href = "/dashboardPat";
+			};
+		</script>
 	<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
 	<span style="float:right;">
 		<input onfocus="searchs()" oninput="searchs()" type="text" placeholder="Search.." id="search" name="search" >
@@ -92,7 +90,18 @@
 </div>
 
 
-
+<!--Logout menu-->
+<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
+	<button id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
+	<button id="" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
+	<button onclick="location.href='/posts'" id="posts" ><i class="fa fa-th-list" aria-hidden="true"></i> Posts</button>
+	<button id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+</span>
+<script>
+document.getElementById("logout").onclick = function () {
+	location.href = "/logout";
+};</script>
+<!--Doctor speciality dropdown-->
 <span id="drop" class="dropdiv" style="overflow:scroll; height:200px;">
 	<button onclick="opt('cardiology')" id="cardiology" >Cardiology</button>
 	<button onclick="opt('nephrology')" id="nephrology">Nephrology</button>

@@ -35,6 +35,11 @@
 		<span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
 	  </div>
 
+	  <% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+		var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
+		var type = currentAccount.profilePic.contentType;
+	}%>
+
 	<div class="topnav">
 		<button id="dash" ><i class="fa fa-home" aria-hidden="true"></i></button>
 		<button id="doc" onclick="docdrop()" style="background-color:white;color:black;"><i class="fa fa-user-md" aria-hidden="true"></i><i class="fa fa-caret-down"></i></button>
@@ -43,14 +48,12 @@
 			<img src="/images/notext.png" alt="Webdocx" width="50px" height="20px">
 			<img id="textlogo" src="/images/text.png" alt="Webdocx" width="150px" height="20px">
 			</span>
-		<button id="logout" style="float:right;"><i class="fa fa-power-off" aria-hidden="true"></i></button>
-		<script type="text/javascript">
-			document.getElementById("dash").onclick = function () {
-				location.href = "/dashboardPat";
-			};
-			document.getElementById("logout").onclick = function () {
-				location.href = "/logout";
-			};
+			<button id="logdrop" onclick="logdrop()" style="float:right;"><img id="prof" class="avatar" style="width:40px;height:40px;" src="data:<%= type %>;base64,<%= image %>" /></button>
+			<script type="text/javascript">
+				document.getElementById("dash").onclick = function () {
+					location.href = "/dashboardPat";
+				};
+			</script>
 		</script>
 		<button type="button" style="float:right;width:50px;" onclick="runSpeechRecognition()"><i id="mic" class="fa fa-microphone"></i></button>
 		<span style="float:right;">
@@ -59,6 +62,19 @@
 		</span>
 		
 	</div>
+
+<!--Logout menu-->
+<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
+	<button id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
+	<button id="" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
+	<button onclick="location.href='/posts'" id="posts" ><i class="fa fa-th-list" aria-hidden="true"></i> Posts</button>
+	<button id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+</span>
+<script>
+document.getElementById("logout").onclick = function () {
+	location.href = "/logout";
+};</script>
+
 	<!--Search option-->
 	<div style="left:65%;width:400px;padding:20px;" id="searchdiv" class="dropdiv">
 		<span onclick="document.getElementById('searchdiv').style.display='none'" style="position:absolute;right:10px;top:5px;"><i class="fa fa-times" aria-hidden="true"></i></span>

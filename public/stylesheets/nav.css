@@ -1,3 +1,6 @@
+html {
+	scroll-behavior: smooth;
+  }
 body{
 	word-wrap: break-word;
 }
@@ -200,6 +203,7 @@ body{
 			background-color: rgb(197, 192, 192);
 		  }
   
+		  
 
 /* width 
 ::-webkit-scrollbar {

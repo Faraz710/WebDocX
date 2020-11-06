@@ -107,3 +107,12 @@ function sb(n){
     document.getElementById('mi').style.backgroundColor="transparent";
   }
 }
+
+
+function scrollleft() {
+  document.getElementById('special').scrollLeft += 600;
+}
+function scrollright() {
+  document.getElementById('special').scrollLeft -= 600;
+}
+
