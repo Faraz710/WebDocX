@@ -40,7 +40,7 @@ function scrollFunction() {
   // consultation form
 
   function openForm(name,id) {
-    document.getElementById("consultform").action = "/consultation/request/new/"+id;
+    document.getElementById("consultform").action = "/consult/request/new/"+id;
     document.getElementById("consult").style.display = "block";
     document.getElementById("name").innerHTML = "Dr. "+name;
     document.getElementById("ctag").value=1;

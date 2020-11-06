@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const Doctor = require('./doctor_schema');
 const Patient = require('./patient_schema');
-const Chat = require('./chat_schema');
 
 const consultationSchema = new Schema({
 	problem: {
@@ -28,10 +27,26 @@ const consultationSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Patient'
 	},
-	messages: {
-		type: Schema.Types.ObjectId,
-		ref: 'Chat'
-	},
+	chat: [{
+		message: {
+			type: Schema.Types.Mixed
+		},
+		type: {
+			type: String,
+			default: 'text'
+		},
+		from: {
+			type: Schema.Types.ObjectId
+		},
+		time: {
+			type: Date,
+			default: Date.now
+		},
+		read: {
+			type: Boolean,
+			default: false
+		}
+	}],
 	isSolved: {
 		type: Boolean,
 		default: false

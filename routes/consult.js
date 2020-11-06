@@ -8,34 +8,30 @@ const Consultation = require('../models/consultation_schema');
 //Doctor schema
 const Doctor = require('../models/doctor_schema');
 
-//Display requests
-router.get("/request/:consultationId", function(req, res) {
-	Consultation.find({doctor: req.user._id, isAccepted: false}, function(err, consultations) {
-		if(err) { 
-            req.flash("error", err.message);
-            res.redirect("/dashboardDoc");
-        }
-        else {
-        	res.send(consultations);
-        }
+//Display consultation requests list
+router.get("/", function(req, res) {
+	Consultation.find({doctor: req.user._id, isAccepted: false})
+	.populate('patient', 'name')
+	.populate('doctor', 'name')
+	.exec(function(err, consultations) {
+		console.log(consultations);
+		res.send(consultations)
 	});
 });
 
-//Display consultations
+//Display consultation request
 router.get("/:consultationId", function(req, res) {
-	Consultation.find({doctor: req.user._id, isAccepted: true}, function(err, consultations) {
-		if(err) { 
-            req.flash("error", err.message);
-            res.redirect("/dashboardDoc");
-        }
-        else {
-        	res.send(consultations);
-        }
+	Consultation.findOne({_id: req.params.consultationId, doctor: req.user._id, isAccepted: false})
+	.populate('patient', 'name')
+	.populate('doctor', 'name')
+	.exec(function(err, consultation) {
+		console.log(consultation);
+		res.send(consultation)
 	});
 });
 
 //Send new consultation request
-router.post("/request/new/:doctorId", auth.isPatient, function(req, res) {
+router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 	const newConsultation = new Consultation({
 		problem: {
 			issue: req.body.problem,
@@ -73,7 +69,7 @@ router.post("/request/new/:doctorId", auth.isPatient, function(req, res) {
 });
 
 //Turn consultation request to consultation when doctor accepts
-router.post("/request/accept/:consultationId", auth.isDoctor, auth.isActivated, function(req, res) {
+router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function(req, res) {
 	Consultation.findOneAndUpdate({_id: req.params.consultationId, doctor: req.user._id}, {
 			$set: 
 			{
@@ -108,7 +104,7 @@ router.post("/request/accept/:consultationId", auth.isDoctor, auth.isActivated, 
 });
 
 //Delete consultation when doctor rejects consultation request
-router.delete("/request/reject/:consultationId", auth.isDoctor, auth.isActivated, function(req, res) {
+router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, function(req, res) {
 	Consultation.findOneAndRemove({_id: req.params.consultationId, doctor: req.user._id}, function(err, consultation) {
 		if (err || !consultation) {
 			req.flash("error", err.message);
