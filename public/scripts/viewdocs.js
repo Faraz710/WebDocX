@@ -40,7 +40,7 @@ function scrollFunction() {
   // consultation form
 
   function openForm(name,id) {
-    document.getElementById("consultform").action = "/consult/"+id;
+    document.getElementById("consultform").action = "/consultation/request/new/"+id;
     document.getElementById("consult").style.display = "block";
     document.getElementById("name").innerHTML = "Dr. "+name;
     document.getElementById("ctag").value=1;
@@ -126,9 +126,9 @@ function filter(){
 
 function removefilter(){
   var x = location.href;
-  var r1=new RegExp(/&lte\=[0-9]/gm);
+  var r1=new RegExp(/&lte\=[0-9]+/gm);
   x=x.replace(r1,'');
-  var r2=new RegExp(/&gte\=[0-9]/gm);
+  var r2=new RegExp(/&gte\=[0-9]+/gm);
   x=x.replace(r2,'');
   var r=new RegExp(/\/[0-9]+\//gm);
   x=x.replace(r,'/1/');

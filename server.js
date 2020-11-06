@@ -144,7 +144,7 @@ app.use("/update", update);
 app.use("/posts", post);
 
 //Consult a doctor
-app.use("/consult", consult);
+app.use("/consultation", consult);
 
 //Generate prescription
 app.use("/prescription", prescription);

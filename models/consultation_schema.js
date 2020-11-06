@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const Doctor = require('./doctor_schema');
 const Patient = require('./patient_schema');
+const Chat = require('./chat_schema');
 
 const consultationSchema = new Schema({
 	problem: {
@@ -27,20 +28,15 @@ const consultationSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Patient'
 	},
-	messages: [{
-		message: {
-			type: String
-		},
-		time: {
-			type: Date,
-    		default: Date.now
-		}
-	}],
-	solved: {
+	messages: {
+		type: Schema.Types.ObjectId,
+		ref: 'Chat'
+	},
+	isSolved: {
 		type: Boolean,
 		default: false
 	},
-	publish: {
+	isAccepted: {
 		type: Boolean,
 		default: false
 	}
