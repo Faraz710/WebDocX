@@ -129,7 +129,6 @@
 		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){if(!currentAccount.notifications[i].seen){ co++;%>
 			<div onclick="sub('<%= currentAccount.notifications[i]._id%>','<%=i%>')" class="unotification" id="n<%=i%>">
 				<b id="urm<%=i%>"><%= currentAccount.notifications[i].message%></b>
-				<span id="rm<%=i%>" style="display:none;"><%= currentAccount.notifications[i].message%></span>
 				<%} else{%>
 					<div class="unotification" id="n<%=i%>">
 					<%= currentAccount.notifications[i].message%>
@@ -201,17 +200,20 @@
 					%>
 					<br>
 				<span style="float:left;color:grey"><%= p %> ago</span>
+				<% if(currentAccount.notifications[i].type==1||currentAccount.notifications[i].type==3){%>
+				<% if(currentAccount.notifications[i].type==1){%>&nbsp;<span style="float:right;color:green"><i class="fa fa-user-md" aria-hidden="true"></i></span><% }%>
+				<span onclick="location.href='<%= currentAccount.notifications[i].url%>'" style="color:grey;position:absolute;top:40%;left:95%;font-size: medium;"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+				<% } else if(currentAccount.notifications[i].type==2){%>
+				<span style="float:right;color:red"><i class="fa fa-user-md" aria-hidden="true"></i></span><% }%>
 		</div>
 		<script>
-			function sub(n_id,nid){
+			function sub(n_id,nid,u){
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 				  if (this.readyState == 4 && this.status == 200) {
 							var cc=parseInt(document.getElementById('count').innerHTML)-1;
 							document.getElementById('count').innerHTML=cc;
-							document.getElementById('noti'+nid).style.display='none';
-							document.getElementById('urm'+nid).style.display='none';
-							document.getElementById('rm'+nid).style.display='block';
+							document.getElementById('urm'+nid).style.fontWeight='normal';
 				  }
 				};
 				  xhttp.open("POST", "/dashboardPat/read/"+n_id, true);
