@@ -61,6 +61,9 @@ const doctorSchema = new Schema({
     url: {
       type: String
     },
+    type: {
+      type: Number
+    },
     time: {
       type: Date,
       default: Date.now
