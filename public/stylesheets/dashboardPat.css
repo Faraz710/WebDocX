@@ -129,4 +129,39 @@ body {
       border-radius: 50%;
       border-width: 0px;
     }
+
+    #special{
+      overflow-x: auto; 
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
+    #special button{
+      position: sticky;
+      border-width: 0px;
+      border-radius: 50%;
+      top:50%;
+      background-color:transparent;
+      z-index:1;
+    }
+    #special button:hover{
+      background-color:rgb(167, 161, 161);
+      opacity: 5;
+    }
+
+    #special div{
+      text-align:center;
+      position:relative;
+      display: inline-block;
+      width:20%;
+      height:70px; 
+      margin: 10px;
+      border-radius: 10px;
+      padding:20px;
+      font-weight: bold;
+    }
+
+    #special div:hover{
+      background-color:grey;
+    }
   

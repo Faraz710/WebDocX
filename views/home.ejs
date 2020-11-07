@@ -211,6 +211,45 @@
       <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Full Name" id="name" name="name" required>
 
+      <br><br>
+      <div class="radio-toolbar">
+      
+        <input type="radio" id="female1" name="sex" value="Female">
+        <label for="female1">Female</label>
+      
+        <input type="radio" id="male1" name="sex" value="Male">
+        <label for="male1">Male</label>
+
+        <input type="radio" id="nb1" name="sex" value="Non-Binary">
+        <label for="nb1">Non-Binary</label>
+
+        <input type="radio" id="trans1" name="sex" value="Transgender">
+        <label for="trans1">Transgender</label>
+
+        <input type="radio" id="intersex1" name="sex" value="Intersex">
+        <label for="intersex1">Intersex</label>
+
+        <input onchange="gender('1')" onclick="gender('1')" type="radio" id="type1" name="sex" value="">
+        <label for="type1">Let Me Type</label>
+
+        <span onclick="v('1')">
+          <i class="fa fa-question-circle" aria-hidden="true" ></i>
+        </span>
+        <div id="genderinfo1" style="word-wrap:break-word;padding:10px;position:absolute;top:50%;left:65%;height:200px;width:250px;background-color: black;background-color: rgba(0,0,0,0.7);color:white;border-radius: 10px;display:none;">
+          <h3>Why Do We Ask?</h3>
+          Bcs its really important for<br>
+          the medical testing and other<br>
+          medical diagnosis!<br>
+          If you have any complaints with<br>
+          this please feel free to report <br>
+          it to us.Thank You!
+        </div>
+        
+      </div>
+      <br>
+      <span id="explain1" style="display:none;"><i class="fa fa-sticky-note" aria-hidden="true" style="position:absolute;"></i>
+      <input  type="text" placeholder="Feel Free to Explain!" id="genderexplain1"></span>
+
       <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Enter Mail" id="email" name="username" required>
 
@@ -244,6 +283,44 @@
     <div class="container">
       <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Full Name" id="name" name="name" required>
+
+      <br><br>
+      <div class="radio-toolbar">
+
+        <input onclick="gender('2')" type="radio" id="female2" name="sex" value="Female">
+        <label for="female2">Female</label>
+      
+        <input onclick="gender('2')" type="radio" id="male2" name="sex" value="Male">
+        <label for="male2">Male</label>
+
+        <input onclick="gender('2')" type="radio" id="nb2" name="sex" value="Non-Binary">
+        <label for="nb2">Non-Binary</label>
+
+        <input onclick="gender('2')" type="radio" id="trans2" name="sex" value="Transgender">
+        <label for="trans2">Transgender</label>
+
+        <input onclick="gender('2')" type="radio" id="intersex2" name="sex" value="Intersex">
+        <label for="intersex2">Intersex</label>
+
+        <input onclick="gender('2')" type="radio" id="type2" name="sex" value="">
+        <label for="type2">Let Me Type</label>
+        <span onclick="v('2')">
+          <i class="fa fa-question-circle" aria-hidden="true" ></i>
+        </span>
+        <div id="genderinfo2" style="word-wrap:break-word;padding:10px;position:absolute;top:50%;left:65%;height:200px;width:250px;background-color: black;background-color: rgba(0,0,0,0.7);color:white;border-radius: 10px;display:none;">
+          <h3>Why Do We Ask?</h3>
+          Bcs its really important for<br>
+          the medical testing and other<br>
+          medical diagnosis!<br>
+          If you have any complaints with<br>
+          this please feel free to report <br>
+          it to us.Thank You!
+        </div>
+        
+      </div>
+      <br>
+      <span id="explain2" style="display:none;"><i class="fa fa-sticky-note" aria-hidden="true" style="position:absolute;"></i>
+      <input  type="text" placeholder="Feel Free to Explain!" id="genderexplain2"></span>
 
       <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
       <input type="text" placeholder="Enter Mail" id="email" name="username" required>
