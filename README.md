@@ -26,7 +26,11 @@ In the .env file you have to set the following environment variables::
 
 - **SECRET_KEY**, a secret key used to hash the session with HMAC
 
-- **MAIL_USERNAME & MAIL_PASSWORD**, the backend uses Gmail to send mails
+- **MAIL_USERNAME**, the backend uses Gmail to send mails
+
+- **MAIL_USERNAME**, the backend uses Gmail to send mails
+
+- **CLIENT_ID, CLIENT_SECRET and REFRESH_TOKEN**, token for gmail OAuth
 
 ### Local Setup
 

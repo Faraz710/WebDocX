@@ -14,8 +14,7 @@ router.get("/", function(req, res) {
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultations) {
-		console.log(consultations);
-		res.send(consultations)
+		res.render('consultation', {consultations: consultations});
 	});
 });
 
@@ -25,8 +24,7 @@ router.get("/:consultationId", function(req, res) {
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultation) {
-		console.log(consultation);
-		res.send(consultation)
+		res.render('chat', {consultation: consultation});
 	});
 });
 
@@ -45,7 +43,9 @@ router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 	newConsultation.save().then(() => {
 		//Push a new notification for doctor
 		const newNotification = {
-			message: `You have received a new consultation request from ${req.user.name} regarding the problem: ${req.body.problem}. Kindly review it and respond to the patient.`
+			message: `You have received a new consultation request from ${req.user.name} regarding the problem: ${req.body.problem}. Kindly review it and respond to the patient.`,
+			type: 3,
+			url: 'http://localhost:3000/consult/request/'+newConsultation._id
 		};
 
 		Doctor.findOneAndUpdate({_id: req.params.doctorId}, { 
@@ -83,7 +83,9 @@ router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function
 		else {
 			//Notify patient about accepted consultation
 			const newNotification = {
-				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been accepted. You can now contact the doctor and seek consultation.`
+				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been accepted. You can now contact the doctor and seek consultation.`,
+				type: 1,
+				url: 'http://localhost:3000/consultation/'+newConsultation._id
 			};
 
 			Patient.findOneAndUpdate({_id: consultation.patient}, { 
@@ -96,7 +98,7 @@ router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function
 	  				res.redirect('/dashboardDoc');
 				}
 				else {
-					res.redirect('/dashboardDoc');
+					res.redirect('/consultation/'+newConsultation._id);
 				}
 			});
 		}
@@ -113,7 +115,8 @@ router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, functi
 		else {
 			//Notify patient about rejected consultation
 			const newNotification = {
-				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been rejected as it fell out of his scope. We suggest you request another doctor for consultation.`
+				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been rejected as it fell out of his scope. We suggest you request another doctor for consultation.`,
+				type: 2
 			};
 
 			Patient.updateOne({_id: consultation.patient}, { 
@@ -126,7 +129,7 @@ router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, functi
 	  				res.redirect('/dashboardDoc');
 				}
 				else {
-					res.redirect('/dashboardDoc');
+					res.redirect('/consult/request');
 				}
 			});
 		}

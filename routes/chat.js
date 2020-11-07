@@ -11,19 +11,17 @@ router.get("/", function(req, res) {
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultations) {
-		console.log(consultations);
-		res.send(consultations)
+		res.render('consultation', {consultations: consultations});
 	});
 });
 
 //Display entire chat consultation
 router.get("/:consultationId", function(req, res) {
-	Consultation.find({$or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true})
+	Consultation.find({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true})
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultation) {
-		console.log(consultation);
-		res.send(consultation)
+		res.render('chat', {consultation: consultation});
 	});
 });
 
@@ -32,7 +30,16 @@ router.post("/:consultationId/new/message", function(req, res) {
 	if (req.body.type == 'text') {
 		const newMessage = {
 			message: req.body.message,
-			from: req.user._id,
+			from: req.user._id
+		};
+	}
+	else {
+		const newMessage = {
+			message: {
+				data: req.files.message.data,
+				type: req.files.message.mimetype
+			},
+			from: req.user._id
 		};
 	}
 	Consultation.findOneAndUpdate({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true}, {
