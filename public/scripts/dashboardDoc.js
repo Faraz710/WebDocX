@@ -15,3 +15,8 @@ function scrollFunction() {
     document.getElementById("myBtn").style.visibility= "hidden";
   }
 }
+
+/*function read(s){
+  var x="/posts/accept/"+s;
+  location.href=x;
+}*/

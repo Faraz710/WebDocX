@@ -81,12 +81,8 @@
 	<div style="left:160px;width:400px; padding:10px;overflow:scroll; max-height:400px;" id="unotification" class="dropdiv">
 		<b style="margin:20px;">Notifications</b>
 		<% var co=0; for(var i=currentAccount.notifications.length-1;i>=0;i--){if(!currentAccount.notifications[i].seen){ co++;%>
-			<div class="unotification" id="n<%=i%>">
-				<b id="urm<%=i%>"><%= currentAccount.notifications[i].message%></b>
-				<span id="rm<%=i%>" style="display:none;"><%= currentAccount.notifications[i].message%></span>
-				<form id="noti<%=i%>">
-				<span id="close" onclick="sub('<%= currentAccount.notifications[i]._id%>','<%=i%>')" title="Mark Read"><i class="fa fa-minus" aria-hidden="true"></i></span>
-				</form>
+			<div onclick="sub('<%= currentAccount.notifications[i]._id%>','<%=i%>')" class="unotification" id="n<%=i%>">
+				<span style="font-weight: bold;" id="urm<%=i%>"><%= currentAccount.notifications[i].message%></span>
 				<script>
 					function sub(n_id,nid){
 						var xhttp = new XMLHttpRequest();
@@ -94,9 +90,7 @@
 						  if (this.readyState == 4 && this.status == 200) {
 							var cc=parseInt(document.getElementById('count').innerHTML)-1;
 							document.getElementById('count').innerHTML=cc;
-							document.getElementById('noti'+nid).style.display='none';
-							document.getElementById('urm'+nid).style.display='none';
-							document.getElementById('rm'+nid).style.display='block';
+							document.getElementById('urm'+nid).style.fontWeight='normal';
 						  }
 						};
 						  xhttp.open("POST", "/dashboardDoc/read/"+n_id, true);
@@ -174,6 +168,10 @@
 					%>
 					<br>
 				<span style="float:left;color:grey"><%= p %> ago</span>
+				<% if(currentAccount.notifications[i].type==3){%>
+					<span onclick="location.href='<%= currentAccount.notifications[i].url%>'" style="color:grey;position:absolute;top:40%;left:95%;font-size: medium;"><i class="fa fa-external-link" aria-hidden="true"></i></span>
+					<span style="float:right;color:grey"><i class="fa fa-user" aria-hidden="true"></i></span>
+				<% }%>
 		</div>
 
 		<script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
@@ -206,7 +204,10 @@
 				<% }} %>
 				
 			</div>
-				<button id="accept" type="button" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
+			<!--posts as consultation!!-->
+				<form action="/posts/accept/<%= posts[i]._id%>" method="POST">
+				<button type="submit" id="accept" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
+				</form>
 			<div style="clear:both;">
 				<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
 				<br><br>
