@@ -429,11 +429,12 @@
                     </span>
                 </div>
             </div>
-            <div class="col" style="width:60%;height:100%;background-color:#949c9c;margin:0px; padding:0px;position:relative;">
+            <div class="col" style="width:60%;height:100%;background-color:#949c9c;margin:0px; padding:0px;position:relative;overflow-y:auto;">
                 <div class="card" style="clear:both;height:70px;width:100%;background-color:#505557;position:fixed;top:50px;">
                     <span style="float:left;background-color: transparent;"><img id="chatimage" class="avatar" style="width:50px;height:50px;margin:10px;" src="data:<%= type %>;base64,<%= image %>" /></span>
                     <span id="chatname" style="font-weight:bold;font-size: 20px;position:absolute;top:20px;"></span>
                     <span id="infoicon" onclick="document.getElementById('chatinfo').style.display='block';" style="display:none;font-weight:bold;font-size: 20px;position:absolute;top:30px;left:800px;"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                    <button id="endconsult" type="button" onclick="document.getElementById('prescribeform').style.display='block';" class="accrej" style="position:absolute;left:640px;width:auto;margin:20px;background-color:red;display:none;"><b>End Consultation</b></button>
                 </div>
                 <div id='chatinfo' class="card" style="background-color:#505557;position:absolute;right:0px;top:0px;height:100%;width:300px;z-index:1;display:none;">
                     <div class="card" style="height:70px;width:100%;">
@@ -443,24 +444,26 @@
                     <div id="chatdata" style="width:100%;color: white;font-size: 20px;padding:10px;"></div>
                     <div name="chatbutton" style="display:table;">
                         <form name="accform" action="" method="POST"><button type="submit" class='accrej' style='background-color:green;float:left;'>Accept</button></form>
-                        <button name="rejform" onclick="" class='accrej' style='background-color:red;'>Reject</button>
+                        <form name="rejform" action="" method="POST"><button type="submit" class='accrej' style='background-color:red;'>Reject</button></form>
                     </div>
                 </div>
-                <div style="position:fixed;top:120px;width:68%;height:100%;overflow-y:scroll;">
+                <div style="position:fixed;top:120px;width:68%;height:100%;overflow-y:auto;">
                     <span id="default" style="font-size:80px; position:absolute;top:100px;left:400px;"><i id="c" class="fa fa-inbox" aria-hidden="true"></i><hr><i id="c" class="fa fa-comments" aria-hidden="true"></i></span>
                     <span id="requesticon" style="font-size:80px; position:absolute;top:150px;left:400px;display:none;"><i id="c" class="fa fa-inbox" aria-hidden="true"></i></span>
                     <div name="chatbutton" style="display:none;">
                         <form name="accform" action="" method="POST"><button type="submit" class='accrej' style='background-color:green;float:left;'>Accept</button></form>
-                        <button name="rejform" onclick=""  class='accrej' style='background-color:red'>Reject</button>
+                        <form name="rejform" action="" method="POST"><button type="submit" class='accrej' style='background-color:red;'>Reject</button></form>
                     </div>
                     <div id="completechat" style="display:none;">
-                        <form id="sendchat" action="" method="POST">
-                            <input type="text" name="message" placeholder="Enter Your Text Here!">
-                            <input id="image" type="radio" value="image" name="type">
-                            <label for="image">Image</label>
-                            <input id="text" type="radio" value="text" name="type">
-                            <label for="text">Text</label>
-                            <button type="submit">send</button>
+                        <form id="sendchat" style="position:fixed;bottom:10px;width:66%;" action="" method="POST" enctype="multipart/form-data">
+                            <div class="radio-t">
+                            <input  onclick="textimg()" id="image" type="radio" value="image" name="type">
+                            <label for="image" style="float:left;"><i class="fa fa-file-image-o" aria-hidden="true"></i></label>
+                            <input id="text" type="radio" value="text" name="type" checked>
+                            <label style="display:none;" for="text">Text</label>
+                            </div>
+                            <input name="message" id="sendchatdata" type="text">
+                            <button type="submit" style="background-color:transparent;border-width:0px;font-size:30px;"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>
@@ -479,9 +482,11 @@
                             document.getElementById('requesticon').style.display="block";
                             document.getElementsByName('accform')[0].action="/consult/request/accept/"+data._id;
                             document.getElementsByName('accform')[1].action="/consult/request/accept/"+data._id;
-                            document.getElementsByName('rejform')[0].onclick=reject(data._id);
-                            document.getElementsByName('rejform')[1].onclick=reject(data._id);
+                            document.getElementsByName('rejform')[0].action="/consult/request/reject/"+data._id+"?_method=DELETE";
+                            document.getElementsByName('rejform')[1].action="/consult/request/reject/"+data._id+"?_method=DELETE";
                             document.getElementById('completechat').style.display="none";
+                            document.getElementById('endconsult').style.display="none";
+                            document.getElementById('prescribe').action="/prescription/generate/"+data._id;
                         }
                         else{
                             document.getElementsByName('chatbutton')[0].style.display="none";
@@ -489,6 +494,8 @@
                             document.getElementById('requesticon').style.display="none";
                             document.getElementById('completechat').style.display="block";
                             document.getElementById('sendchat').action="/consultation/"+data._id+"/new/message";
+                            document.getElementById('endconsult').style.display="block";
+                            document.getElementById('pname').innerHTML=data.patient.name;
                         }
                       }
                       else{
@@ -501,8 +508,86 @@
                   })
                 }
                 function reject(s){
+                    var xhttp = new XMLHttpRequest();
+			        xhttp.open("POST", "/consult/request/reject/"+s+"?_method=DELETE", true);
+			        xhttp.send();
+                }
+                function textimg(){
+                    if(document.getElementById('sendchatdata').type=='file'){
+                        document.getElementById('sendchatdata').type='text';
+                        document.getElementById('text').checked=true;
+                    }
+                    else{
+                        document.getElementById('sendchatdata').type='file';
+                        document.getElementById('image').checked=true;
+                    }
+                }
+                function med(){
+                    var i=parseInt(document.getElementById("mtag").value);
+                    var i=i+1;
+                    var i=i.toString();
+                    document.getElementById("mtag").value=i;
+                    document.getElementById("m"+i).style.display="block";
+                    if(i==5)
+                    {
+                        document.getElementById("madd").style.display = "none";
+                    }
                 }
                 
         </script>
+
+        <!--Prescription Form-->
+        <div class="form-popup" id="prescribeform">
+            <form action="" class="form-container" id="prescribe" name="prescribe" method="post" enctype="multipart/form-data">
+          
+              <div class="imgcontainer">
+                  <span onclick="document.getElementById('prescribeform').style.display='none'" class="close" style="float:right;" title="Close Modal">&times;</span>
+                  <h1 align="center">Prescription Form</h1>
+                  <h2 id="pname" align="center"></h2>
+              </div>
+              <label for="diag"><b>Diagnosis</b></label>
+              <input type="text" placeholder="Diagnosis" id="diagnosis" name="diagnosis" style="width:90%" required>
+          
+              <label for="medicines" style="clear:both"><b>Medicines</b></label><br>
+              <input type="hidden" id="mtag" value=1>
+              <span id="m1">
+              <input type="text" placeholder="Medicine 1" id="medicine1" name="medicines[][name]" style="float:left;">
+              <input type="Number" placeholder="Dosage 1" id="dosage1" name="medicines[][dosage]" style=" float:left;">
+              <input type="Number" placeholder="Duration 1" id="duration1" name="medicines[][duration]" style=" float:left;">
+              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicinesp[][instruction]" style="float:left;">
+              </span><br>
+              <span id="m2" style="display:none;">
+                <input type="text" placeholder="Medicine 2" id="medicine2" name="medicines[][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 2" id="dosage2" name="medicines[][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 2" id="duration2" name="medicines[][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicinesp[][instruction]" style="float:left;">
+              </span><br>
+              <span id="m3" style="display:none;">
+                <input type="text" placeholder="Medicine 3" id="medicine3" name="medicines[][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 3" id="dosage3" name="medicines[][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 3" id="duration3" name="medicines[][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicinesp[][instruction]" style="float:left;">
+              </span><br>
+              <span id="m4" style="display:none;">
+                <input type="text" placeholder="Medicine 4" id="medicine4" name="medicines[][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 4" id="dosage4" name="medicines[][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 4" id="duration4" name="medicines[][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicinesp[][instruction]" style="float:left;">
+              </span><br>
+              <span id="m5" style="display:none;">
+                <input type="text" placeholder="Medicine 5" id="medicine5" name="medicines[][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 5" id="dosage5" name="medicines[][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 5" id="duration5" name="medicines[][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicinesp[][instruction]" style="float:left;">
+              </span><br>
+              <button type="button" onclick="med()" class="addbtn" id="madd"><b>+</b></button><br>
+              
+              <br><label for="psw"style="clear:both;width:90%;"><b>Remarks</b></label><br>
+              <textarea placeholder="Remarks" id="remarks" name="remarks" style="width:90%; clear:both" required rows="4"></textarea><br><br>
+              <label for="diag"><b>Doctors Sign(A img file)</b></label>
+              <input type="file" id="sign" name="sign" style="width:90%">
+              <button type="submit" class="btn">Generate Prescription</button>
+            </form>
+        </div>
 </body>
 </html>

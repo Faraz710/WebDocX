@@ -25,7 +25,7 @@ router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 		const newNotification = {
 			message: `You have received a new consultation request from ${req.user.name} regarding the problem: ${req.body.problem}. Kindly review it and respond to the patient.`,
 			type: 3,
-			url: 'http://localhost:3000/consultion#'+newConsultation._id
+			url: 'http://localhost:3000/consultation#'+newConsultation._id
 		};
 
 		Doctor.findOneAndUpdate({_id: req.params.doctorId}, { 
@@ -109,7 +109,7 @@ router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, functi
 	  				res.redirect('/dashboardDoc');
 				}
 				else {
-					res.redirect('/consultion');
+					res.redirect('/consultation');
 				}
 			});
 		}

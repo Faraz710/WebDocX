@@ -9,11 +9,6 @@ const Prescription = require('../models/prescription_schema');
 //Consultation schema
 const Consultation = require('../models/consultation_schema');
 
-//Display form for doctor to fill prescription details
-router.get("/generate/:consultationId", function(req, res) {
-	res.render("prescriptionForm", {consultationId: consultationId});
-});
-
 //Store prescription details and display
 router.post("/generate/:consultationId", function(req, res) {
 	Consultation.findOne({_id: req.params.consultationId})
@@ -39,7 +34,7 @@ router.post("/generate/:consultationId", function(req, res) {
 						symptoms: consultation.symptoms,
 						description: consultation.description,
 						diagnosis: req.body.diagnosis,
-						//medicines: req.body.medicines,
+						medicines: req.body.medicines,
 						remarks: req.body.remarks
 					});
 					newPrescription.save().then(() => {
