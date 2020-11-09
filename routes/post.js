@@ -90,7 +90,7 @@ router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, re
 		const newNotification = {
 			message: `Your consultation post regarding the problem: ${req.body.title} has been accepted by ${req.user.name}. A new consultation has been established for you.`,
 			type: 1,
-			url: 'http://localhost:3000/consultation/'+newConsultation._id
+			url: 'http://localhost:3000/consultation#'+newConsultation._id
 		};
 
 		Patient.findOneAndUpdate({_id: req.body.patientId}, { 
@@ -109,7 +109,7 @@ router.post("/accept/:postId", auth.isDoctor, auth.isActivated, function(req, re
 	  			res.redirect('/dashboardDoc');
 			}
 			else {
-				res.redirect('/consultation/'+newConsultation._id);
+				res.redirect('/consultation#'+newConsultation._id);
 			}
 		});
 	}).catch(err => {
