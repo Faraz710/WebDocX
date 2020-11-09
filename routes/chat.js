@@ -7,7 +7,7 @@ const Consultation = require('../models/consultation_schema');
 
 //Display chat heads
 router.get("/", function(req, res) {
-	Consultation.find({$or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true}, {chat: 0})
+	Consultation.find({$or: [{doctor: req.user._id},{patient: req.user._id}]}, {chat: 0})
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultations) {
@@ -17,11 +17,11 @@ router.get("/", function(req, res) {
 
 //Display entire chat consultation
 router.get("/:consultationId", function(req, res) {
-	Consultation.find({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true})
+	Consultation.findOne({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}]})
 	.populate('patient', 'name')
 	.populate('doctor', 'name')
 	.exec(function(err, consultation) {
-		res.render('chat', {consultation: consultation});
+		res.send(consultation);
 	});
 });
 

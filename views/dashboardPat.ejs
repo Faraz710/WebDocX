@@ -91,14 +91,18 @@
 	<!--Logout menu-->
 	<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
 		<button id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
-		<button id="" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
+		<button id="messages" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
 		<button onclick="location.href='/posts'" id="posts" ><i class="fa fa-th-list" aria-hidden="true"></i> Posts</button>
 		<button id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
 	</span>
 	<script>
 	document.getElementById("logout").onclick = function () {
 		location.href = "/logout";
-	};</script>
+	};
+	document.getElementById("messages").onclick = function () {
+		location.href = "/consultation";
+	};
+	</script>
 	<!--Doctor speciality dropdown-->
 	<span id="drop" class="dropdiv" style="overflow:scroll; height:200px;">
 		<button onclick="opt('cardiology')" id="cardiology" >Cardiology</button>
