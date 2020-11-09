@@ -429,7 +429,7 @@
                     </span>
                 </div>
             </div>
-            <div class="col" style="width:60%;height:100%;background-color:#949c9c;margin:0px; padding:0px;position:relative;">
+            <div class="col" style="width:60%;height:100%;background-color:#949c9c;margin:0px; padding:0px;position:relative;overflow-y:scroll;">
                 <div class="card" style="clear:both;height:70px;width:100%;background-color:#505557;position:fixed;top:50px;">
                     <span style="float:left;background-color: transparent;"><img id="chatimage" class="avatar" style="width:50px;height:50px;margin:10px;" src="data:<%= type %>;base64,<%= image %>" /></span>
                     <span id="chatname" style="font-weight:bold;font-size: 20px;position:absolute;top:20px;"></span>
@@ -454,13 +454,13 @@
                         <button name="rejform" onclick=""  class='accrej' style='background-color:red'>Reject</button>
                     </div>
                     <div id="completechat" style="display:none;">
-                        <form id="sendchat" action="" method="POST">
+                        <form id="sendchat" style="position:fixed;bottom:0px;width:66%;" action="" method="POST">
                             <input type="text" placeholder="Enter Your Text Here!">
                             <input id="image" type="radio" value="image" name="type">
                             <label for="image">Image</label>
                             <input id="text" type="radio" value="text" name="type">
                             <label for="text">Text</label>
-                            <button type="submit">send</button>
+                            <button type="submit" style="background-color:transparent;border-width:0px;font-size:30px;"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>
