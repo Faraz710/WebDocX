@@ -28,13 +28,13 @@ router.get("/:consultationId", function(req, res) {
 //Add new message
 router.post("/:consultationId/new/message", function(req, res) {
 	if (req.body.type == 'text') {
-		const newMessage = {
+		var newMessage = {
 			message: req.body.message,
 			from: req.user._id
 		};
 	}
 	else {
-		const newMessage = {
+		var newMessage = {
 			message: {
 				data: req.files.message.data,
 				type: req.files.message.mimetype
@@ -42,6 +42,7 @@ router.post("/:consultationId/new/message", function(req, res) {
 			from: req.user._id
 		};
 	}
+	console.log(newMessage);
 	Consultation.findOneAndUpdate({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}], isAccepted: true}, {
 		$push: {
 			chat: newMessage
@@ -49,6 +50,7 @@ router.post("/:consultationId/new/message", function(req, res) {
 	}, function(err, consultation) {
 		if (err) {
 			console.log(err.message);
+			res.send("Error");
 		}
 		else {
 			console.log(consultation);

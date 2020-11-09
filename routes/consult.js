@@ -8,26 +8,6 @@ const Consultation = require('../models/consultation_schema');
 //Doctor schema
 const Doctor = require('../models/doctor_schema');
 
-//Display consultation requests list
-router.get("/", function(req, res) {
-	Consultation.find({doctor: req.user._id, isAccepted: false})
-	.populate('patient', 'name')
-	.populate('doctor', 'name')
-	.exec(function(err, consultations) {
-		res.render('consultation', {consultations: consultations});
-	});
-});
-
-//Display consultation request
-router.get("/:consultationId", function(req, res) {
-	Consultation.findOne({_id: req.params.consultationId, doctor: req.user._id, isAccepted: false})
-	.populate('patient', 'name')
-	.populate('doctor', 'name')
-	.exec(function(err, consultation) {
-		res.render('chat', {consultation: consultation});
-	});
-});
-
 //Send new consultation request
 router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 	const newConsultation = new Consultation({
@@ -45,7 +25,7 @@ router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 		const newNotification = {
 			message: `You have received a new consultation request from ${req.user.name} regarding the problem: ${req.body.problem}. Kindly review it and respond to the patient.`,
 			type: 3,
-			url: 'http://localhost:3000/consult/request/'+newConsultation._id
+			url: 'http://localhost:3000/consultion#'+newConsultation._id
 		};
 
 		Doctor.findOneAndUpdate({_id: req.params.doctorId}, { 
@@ -85,7 +65,7 @@ router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function
 			const newNotification = {
 				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been accepted. You can now contact the doctor and seek consultation.`,
 				type: 1,
-				url: 'http://localhost:3000/consultation/'+newConsultation._id
+				url: 'http://localhost:3000/consultation#'+consultation._id
 			};
 
 			Patient.findOneAndUpdate({_id: consultation.patient}, { 
@@ -98,7 +78,7 @@ router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function
 	  				res.redirect('/dashboardDoc');
 				}
 				else {
-					res.redirect('/consultation/'+newConsultation._id);
+					res.redirect('/consultation#'+consultation._id);
 				}
 			});
 		}
@@ -129,7 +109,7 @@ router.delete("/reject/:consultationId", auth.isDoctor, auth.isActivated, functi
 	  				res.redirect('/dashboardDoc');
 				}
 				else {
-					res.redirect('/consult/request');
+					res.redirect('/consultion');
 				}
 			});
 		}
