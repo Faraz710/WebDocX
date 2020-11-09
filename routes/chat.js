@@ -39,7 +39,7 @@ router.post("/:consultationId/new/message", function(req, res) {
 				data: req.files.message.data,
 				type: req.files.message.mimetype
 			},
-			from: req.user._id
+			type:'image',from: req.user._id
 		};
 	}
 	console.log(newMessage);
