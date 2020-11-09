@@ -14,7 +14,8 @@
 	  <link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
 	  <script type="text/javascript" src="/scripts/dashboardDoc.js"></script>
 	  <script type="text/javascript" src="/scripts/nav.js"></script>
-	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
+	  <script type="text/javascript" src="/scripts/speechrecog.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<!--<%= JSON.stringify(currentAccount) %>-->
@@ -69,13 +70,17 @@
 	<!--Logout menu-->
 	<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
 		<button onclick="location.href='/update'" id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
-		<button id="" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
+		<button id="messages" ><i class="fa fa-comments" aria-hidden="true"></i> Messages</button>
 		<button id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
 	</span>
 	<script>
 	document.getElementById("logout").onclick = function () {
 		location.href = "/logout";
-	};</script>
+	};
+	document.getElementById("messages").onclick = function () {
+		location.href = "/consultation";
+	};
+	</script>
 	
 	<!--user notification-->
 	<div style="left:160px;width:400px; padding:10px;overflow:scroll; max-height:400px;" id="unotification" class="dropdiv">
@@ -205,9 +210,22 @@
 				
 			</div>
 			<!--posts as consultation!!-->
-				<form action="/posts/accept/<%= posts[i]._id%>" method="POST">
-				<button type="submit" id="accept" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
-				</form>
+			<form name="epost" id="accept<%=i%>" style="display:none;" action="/posts/accept/<%= posts[i]._id %>" method="Post">
+				<input type="text" name="title" value="<%=posts[i].title %>">
+				<input type="text" value="<%=posts[i].tags[0] %>" name="tags">
+				<input type="text" value="<%=posts[i].tags[1] %>" name="tags">
+				<input type="text" value="<%=posts[i].tags[2] %>" name="tags">
+				<input type="text" value="<%=posts[i].tags[3] %>" name="tags">
+				<input type="text" value="<%=posts[i].tags[4] %>" name="tags">
+				<input type="text" value="<%=posts[i].symptoms[0] %>" name="symptoms">
+				<input type="text" value="<%=posts[i].symptoms[1] %>" name="symptoms">
+				<input type="text" value="<%=posts[i].symptoms[2] %>" name="symptoms">
+				<input type="text" value="<%=posts[i].symptoms[3] %>" name="symptoms">
+				<input type="text" value="<%=posts[i].symptoms[4] %>" name="symptoms">
+				<input type="text" value="<%=posts[i].description %>" name="description">
+				<input type="text" value="<%=posts[i].patientId %>" name="patientId">
+		</form>
+				<button type="button" onclick="read('<%=i%>')" id="accept" class="sub" style="background-color: yellowgreen;right:-20px;top:150px"><i class="fa fa-comment" aria-hidden="true"></i></button>
 			<div style="clear:both;">
 				<span style=" font-size: x-large;"><b><%= posts[i].title %></b></span>
 				<br><br>

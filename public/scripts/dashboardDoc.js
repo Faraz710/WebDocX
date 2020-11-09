@@ -16,7 +16,6 @@ function scrollFunction() {
   }
 }
 
-/*function read(s){
-  var x="/posts/accept/"+s;
-  location.href=x;
-}*/
+function read(i){
+  document.getElementById("accept"+i).submit();  
+}
