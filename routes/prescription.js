@@ -9,6 +9,11 @@ const Prescription = require('../models/prescription_schema');
 //Consultation schema
 const Consultation = require('../models/consultation_schema');
 
+//Display form for doctor to fill prescription details
+router.get("/generate/:consultationId", function(req, res) {
+	res.render("prescriptionForm", {consultationId: consultationId});
+});
+
 //Store prescription details and display
 router.post("/generate/:consultationId", function(req, res) {
 	Consultation.findOne({_id: req.params.consultationId})
@@ -38,8 +43,7 @@ router.post("/generate/:consultationId", function(req, res) {
 						remarks: req.body.remarks
 					});
 					newPrescription.save().then(() => {
-						console.log(newPrescription);
-  						res.redirect('/view/'+newPrescription._id);
+  						res.redirect('/dashboard');
   					}).catch(err => {
   						req.flash("error", err.message);
   						res.redirect("/consultation");
@@ -54,7 +58,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo}, (err, template) => {
 			if (err) {
 		        req.flash("error", err.message);
-				res.redirect("/consultation");
+				res.redirect("/prescription/generate");
 		    } 
 		    else {
 		    	const options = {
@@ -75,7 +79,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 							if (err) {
 								req.flash("error", err.message);
 								console.log(err);
-				            	res.redirect("/consultation");
+				            	res.redirect("/prescription/generate");
 							}
 							else {
 								console.log("success");

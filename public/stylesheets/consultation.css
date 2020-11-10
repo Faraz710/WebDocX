@@ -240,3 +240,31 @@ body {
   .form-container .btn:hover, .open-button:hover {
 	opacity: 1;
   }
+
+  .msgs{
+    padding:10px;
+    border-radius: 30px;
+    border-width:0px;
+    background-color: rgb(135, 196, 224);
+    color:black;
+    float:right;
+    clear:both;
+    margin-right: 20px;
+  }
+  .msgo{
+    padding:10px;
+    border-radius: 30px;
+    border-width:0px;
+    background-color: white;
+    color:black;
+    clear:both;
+  }
+  .ts{
+    font-size:10px;
+    float:right;
+    clear:both;
+    margin-right: 20px;
+  }
+  .to{
+    font-size:10px;
+  }
