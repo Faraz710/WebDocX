@@ -28,6 +28,8 @@ router.post("/register", function(req, res) {
 			},
 			name: req.body.name,
 			username: req.body.username,
+			age: req.body.age,
+			gender: req.body.sex
 		});
 		Patient.register(newPatient, req.body.password, function(err, patient){
 	        if(err) { 

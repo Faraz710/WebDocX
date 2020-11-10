@@ -16,6 +16,12 @@ const patientSchema = new Schema({
     type: String,
     required: true
   },
+  age: {
+    type: Number
+  },
+  gender: {
+    type: String
+  },
   notifications: [{
     message: {
       type: String
