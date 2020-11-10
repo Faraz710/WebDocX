@@ -67,6 +67,7 @@
 			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
+
 	<!--Logout menu-->
 	<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
 		<button onclick="location.href='/update'" id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
@@ -178,6 +179,7 @@
 					<span style="float:right;color:grey"><i class="fa fa-user" aria-hidden="true"></i></span>
 				<% }%>
 		</div>
+
 		<script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
     </div>
     </div>
@@ -550,6 +552,7 @@
                       else{
                         document.getElementById('chatname').innerHTML=data.doctor.name;
                         if(!(data.isAccepted)){
+
                         }
                         else{
                             document.getElementById('completechat').style.display="block";
@@ -595,14 +598,16 @@
                         document.getElementById("madd").style.display = "none";
                     }
                 }
-                function generate(){
-                    var diag=document.getElementById('diagnosis').value;
+
+
+                $(document).ready(function(){
+				    $("#gp").click(function(){
+				    	var diag=document.getElementById('diagnosis').value;
                     var med=new Array();
                     var dos=new Array();
                     var dur=new Array();
                     var ins=new Array();
                     var rem=document.getElementById('remarks').value;
-                    var sig=document.getElementById('sign').value;
                     var act=document.getElementById('prescribe').action;
                     for(var i=1;i<=5;i++){
                         med[i-1]=document.getElementById('medicine'+i).value;
@@ -622,13 +627,60 @@
                         {name:med[2],dosage:dos[2],duration:dur[2],instruction:ins[2]},
                         {name:med[3],dosage:dos[3],duration:dur[3],instruction:ins[3]},
                         {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}
-                    ]
-                    $.post(act, {diagnosis:diag,medicines:[{name:med[0],dosage:dos[0],duration:dur[0],instruction:ins[0]},
+                    ];
+				        var details={diagnosis:diag, medicines:meddata ,remarks:rem};
+
+				        var fd = new FormData();
+				        var files = $('#sign')[0].files[0];
+				        fd.append('sign',files);
+				        fd.append('details', JSON.stringify(details));
+                   		var act=document.getElementById('prescribe').action;
+				        $.ajax({
+				            url: act,
+				            type: 'post',
+				            data: fd,
+				            contentType: false,
+				            processData: false,
+				            success: function(data) {
+				            	console.log(data);
+				            	$.get('http://localhost:3000/prescription/view/'+data);
+				            }
+				        });
+				    });
+				});
+
+                function generate(){
+                    var diag=document.getElementById('diagnosis').value;
+                    var med=new Array();
+                    var dos=new Array();
+                    var dur=new Array();
+                    var ins=new Array();
+                    var rem=document.getElementById('remarks').value;
+                    var act=document.getElementById('prescribe').action;
+                    for(var i=1;i<=5;i++){
+                        med[i-1]=document.getElementById('medicine'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        dos[i-1]=document.getElementById('dosage'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        dur[i-1]=document.getElementById('duration'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        ins[i-1]=document.getElementById('instruction'+i).value;
+                    }
+                    var meddata=[
+                        {name:med[0],dosage:dos[0],duration:dur[0],instruction:ins[0]},
                         {name:med[1],dosage:dos[1],duration:dur[1],instruction:ins[1]},
                         {name:med[2],dosage:dos[2],duration:dur[2],instruction:ins[2]},
                         {name:med[3],dosage:dos[3],duration:dur[3],instruction:ins[3]},
-                        {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}],remarks:rem,sign:sig});
+                        {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}
+                    ];
+                   // $.post(act, {diagnosis:diag, medicines:meddata ,remarks:rem , sign:sig, sig2: fd});
+
+                    $.ajax({url: act, type: "POST", data: {diagnosis:diag,medicines:meddata,remarks:rem,sign:sig}, processData: false,contentType: false, success: function(data){alert(data);}});
                 }
+
                 function openchat(c,cid){
                     var x=location.href;
                     var s=x.indexOf("#")+1;
@@ -689,7 +741,7 @@
               <textarea placeholder="Remarks" id="remarks" name="remarks" style="width:90%; clear:both" required rows="4"></textarea><br><br>
               <label for="diag"><b>Doctors Sign(A img file)</b></label>
               <input type="file" id="sign" name="sign" style="width:90%">
-              <button type="button" id="gp" onclick="generate()" class="btn">Generate Prescription</button>
+              <button type="button" id="gp" class="btn">Generate Prescription</button>
             </form>
         </div>
 </body>

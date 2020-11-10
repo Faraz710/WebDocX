@@ -16,10 +16,13 @@ router.get("/generate/:consultationId", function(req, res) {
 
 //Store prescription details and display
 router.post("/generate/:consultationId", function(req, res) {
+	var det = JSON.parse(req.body.details);
+	console.log(det);
 	Consultation.findOne({_id: req.params.consultationId})
-				.populate('patient', 'name age sex')
+				.populate('patient', 'name age gender')
 				.populate('doctor', 'name qualification reg_no')
 				.exec(function(err, consultation) {
+					console.log(det);
 					const newPrescription = new Prescription({
 						doctor: {
 							name: consultation.doctor.name,
@@ -34,19 +37,19 @@ router.post("/generate/:consultationId", function(req, res) {
 							_id: consultation.patient._id,
 							name: consultation.patient.name,
 							age: consultation.patient.age,
-							sex: consultation.patient.sex
+							gender: consultation.patient.gender
 						},
 						symptoms: consultation.symptoms,
 						description: consultation.description,
-						diagnosis: req.body.diagnosis,
-						medicines: req.body.medicines,
-						remarks: req.body.remarks
+						diagnosis: det.diagnosis,
+						medicines: det.medicines,
+						remarks: det.remarks
 					});
+					console.log(newPrescription);
 					newPrescription.save().then(() => {
-  						res.redirect('/dashboard');
+  						res.send(newPrescription._id);
   					}).catch(err => {
-  						req.flash("error", err.message);
-  						res.redirect("/consultation");
+  						res.send("error");
   					});
   				});
 });
@@ -79,7 +82,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 							if (err) {
 								req.flash("error", err.message);
 								console.log(err);
-				            	res.redirect("/prescription/generate");
+				            	res.redirect("/consultation");
 							}
 							else {
 								console.log("success");
