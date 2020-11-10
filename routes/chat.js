@@ -54,7 +54,7 @@ router.post("/:consultationId/new/message", function(req, res) {
 		}
 		else {
 			console.log(consultation);
-			res.send("Success");
+			res.redirect('/consultation#'+consultation._id);
 		}
 	});
 });
