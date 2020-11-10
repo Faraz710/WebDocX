@@ -19,3 +19,13 @@ function scrollFunction() {
 function read(i){
   document.getElementById("accept"+i).submit();  
 }
+
+function getheads(){
+  /*$.ajax({url:"http://localhost:3000/consultation/dashboard"}).done(function (data){
+    alert(data);
+  });*/
+
+  $.get("http://localhost:3000/consultation/dashboard", function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+}

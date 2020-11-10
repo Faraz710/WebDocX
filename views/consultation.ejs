@@ -659,34 +659,34 @@
               <label for="medicines" style="clear:both"><b>Medicines</b></label><br>
               <input type="hidden" id="mtag" value=1>
               <span id="m1">
-              <input type="text" placeholder="Medicine 1" id="medicine1" name="medicines[][name]" style="float:left;">
-              <input type="Number" placeholder="Dosage 1" id="dosage1" name="medicines[][dosage]" style=" float:left;">
-              <input type="Number" placeholder="Duration 1" id="duration1" name="medicines[][duration]" style=" float:left;">
-              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicines[][instruction]" style="float:left;">
+              <input type="text" placeholder="Medicine 1" id="medicine1" name="medicines[0][name]" style="float:left;">
+              <input type="Number" placeholder="Dosage 1" id="dosage1" name="medicines[0][dosage]" style=" float:left;">
+              <input type="Number" placeholder="Duration 1" id="duration1" name="medicines[0][duration]" style=" float:left;">
+              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicines[0][instruction]" style="float:left;">
               </span><br>
               <span id="m2" style="display:none;">
-                <input type="text" placeholder="Medicine 2" id="medicine2" name="medicines[][name]" style="float:left;">
-                <input type="Number" placeholder="Dosage 2" id="dosage2" name="medicines[][dosage]" style=" float:left;">
-                <input type="Number" placeholder="Duration 2" id="duration2" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicines[][instruction]" style="float:left;">
+                <input type="text" placeholder="Medicine 2" id="medicine2" name="medicines[1][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 2" id="dosage2" name="medicines[1][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 2" id="duration2" name="medicines[1][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicines[1][instruction]" style="float:left;">
               </span><br>
               <span id="m3" style="display:none;">
-                <input type="text" placeholder="Medicine 3" id="medicine3" name="medicines[][name]" style="float:left;">
-                <input type="Number" placeholder="Dosage 3" id="dosage3" name="medicines[][dosage]" style=" float:left;">
-                <input type="Number" placeholder="Duration 3" id="duration3" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicines[][instruction]" style="float:left;">
+                <input type="text" placeholder="Medicine 3" id="medicine3" name="medicines[2][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 3" id="dosage3" name="medicines[2][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 3" id="duration3" name="medicines[2][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicines[2][instruction]" style="float:left;">
               </span><br>
               <span id="m4" style="display:none;">
-                <input type="text" placeholder="Medicine 4" id="medicine4" name="medicines[][name]" style="float:left;">
-                <input type="Number" placeholder="Dosage 4" id="dosage4" name="medicines[][dosage]" style=" float:left;">
-                <input type="Number" placeholder="Duration 4" id="duration4" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicines[][instruction]" style="float:left;">
+                <input type="text" placeholder="Medicine 4" id="medicine4" name="medicines[3][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 4" id="dosage4" name="medicines[3][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 4" id="duration4" name="medicines[3][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicines[3][instruction]" style="float:left;">
               </span><br>
               <span id="m5" style="display:none;">
-                <input type="text" placeholder="Medicine 5" id="medicine5" name="medicines[][name]" style="float:left;">
-                <input type="Number" placeholder="Dosage 5" id="dosage5" name="medicines[][dosage]" style=" float:left;">
-                <input type="Number" placeholder="Duration 5" id="duration5" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicines[][instruction]" style="float:left;">
+                <input type="text" placeholder="Medicine 5" id="medicine5" name="medicines[4][name]" style="float:left;">
+                <input type="Number" placeholder="Dosage 5" id="dosage5" name="medicines[5][dosage]" style=" float:left;">
+                <input type="Number" placeholder="Duration 5" id="duration5" name="medicines[5][duration]" style=" float:left;">
+                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicines[5][instruction]" style="float:left;">
               </span><br>
               <button type="button" onclick="med()" class="addbtn" id="madd"><b>+</b></button><br>
               
@@ -694,7 +694,7 @@
               <textarea placeholder="Remarks" id="remarks" name="remarks" style="width:90%; clear:both" required rows="4"></textarea><br><br>
               <label for="diag"><b>Doctors Sign(A img file)</b></label>
               <input type="file" id="sign" name="sign" style="width:90%">
-              <button type="button" id="gp" onclick="generate()" class="btn">Generate Prescription</button>
+              <button type="button" id="gp" onclick="generate()"  class="btn">Generate Prescription</button>
             </form>
         </div>
 </body>

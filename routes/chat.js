@@ -15,6 +15,15 @@ router.get("/", function(req, res) {
 	});
 });
 
+router.get("/dashboard", function(req, res) {
+	Consultation.find({$or: [{doctor: req.user._id},{patient: req.user._id}]}, {chat: 0})
+	.populate('patient', 'name')
+	.populate('doctor', 'name')
+	.exec(function(err, consultations) {
+		res.send(consultations);
+	});
+});
+
 //Display entire chat consultation
 router.get("/:consultationId", function(req, res) {
 	Consultation.findOne({_id: req.params.consultationId, $or: [{doctor: req.user._id},{patient: req.user._id}]})
