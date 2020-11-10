@@ -17,7 +17,7 @@
       <script type="text/javascript" src="/scripts/speechrecog.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body>
+<body onload="openchat('<%=currentAccount.category %>','<%=currentAccount._id%>')">
     <!--<%= JSON.stringify(currentAccount) %>-->
 	<!--Alert messages and notification-->
 	<div class="notification card" style="display:none;" id="notification">
@@ -376,10 +376,12 @@
         </div>
         <% } %>
         <div class="col-container" style="color:white;height:100%;">
-            <div class="col" style="width:30%;height:100%;background-color:#505557;">
-                <div class="card" style="height:70px;width:100%;background-color:#505557;position:sticky;top:50px;">
+            <div class="col" style="width:30%;height:100%;background-color:#505557;overflow-y:scroll;">
+                <div class="card" style="height:70px;width:34%;background-color:#505557;position:fixed;top:50px;z-index:1;">
                     <span style="float:left;background-color: transparent;"><img class="avatar" style="width:50px;height:50px;margin:10px;" src="data:<%= type %>;base64,<%= image %>" /></span>
-                    <span style="float:right; margin:20px;font-size:20px;"onclick="req()"><i id="c" class="fa fa-inbox" aria-hidden="true"></i></span>
+                    <span style="position:absolute;top:8px;left:350px; margin:20px;font-size:20px;"onclick="req()"><i id="c" class="fa fa-inbox" aria-hidden="true"></i></span>
+                    <% var c=0;for(var i=0; i < consultations.length;i++){if(!consultations[i].isAccepted){c++;}}%>
+                    <span id="reqcounter" style="position:absolute;top:5px;left:380px; font-size:20px;background-color:red;padding:4px;border-radius: 10px;"><%=c%></span>
                 </div>
                 <script>
                     function req(){
@@ -389,19 +391,21 @@
                             document.getElementById('caccept').style.display="none";
                             document.getElementById('crequest').style.display="block";
                             document.getElementById('c').className="fa fa-comments";
+                            document.getElementById('reqcounter').style.display="none";
                         }
                         else
                         {
                             document.getElementById('caccept').style.display="block";
                             document.getElementById('crequest').style.display="none";
                             document.getElementById('c').className="fa fa-inbox";
+                            document.getElementById('reqcounter').style.display="block";
                         }
                     }
                 </script>
-                <div style="background-color: #4a4a4a;position:fixed;width:35%;overflow-y:scroll;">
-                    <span id="caccept">
+                <div style="background-color: #4a4a4a;position:relative;top:70px;;width:100%;">
+                    <span id="caccept" style="width:100%;">
                         <% for(var i=0; i < consultations.length;i++){if(consultations[i].isAccepted){%>
-                        <div onclick="chat('<%=consultations[i]._id %>','<%=currentAccount.category %>')" style="clear:both;height:70px;width:100%;">
+                        <div onclick="chat('<%=consultations[i]._id %>','<%=currentAccount.category %>','<%=currentAccount._id%>')" style="clear:both;height:70px;width:100%;">
                             <span style="float:left;background-color: transparent;"><img class="avatar" style="width:50px;height:50px;margin:10px;" src="/images/u.png"/></span>
                             <div style="padding:20px;border-style: solid;border-width:0px 0px 1px 0px;border-color:grey;" >
                                 <%if(currentAccount.category=="doctors"){%>
@@ -409,13 +413,16 @@
                                 <% } else{ %>
                                     <span style="font-weight:normal;font-size: 20px;"><%=consultations[i].doctor.name%></span>
                                 <% } %>
+                                <%if(consultations[i].isSolved){%>
+                                    <span class="card"  style="font-weight:normal;font-size: 20px;background-color: green;padding:5px;border-radius: 20px;;">Solved</span>
+                                <% }%>
                             </div>
                         </div>
                         <% } }  %>
                     </span>
                     <span id="crequest" style="display:none;">
                         <%for(var i=0; i < consultations.length;i++){if(!consultations[i].isAccepted){%>
-                        <div onclick="chat('<%=consultations[i]._id %>','<%=currentAccount.category %>')" style="clear:both;height:70px;width:100%;">
+                        <div onclick="chat('<%=consultations[i]._id %>','<%=currentAccount.category %>','<%=currentAccount._id%>')" style="clear:both;height:70px;width:100%;">
                             <span style="float:left;background-color: transparent;"><img class="avatar" style="width:50px;height:50px;margin:10px;" src="/images/u.png"/></span>
                             <div style="padding:20px;border-style: solid;border-width:0px 0px 1px 0px;border-color:grey" >
                                 <%if(currentAccount.category=="doctors"){%>
@@ -430,7 +437,7 @@
                 </div>
             </div>
             <div class="col" style="width:60%;height:100%;background-color:#949c9c;margin:0px; padding:0px;position:relative;overflow-y:auto;">
-                <div class="card" style="clear:both;height:70px;width:100%;background-color:#505557;position:fixed;top:50px;">
+                <div class="card" style="clear:both;height:70px;width:68%;background-color:#505557;position:fixed;top:50px;z-index:1;">
                     <span style="float:left;background-color: transparent;"><img id="chatimage" class="avatar" style="width:50px;height:50px;margin:10px;" src="data:<%= type %>;base64,<%= image %>" /></span>
                     <span id="chatname" style="font-weight:bold;font-size: 20px;position:absolute;top:20px;"></span>
                     <span id="infoicon" onclick="document.getElementById('chatinfo').style.display='block';" style="display:none;font-weight:bold;font-size: 20px;position:absolute;top:30px;left:800px;"><i class="fa fa-info-circle" aria-hidden="true"></i></span>
@@ -455,6 +462,8 @@
                         <form name="rejform" action="" method="POST"><button type="submit" class='accrej' style='background-color:red;'>Reject</button></form>
                     </div>
                     <div id="completechat" style="display:none;">
+                        <div id="xxyy" style="height:435px;;overflow-y:scroll;" ></div>
+                        <span id="nomsg" style="position:absolute;top:35%;left:30%;font-size:30px;display:none;">No Messages to View</span>
                         <form id="sendchat" style="position:fixed;bottom:10px;width:66%;" action="" method="POST" enctype="multipart/form-data">
                             <div class="radio-t">
                             <input  onclick="textimg()" id="image" type="radio" value="image" name="type">
@@ -470,10 +479,51 @@
             </div>
         </div>
         <script>
-            function chat(s,t){
+            function chat(s,t,uid){
                   var x="/consultation/"+s;
                   $.ajax({url:x}).done(function (data){
                         document.getElementById('default').style.display="none";
+                        var q="<br>";
+                        var qq;
+                        var mi,mt;
+                        
+                        if(data.chat.length>0){
+                        document.getElementById('nomsg').style.display="none";
+                        for(var z=0;z<data.chat.length;z++){
+                            if(data.chat[z].from==uid){
+                                if(data.chat[z].type=="text"){
+                                    q=q+"<span class='msgs'>"+data.chat[z].message+"</span><br><br><span class='ts'>"+data.chat[z].time+"</span><br><br><br>";
+                                }
+                                else if(data.chat[z].type="image"){
+                                        if (typeof data.chat[z].message.data !== 'undefined') {
+			                                mi = data.chat[z].message.data.toString('base64');
+			                                mt = data.chat[z].message.type;
+                                        }
+                                    q=q+"<span class='msgs'><img style='width:150px;height:150px;' src='data:"+mt+";base64,"+mi+"' /></span><br><br><span class='ts'>"+data.chat[z].time+"</span><br><br><br>";
+                                    /*q=q+"<span class='msgs'>"+"display Image"+"</span><br><br><span class='ts'>"+data.chat[z].time+"</span><br><br><br>";*/
+                                }
+                            }
+                            else{
+                                if(data.chat[z].type=="text"){
+                                    q=q+"<span class='msgo'>"+data.chat[z].message+"</span><br><br><span class='to'>"+data.chat[z].time+"</span><br><br><br>";
+                                }
+                                else if(data.chat[z].type="image"){
+                                    if (typeof data.chat[z].message.data !== 'undefined') {
+			                                mi = data.chat[z].message.data.toString('base64');
+			                                mt = data.chat[z].message.type;
+                                        }
+                                    q=q+"<span class='msgo'><img style='width:150px;height:150px;' src='data:"+mt+";base64,"+mi+"' /></span><br><br><span class='to'>"+data.chat[z].time+"</span><br><br><br>";
+                                    /*q=q+"<span class='msgo'>"+"display Image"+"</span><br><br><span class='to'>"+data.chat[z].time+"</span><br><br><br>";*/
+                                }
+                            }
+                        }
+                        }
+                        else{
+                            document.getElementById('nomsg').style.display="block";
+                        }
+                        document.getElementById('xxyy').innerHTML=q;
+                        var divm = document.getElementById('xxyy');
+                        divm.scrollTop = divm.scrollHeight - divm.clientHeight;
                       if(t=="doctors"){
                         document.getElementById('chatname').innerHTML=data.patient.name;
                         if(!(data.isAccepted)){
@@ -486,26 +536,41 @@
                             document.getElementsByName('rejform')[1].action="/consult/request/reject/"+data._id+"?_method=DELETE";
                             document.getElementById('completechat').style.display="none";
                             document.getElementById('endconsult').style.display="none";
-                            document.getElementById('prescribe').action="/prescription/generate/"+data._id;
                         }
                         else{
                             document.getElementsByName('chatbutton')[0].style.display="none";
                             document.getElementsByName('chatbutton')[1].style.display="none";
                             document.getElementById('requesticon').style.display="none";
                             document.getElementById('completechat').style.display="block";
+                            document.getElementById('sendchat').style.display="block";
                             document.getElementById('sendchat').action="/consultation/"+data._id+"/new/message";
                             document.getElementById('endconsult').style.display="block";
                             document.getElementById('pname').innerHTML=data.patient.name;
+                            document.getElementById('prescribe').action="/prescription/generate/"+data._id;
                         }
                       }
                       else{
                         document.getElementById('chatname').innerHTML=data.doctor.name;
+                        if(!(data.isAccepted)){
+
+                        }
+                        else{
+                            document.getElementById('completechat').style.display="block";
+                            document.getElementById('sendchat').style.display="block";
+                            document.getElementById('sendchat').action="/consultation/"+data._id+"/new/message";
+                        }
+                      }
+                      if(data.isSolved){
+                            document.getElementById('sendchat').style.display="none";
+                            document.getElementById('endconsult').style.display="none";
                       }
                       document.getElementById('chatimage').src="/images/u.png";
                       document.getElementById('infoicon').style.display='block';
                       var d="Tags:<br>"+data.problem.tags+"<br><br>Issue:<br>"+data.problem.issue+"<br><br>Symptoms:<br>"+data.symptoms+"<br><br>Description:<br>"+data.description;
                       document.getElementById('chatdata').innerHTML=d;
                   })
+                  var divm = document.getElementById('xxyy');
+                    divm.scrollTop = divm.scrollHeight - divm.clientHeight;
                 }
                 function reject(s){
                     var xhttp = new XMLHttpRequest();
@@ -533,6 +598,49 @@
                         document.getElementById("madd").style.display = "none";
                     }
                 }
+
+                function generate(){
+                    var diag=document.getElementById('diagnosis').value;
+                    var med=new Array();
+                    var dos=new Array();
+                    var dur=new Array();
+                    var ins=new Array();
+                    var rem=document.getElementById('remarks').value;
+                    var sig=document.getElementById('sign').value;
+                    var act=document.getElementById('prescribe').action;
+                    for(var i=1;i<=5;i++){
+                        med[i-1]=document.getElementById('medicine'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        dos[i-1]=document.getElementById('dosage'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        dur[i-1]=document.getElementById('duration'+i).value;
+                    }
+                    for(var i=1;i<=5;i++){
+                        ins[i-1]=document.getElementById('instruction'+i).value;
+                    }
+                    var meddata=[
+                        {name:med[0],dosage:dos[0],duration:dur[0],instruction:ins[0]},
+                        {name:med[1],dosage:dos[1],duration:dur[1],instruction:ins[1]},
+                        {name:med[2],dosage:dos[2],duration:dur[2],instruction:ins[2]},
+                        {name:med[3],dosage:dos[3],duration:dur[3],instruction:ins[3]},
+                        {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}
+                    ]
+                    $.post(act, {diagnosis:diag,medicines:[{name:med[0],dosage:dos[0],duration:dur[0],instruction:ins[0]},
+                        {name:med[1],dosage:dos[1],duration:dur[1],instruction:ins[1]},
+                        {name:med[2],dosage:dos[2],duration:dur[2],instruction:ins[2]},
+                        {name:med[3],dosage:dos[3],duration:dur[3],instruction:ins[3]},
+                        {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}],remarks:rem,sign:sig});
+                }
+
+                function openchat(c,cid){
+                    var x=location.href;
+                    var s=x.indexOf("#")+1;
+                    var e=x.length;
+                    var ind=x.slice(s, e);
+                    chat(ind,c,cid);
+                }
                 
         </script>
 
@@ -554,31 +662,31 @@
               <input type="text" placeholder="Medicine 1" id="medicine1" name="medicines[][name]" style="float:left;">
               <input type="Number" placeholder="Dosage 1" id="dosage1" name="medicines[][dosage]" style=" float:left;">
               <input type="Number" placeholder="Duration 1" id="duration1" name="medicines[][duration]" style=" float:left;">
-              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicinesp[][instruction]" style="float:left;">
+              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m2" style="display:none;">
                 <input type="text" placeholder="Medicine 2" id="medicine2" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 2" id="dosage2" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 2" id="duration2" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m3" style="display:none;">
                 <input type="text" placeholder="Medicine 3" id="medicine3" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 3" id="dosage3" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 3" id="duration3" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m4" style="display:none;">
                 <input type="text" placeholder="Medicine 4" id="medicine4" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 4" id="dosage4" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 4" id="duration4" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m5" style="display:none;">
                 <input type="text" placeholder="Medicine 5" id="medicine5" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 5" id="dosage5" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 5" id="duration5" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <button type="button" onclick="med()" class="addbtn" id="madd"><b>+</b></button><br>
               
@@ -586,7 +694,7 @@
               <textarea placeholder="Remarks" id="remarks" name="remarks" style="width:90%; clear:both" required rows="4"></textarea><br><br>
               <label for="diag"><b>Doctors Sign(A img file)</b></label>
               <input type="file" id="sign" name="sign" style="width:90%">
-              <button type="submit" class="btn">Generate Prescription</button>
+              <button type="button" id="gp" onclick="generate()" class="btn">Generate Prescription</button>
             </form>
         </div>
 </body>
