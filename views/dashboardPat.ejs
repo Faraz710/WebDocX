@@ -322,6 +322,7 @@
 			<div id="pres" style="display:none;">
 				<% 	if (prescriptions.length > 0) {
 					prescriptions.forEach(prescription => {
+					console.log(prescription);
 						var pdf = prescription.pdf.data.toString('base64');
 						var type = prescription.pdf.contentType;
 						if (typeof prescription.pdf.data !== 'undefined') { %>
