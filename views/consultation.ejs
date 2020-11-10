@@ -486,7 +486,6 @@
                             document.getElementsByName('rejform')[1].action="/consult/request/reject/"+data._id+"?_method=DELETE";
                             document.getElementById('completechat').style.display="none";
                             document.getElementById('endconsult').style.display="none";
-                            document.getElementById('prescribe').action="/prescription/generate/"+data._id;
                         }
                         else{
                             document.getElementsByName('chatbutton')[0].style.display="none";
@@ -496,6 +495,7 @@
                             document.getElementById('sendchat').action="/consultation/"+data._id+"/new/message";
                             document.getElementById('endconsult').style.display="block";
                             document.getElementById('pname').innerHTML=data.patient.name;
+                            document.getElementById('prescribe').action="/prescription/generate/"+data._id;
                         }
                       }
                       else{
@@ -554,31 +554,31 @@
               <input type="text" placeholder="Medicine 1" id="medicine1" name="medicines[][name]" style="float:left;">
               <input type="Number" placeholder="Dosage 1" id="dosage1" name="medicines[][dosage]" style=" float:left;">
               <input type="Number" placeholder="Duration 1" id="duration1" name="medicines[][duration]" style=" float:left;">
-              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicinesp[][instruction]" style="float:left;">
+              <input type="text" placeholder="Instruction 1" id="instruction1" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m2" style="display:none;">
                 <input type="text" placeholder="Medicine 2" id="medicine2" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 2" id="dosage2" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 2" id="duration2" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 2" id="instruction2" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m3" style="display:none;">
                 <input type="text" placeholder="Medicine 3" id="medicine3" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 3" id="dosage3" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 3" id="duration3" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 3" id="instruction3" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m4" style="display:none;">
                 <input type="text" placeholder="Medicine 4" id="medicine4" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 4" id="dosage4" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 4" id="duration4" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 4" id="instruction4" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <span id="m5" style="display:none;">
                 <input type="text" placeholder="Medicine 5" id="medicine5" name="medicines[][name]" style="float:left;">
                 <input type="Number" placeholder="Dosage 5" id="dosage5" name="medicines[][dosage]" style=" float:left;">
                 <input type="Number" placeholder="Duration 5" id="duration5" name="medicines[][duration]" style=" float:left;">
-                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicinesp[][instruction]" style="float:left;">
+                <input type="text" placeholder="Instruction 5" id="instruction5" name="medicines[][instruction]" style="float:left;">
               </span><br>
               <button type="button" onclick="med()" class="addbtn" id="madd"><b>+</b></button><br>
               

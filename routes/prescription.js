@@ -38,10 +38,11 @@ router.post("/generate/:consultationId", function(req, res) {
 						remarks: req.body.remarks
 					});
 					newPrescription.save().then(() => {
+						console.log(newPrescription);
   						res.redirect('/view/'+newPrescription._id);
   					}).catch(err => {
   						req.flash("error", err.message);
-  						res.redirect("/prescription/generate");
+  						res.redirect("/consultation");
   					});
   				});
 });
@@ -53,7 +54,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 		res.render("prescriptionTemplate", {prescription: prescription, logoBuffer: logo}, (err, template) => {
 			if (err) {
 		        req.flash("error", err.message);
-				res.redirect("/prescription/generate");
+				res.redirect("/consultation");
 		    } 
 		    else {
 		    	const options = {
@@ -74,7 +75,7 @@ router.get("/view/:prescriptionId", function(req, res) {
 							if (err) {
 								req.flash("error", err.message);
 								console.log(err);
-				            	res.redirect("/prescription/generate");
+				            	res.redirect("/consultation");
 							}
 							else {
 								console.log("success");

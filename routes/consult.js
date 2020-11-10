@@ -25,7 +25,7 @@ router.post("/new/:doctorId", auth.isPatient, function(req, res) {
 		const newNotification = {
 			message: `You have received a new consultation request from ${req.user.name} regarding the problem: ${req.body.problem}. Kindly review it and respond to the patient.`,
 			type: 3,
-			url: 'http://localhost:3000/consultation#'+newConsultation._id
+			url: 'https://web-doc-x.herokuapp.com/consultation#'+newConsultation._id
 		};
 
 		Doctor.findOneAndUpdate({_id: req.params.doctorId}, { 
@@ -65,7 +65,7 @@ router.post("/accept/:consultationId", auth.isDoctor, auth.isActivated, function
 			const newNotification = {
 				message: `Your consultation request to Dr. ${req.user.name} regarding the problem: ${consultation.problem.issue} has been accepted. You can now contact the doctor and seek consultation.`,
 				type: 1,
-				url: 'http://localhost:3000/consultation#'+consultation._id
+				url: 'https://web-doc-x.herokuapp.com/consultation#'+consultation._id
 			};
 
 			Patient.findOneAndUpdate({_id: consultation.patient}, { 
