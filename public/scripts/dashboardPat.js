@@ -99,13 +99,14 @@ function sb(n){
     document.getElementById('pres').style.display="none";
     document.getElementById('mi').style.backgroundColor="rgb(219, 212, 212)";
     document.getElementById('pi').style.backgroundColor="transparent";
-    getheads();
+    getMsgHeads();
   }
   else if(n=="p"){
     document.getElementById('msg').style.display="none";
     document.getElementById('pres').style.display="block";
     document.getElementById('pi').style.backgroundColor="rgb(219, 212, 212)";
     document.getElementById('mi').style.backgroundColor="transparent";
+    getPrescriptions();
   }
 }
 
@@ -117,8 +118,8 @@ function scrollright() {
   document.getElementById('special').scrollLeft -= 600;
 }
 
-function getheads(){
-  $.ajax({url:"http://localhost:3000/consultation/dashboard"}).done(function (data){
+function getMsgHeads(){
+  $.ajax({url:"https://web-doc-x.herokuapp.com/consultation/dashboard"}).done(function (data){
     var q="";
     var x='c';
     for(var i=0;i<data.length;i++){
@@ -130,6 +131,60 @@ function getheads(){
   });
 document.getElementById('mi').style.backgroundColor="rgb(219, 212, 212)";
 document.getElementById('msg').style.display="block";
+}
+function encode (input) {
+    var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    var output = "";
+    var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+    var i = 0;
+
+    while (i < input.length) {
+        chr1 = input[i++];
+        chr2 = i < input.length ? input[i++] : Number.NaN; // Not sure if the index 
+        chr3 = i < input.length ? input[i++] : Number.NaN; // checks are needed here
+
+        enc1 = chr1 >> 2;
+        enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+        enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+        enc4 = chr3 & 63;
+
+        if (isNaN(chr2)) {
+            enc3 = enc4 = 64;
+        } else if (isNaN(chr3)) {
+            enc4 = 64;
+        }
+        output += keyStr.charAt(enc1) + keyStr.charAt(enc2) +
+                  keyStr.charAt(enc3) + keyStr.charAt(enc4);
+    }
+    return output;
+}
+
+function getPrescriptions(){
+  document.getElementById('pres').style.display="block";
+    var q="";
+  $.ajax({url:"https://web-doc-x.herokuapp.com/dashboardPat/prescriptions"}).done(function (data1){
+    if(typeof(data1) === "string")
+      data = JSON.parse(data1);
+    else 
+      data = data1;
+    if (data.length > 0) {
+      data.forEach(prescription => {
+        var pdf =  new Uint8Array(prescription.pdf.data.data);
+        var date = new Date(prescription.issuingDate);
+        var type = prescription.pdf.contentType;
+        if (typeof prescription.pdf.data !== 'undefined') {
+          q=q+'<div class="card" style="clear:both;margin-bottom: 10px;border-radius: 10px;padding:20px;"><b>Dr. ' + prescription.doctor.name +
+              '</b><a href="data:'+ type +';base64,'+encode(pdf)+' "style="float:right;" download><i class="fa fa-arrow-down" aria-hidden="true"></i> </a><br>'+
+              '<span style="color:grey;">'+date+'</span></div><br>';
+        }
+      });
+    }
+    console.log(q);
+     if(data.length==0){
+      q=q+'<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;"><b>No Prescriptions to Show</b></div>';
+     }
+     document.getElementById('pres').innerHTML=q;
+  });
 }
 
 function consul(){

@@ -151,7 +151,7 @@ app.use("/consult/request", consult);
 app.use("/consultation", chat);
 
 //Generate prescription
-app.use("/prescription", prescription);
+app.use("/prescription", auth.isDoctor, auth.isActivated, prescription);
 
 //Incorrect URL
 app.get("*", function(req, res) {

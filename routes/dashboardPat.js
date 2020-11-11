@@ -10,8 +10,13 @@ const Prescription = require('../models/prescription_schema');
 
 //Display patient dashboard
 router.get("/", function(req, res) {
+	res.render("dashboardPat");
+});
+
+//Send prescriptions
+router.get("/prescriptions", function(req, res) {
 	Prescription.find({'patient._id': req.user._id}, function(err, prescriptions) {
-		res.render("dashboardPat", {prescriptions: prescriptions});
+		res.send(prescriptions);
 	});
 });
 

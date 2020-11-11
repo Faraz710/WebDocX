@@ -36,6 +36,7 @@
     <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
   </div>
   <% if (typeof currentAccount.profilePic.data.data !== 'undefined') {
+  console.log(currentAccount.profilePic.data.data);
 	var image = Buffer.from(currentAccount.profilePic.data.data).toString('base64');
 	var type = currentAccount.profilePic.contentType;
 }%>
@@ -119,7 +120,7 @@
 		<button onclick="opt('gynecology')" id="gynecology">Gynecology</button> 
 		<button onclick="opt('pathology')" id="pathology">Pathology</button> 
 		<button onclick="opt('pulmonology')" id="pulmonology">Pulmonology</button> 
-		<button onclick="opt('psycology')" id="psychology">Psychology</button> 
+		<button onclick="opt('psychology')" id="psychology">Psychology</button> 
 		<button onclick="opt('otology')" id="otology">Otology</button>
 	</span>
 	<!--Viewdocs links-->
@@ -309,7 +310,7 @@
 				<div onclick="opt('gynecology')"class="card" id="gynecology"><img src="/images/i-gynecology.png" onerror="this.src='/images/i-alternate.png';" alt="gynecology"><br>Gynecology</div> 
 				<div onclick="opt('pathology')"class="card" id="pathology"><img src="/images/i-pathology.png" onerror="this.src='/images/i-alternate.png';" alt="pathology"><br>Pathology</div> 
 				<div onclick="opt('pulmonology')"class="card" id="pulmonology"><img src="/images/i-pulmonology.png" onerror="this.src='/images/i-alternate.png';" alt="pulmonology"><br>Pulmonology</div> 
-				<div onclick="opt('psychology')"class="card" id="psychology"><img src="/images/i-psychology.png" onerror="this.src='/images/i-alternate.png';" alt="psychology"><br>Psycology</div> 
+				<div onclick="opt('psychology')"class="card" id="psychology"><img src="/images/i-psychology.png" onerror="this.src='/images/i-alternate.png';" alt="psychology"><br>Psychology</div> 
 				<div onclick="opt('otology')"class="card" id="otology"><img src="/images/i-otology.png" onerror="this.src='/images/i-alternate.png';" alt="otology"><br>Otology</div>
 				<button onclick="scrollleft()" style="right:0%;"><i class="fa fa-arrow-circle-right"  aria-hidden="true"></i></button>
 			</div>
@@ -321,28 +322,10 @@
 			</div>
 			<br>
 			<div id="pres" style="display:none;">
-				<% 	if (prescriptions.length > 0) {
-					prescriptions.forEach(prescription => {
-					console.log(prescription);
-						var pdf = prescription.pdf.data.toString('base64');
-						var type = prescription.pdf.contentType;
-						if (typeof prescription.pdf.data !== 'undefined') { %>
-							<div class="card" style="clear:both;margin-bottom: 10px;border-radius: 10px;padding:20px;">
-							<b>Dr.<%=prescription.doctor.name%></b>
-							<a href="data:<%= type %>;base64,<%= pdf %>" style="float:right;" download><i class="fa fa-arrow-down" aria-hidden="true"></i> </a><br>
-							<span style="color:grey;"><%=prescription.issuingDate.toDateString();%></span>
-							</div>
-							<br>
-						<% }
-					});
-				} %>
-				<% if(prescriptions.length==0){%>
-					<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
-						<b>No Prescriptions to Show</b>
-					</div>
-				<%}%>
+				Loading Prescriptions...
 			</div>
 			<div id="msg" style="height:400px;overflow-y:scroll;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) inset;border-radius:10px;display:none;" >
+				<br> Loading Chats...
 			</div>
 		</div>
 	</div>

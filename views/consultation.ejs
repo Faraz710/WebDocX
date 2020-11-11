@@ -635,9 +635,8 @@
 				            data: fd,
 				            contentType: false,
 				            processData: false,
-				            success: function(data) {
-				            	console.log(data);
-				            	$.get('https://web-doc-x.herokuapp.com/prescription/view/'+data);
+				            success: function(flag) {
+				            	location.href="https://web-doc-x.herokuapp.com/dashboardDoc";
 				            }
 				        });
 				    });
@@ -701,7 +700,7 @@
               
               <br><label for="psw"style="clear:both;width:90%;"><b>Remarks</b></label><br>
               <textarea placeholder="Remarks" id="remarks" name="remarks" style="width:90%; clear:both" required rows="4"></textarea><br><br>
-              <label for="diag"><b>Doctors Sign(A img file)</b></label>
+              <label for="diag"><b>Doctors Sign(Kindly sign on a white paper and upload an image)</b></label>
               <input type="file" id="sign" name="sign" style="width:90%">
               <button type="button" id="gp" class="btn">Generate Prescription</button>
             </form>
