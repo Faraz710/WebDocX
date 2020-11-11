@@ -15,6 +15,7 @@
 	<script type="text/javascript" src="/scripts/speechrecog.js"></script>
 	<script type="text/javascript" src="/scripts/dashboardPat.js"></script>
 	<script type="text/javascript" src="/scripts/nav.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<!--Alert messages and notification-->
@@ -315,7 +316,7 @@
 		</div>
 		<div class="col" style=" width:20%;">
 			<div style="width:100%;display:table">
-				<h1 id="mi" onclick="sb('m')" align="center" style="display:table-cell;background-color: rgb(219, 212, 212);padding:5px;border-radius: 10px;"><i class="fa fa-comments" aria-hidden="true"></i></h1>
+				<h1 id="mi" onclick="sb('m')" align="center" style="display:table-cell;padding:5px;border-radius: 10px;"><i class="fa fa-comments" aria-hidden="true"></i></h1>
 				<h1 id="pi" onclick="sb('p')" align="center" style="display:table-cell;padding:5px;border-radius: 10px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></h1>
 			</div>
 			<br>
@@ -341,10 +342,7 @@
 					</div>
 				<%}%>
 			</div>
-			<div id="msg" >
-				<div class="card" style="margin-bottom: 10px;border-radius: 10px;padding:20px;">
-					<b>Messaging is not activated yet</b>
-				</div>
+			<div id="msg" style="height:400px;overflow-y:scroll;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) inset;border-radius:10px;display:none;" >
 			</div>
 		</div>
 	</div>

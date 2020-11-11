@@ -83,15 +83,15 @@
                                 <th>Duration</th>
                                 <th>Instruction</th>
                             </tr>
-                            <% prescription.medicines.forEach(medicine => {%>
+                            <% var c=0;prescription.medicines.forEach(medicine => { %>
                                 <tr>
-                                    <td>1</td>
+                                    <td><%=c%></td>
                                     <td><%= medicine.name %></td>
                                     <td><%= medicine.dosage %></td>
                                     <td><%= medicine.duration %></td>
                                     <td><%= medicine.instruction %></td>
                                 </tr>
-                            <%  });%>
+                            <% c++; });%>
                         </table>
                     <% }%>
                 </div>

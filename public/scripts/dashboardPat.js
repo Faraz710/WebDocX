@@ -99,6 +99,7 @@ function sb(n){
     document.getElementById('pres').style.display="none";
     document.getElementById('mi').style.backgroundColor="rgb(219, 212, 212)";
     document.getElementById('pi').style.backgroundColor="transparent";
+    getheads();
   }
   else if(n=="p"){
     document.getElementById('msg').style.display="none";
@@ -116,3 +117,21 @@ function scrollright() {
   document.getElementById('special').scrollLeft -= 600;
 }
 
+function getheads(){
+  $.ajax({url:"http://localhost:3000/consultation/dashboard"}).done(function (data){
+    var q="";
+    var x='c';
+    for(var i=0;i<data.length;i++){
+      if(data[i].isAccepted && !(data[i].isSolved)){
+        q=q+"<div onclick='consul()' style='height:40px;clear:both;padding:10px;border-style:solid;border-width:0px 0px 1px 0px;border-color:grey'><span style='float:left;background-color: transparent;'><img class='avatar' style='width:40px;height:40px;' src='/images/u.png'/></span><span  style='font-weight:normal;font-size: 20px;margin-top:20px;'>"+data[i].doctor.name+"</span></div>"
+      }
+    }
+    document.getElementById('msg').innerHTML=q;
+  });
+document.getElementById('mi').style.backgroundColor="rgb(219, 212, 212)";
+document.getElementById('msg').style.display="block";
+}
+
+function consul(){
+    location.href="/consultation";
+}

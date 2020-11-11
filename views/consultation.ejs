@@ -67,7 +67,6 @@
 			<button type="submit" style="width:50px;"><i class="fa fa-search"></i></button>
 		</form>
 	</div>
-
 	<!--Logout menu-->
 	<span id="log" class="dropdiv" style="left:87%;overflow:scroll; height:200px;">
 		<button onclick="location.href='/update'" id="" ><i class="fa fa-user" aria-hidden="true"></i> Profile</button>
@@ -179,7 +178,6 @@
 					<span style="float:right;color:grey"><i class="fa fa-user" aria-hidden="true"></i></span>
 				<% }%>
 		</div>
-
 		<script>document.getElementById('count').innerHTML="<%=co%>"</script><% } %>
     </div>
     </div>
@@ -552,7 +550,6 @@
                       else{
                         document.getElementById('chatname').innerHTML=data.doctor.name;
                         if(!(data.isAccepted)){
-
                         }
                         else{
                             document.getElementById('completechat').style.display="block";
@@ -598,8 +595,6 @@
                         document.getElementById("madd").style.display = "none";
                     }
                 }
-
-
                 $(document).ready(function(){
 				    $("#gp").click(function(){
 				    	var diag=document.getElementById('diagnosis').value;
@@ -629,7 +624,6 @@
                         {name:med[4],dosage:dos[4],duration:dur[4],instruction:ins[4]}
                     ];
 				        var details={diagnosis:diag, medicines:meddata ,remarks:rem};
-
 				        var fd = new FormData();
 				        var files = $('#sign')[0].files[0];
 				        fd.append('sign',files);

@@ -183,7 +183,7 @@ a:hover, a:active {
 
 /*designs for forms*/
 /*input field should be full*/
-input[type=text], input[type=password] {
+input[type=text], input[type=password],input[type=number] {
   width: 100%;
   padding: 12px 40px;
   margin: 8px 0;
