@@ -66,7 +66,6 @@ router.get("/view/:prescriptionId", function(req, res) {
 		    else {
 		    	const options = {
 		            "height": "10.5in",
-					"margin-bottom": "0in",
 		            "width": "8in"
 		        };
 		        pdf.create(template, options).toBuffer(function(err, buffer) {
