@@ -1,390 +1,885 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--favicon-->
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/favicon/site.webmanifest">
+  <head>
+    <!--favicon-->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
 
-  <meta charset="UTF-8">
-  <title>WebDocX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script type="text/javascript" src="/scripts/home.js"></script>
-</head>
-<body >
-<!--Alert messages and notification-->
-  <div class="notification card" id="notification">
-    <% if (errorMessage && errorMessage.length > 0) { %>
-      <script>document.getElementById('notification').style.backgroundColor='#f8d7da';document.getElementById('notification').style.backgroundImage='none';</script>
-      <span style="color:#721c24;">
-        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i><b><%= errorMessage %></b>
-      </span><br>
-    <% }%>
-
-    <% if (successMessage && successMessage.length > 0){ %>
-      <script>document.getElementById('notification').style.backgroundColor='#d4edda';document.getElementById('notification').style.backgroundImage='none';</script>
-      <span style="color:#155724;">
-        <i class="fa fa-check" aria-hidden="true"></i><b><%= successMessage %></b>
-      </span><br>
-    <% } %>
-    <b>Now we are providing Consultation For COVID-19 too.</b>
-    <button class="buttontrans not" style="border-radius:10px; font-size:16px;" >Precautions</button>
-    <span onclick="document.getElementById('notification').style.display='none'" class="close" title="Close Modal">&times;</span>
-  </div>
-  
-  <div class="col-container sticky" id="mainnav">
-    <div id="logobar" class="col column5" align="left" style="padding:0px">
-      <img class="logo" src="images/logo.png" height="100" width="200">
+    <meta charset="UTF-8" />
+    <title>WebDocX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script type="text/javascript" src="/scripts/home.js"></script>
+  </head>
+  <body>
+    <!--Alert messages and notification-->
+    <div class="notification card" id="notification">
+      <% if (errorMessage && errorMessage.length > 0) { %>
+      <script>
+        document.getElementById("notification").style.backgroundColor =
+          "#f8d7da";
+        document.getElementById("notification").style.backgroundImage = "none";
+      </script>
+      <span style="color: #721c24">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <b><%= errorMessage %></b> </span
+      ><br />
+      <% }%> <% if (successMessage && successMessage.length > 0){ %>
+      <script>
+        document.getElementById("notification").style.backgroundColor =
+          "#d4edda";
+        document.getElementById("notification").style.backgroundImage = "none";
+      </script>
+      <span style="color: #155724">
+        <i class="fa fa-check" aria-hidden="true"></i
+        ><b><%= successMessage %></b> </span
+      ><br />
+      <% } %>
+      <b>Now we are providing Consultation For COVID-19 too.</b>
+      <button
+        class="buttontrans not"
+        style="border-radius: 10px; font-size: 16px"
+      >
+        Precautions
+      </button>
+      <span
+        onclick="document.getElementById('notification').style.display='none'"
+        class="close"
+        title="Close Modal"
+        >&times;</span
+      >
     </div>
-    <img id="clogobar" class="logo hidden" src="images/logo.png" height="100" width="200">
-    <div class="col column5" align="right" style="padding:0px">
-    <button class="buttontrans borderless" onclick="document.getElementById('id01').style.display='block'">Login</button>
-    <button class="buttontrans" onclick="document.getElementById('id03').style.display='block'">Sign Up</button>
-    </div>
-  </div>
-  <div class="col-container">
-    <div class="col column5" align="left">
-      <h1 style="color: #055ead;">Bringing Patients AND Doctors Together Worldwide.</h1>
-    <div class="col-container">
-      <div id="xyz"class="col column5" style="border-radius:10px;">
-        <h1>For Doctors</h1>
-        <p>Now you can attend to many more patients even from your home. Attend to patients WorldWide.</p>
+    <!--The Navbar-->
+    <div class="navbar" id="mainnav">
+      <div id="logobar" class="col column5" align="left" style="padding: 0px">
+        <img class="logo" src="images/logo.png" height="100" width="200" />
       </div>
-      <div class="col column5">
-        <h1>For Patients</h1>
-        <p>Finding a doctor becomes much more easier. You dont need to leave your House. A 24/7 Service in your palm. Connecting you to Doctors WorldWide.</p>
+      <img
+        id="clogobar"
+        class="logo hidden"
+        src="images/logo.png"
+        height="100"
+        width="200"
+      />
+      <div class="col column5" align="right" style="padding: 0px">
+        <button
+          class="loginbtn card"
+          onclick="document.getElementById('id01').style.display='block'"
+        >
+          Login
+        </button>
+        <button
+          class="signupbtn"
+          onclick="document.getElementById('id03').style.display='block'"
+        >
+          Sign Up
+        </button>
       </div>
     </div>
-
-    <div class="col-container">
-      <div class="col column5">
-        <button class="buttongreen borderless card" style="width:100%; height:50px;" onclick="document.getElementById('id04').style.display='block'">Register Now</button>
-      </div>
-      <div class="col column5">
-        <button class="buttonwhite card" style="width:80%; height:50px;" onclick="document.getElementById('id05').style.display='block'">Sign Up & Consult</button>
-      </div>
-    </div>
-    </div>
-    <div class="col column5" style="background-image: url('images/background.jpg'); background-repeat: no-repeat;background-size: 100% 450px;">
-    </div>
-  </div>
-
-  <!--The footer starts-->
-  <div style="background-color: #000000; background-image: linear-gradient(147deg, #000000 0%, #434343 74%); color:white">
-
-    <div class="col-container">
-      <div class="col column3" >
-        <div class="col-container card">
-          <div class="col column3 " style="border:none;position:relative">
-            <span style="font-size: 50px;position:absolute"><i class="fa fa-phone" aria-hidden="true"></i></span>
+    <!--Main Content-->
+    <div class="col-container maincontent">
+      <div class="col column5" style="padding-top: 10vh">
+        <h1 style="color: #055ead">
+          Bringing Patients AND Doctors Together Worldwide.
+        </h1>
+        <div class="col-container">
+          <div id="xyz" class="col column5" style="border-radius: 10px">
+            <h1>For Doctors</h1>
+            <p>
+              Now you can attend to many more patients even from your home.
+              Attend to patients WorldWide.
+            </p>
           </div>
-          <div class="col column7" style="border:none;height:100px;">
-            <p style="color:white;">Call Us Now!</p>
-            <a style="color: grey;" href="tel:123-456-7890">123-456-7890</a>
+          <div class="col column5">
+            <h1>For Patients</h1>
+            <p>
+              Finding a doctor becomes much more easier. You dont need to leave
+              your House. A 24/7 Service in your palm. Connecting you to Doctors
+              WorldWide.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-container">
+          <div class="col column5">
+            <button
+              class="buttongreen borderless card"
+              style="width: 100%; height: 50px"
+              onclick="document.getElementById('id04').style.display='block'"
+            >
+              Register Now
+            </button>
+          </div>
+          <div class="col column5">
+            <button
+              class="buttonwhite card"
+              style="width: 80%; height: 50px"
+              onclick="document.getElementById('id05').style.display='block'"
+            >
+              Sign Up & Consult
+            </button>
           </div>
         </div>
       </div>
-      <div class="col column3">
-        <div class="col-container card">
-          <div class="col column3" style="border:none;position:relative">
-            <span style="font-size: 50px;position:absolute;"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+      <div
+        class="col column5"
+        style="
+          background-image: url('images/background.jpg');
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+        "
+      ></div>
+    </div>
+
+    <!--The footer starts-->
+    <div
+      style="
+        background-color: #000000;
+        background-image: linear-gradient(147deg, #000000 0%, #434343 74%);
+        color: white;
+      "
+    >
+      <div class="col-container">
+        <div class="col column3">
+          <div class="col-container card">
+            <div class="col column3" style="border: none; position: relative">
+              <span style="font-size: 50px; position: absolute"
+                ><i class="fa fa-phone" aria-hidden="true"></i
+              ></span>
+            </div>
+            <div class="col column7" style="border: none; height: 100px">
+              <p style="color: white">Call Us Now!</p>
+              <a style="color: grey" href="tel:123-456-7890">123-456-7890</a>
+            </div>
           </div>
-          <div class="col column7" style="border:none; height:100px;">
-            <p style="color:white;">Drop Us an Email!</p>
-            <a style="color: grey;" href = "mailto: webdoc.2019@gmail.com">webdoc.2019@gmail.com</a>
+        </div>
+        <div class="col column3">
+          <div class="col-container card">
+            <div class="col column3" style="border: none; position: relative">
+              <span style="font-size: 50px; position: absolute"
+                ><i class="fa fa-envelope-o" aria-hidden="true"></i
+              ></span>
+            </div>
+            <div class="col column7" style="border: none; height: 100px">
+              <p style="color: white">Drop Us an Email!</p>
+              <a style="color: grey" href="mailto: webdoc.2019@gmail.com"
+                >webdoc.2019@gmail.com</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col column3">
+          <div class="col-container card">
+            <div class="col column3" style="border: none; position: relative">
+              <span style="font-size: 50px; position: absolute; color: white"
+                ><i class="fa fa-clock-o" aria-hidden="true"></i
+              ></span>
+            </div>
+            <div class="col column7" style="border: none; height: 100px">
+              <p style="color: white">Our Active Hours:</p>
+              We are available 24 x 7!
+            </div>
           </div>
         </div>
       </div>
-      <div class="col column3">
-        <div class="col-container card">
-          <div class="col column3" style="border:none;position:relative">
-            <span style="font-size: 50px;position:absolute; color:white;"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+      <div align="center" style="font-size: 25px">
+        <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+        <a href="https://twitter.com/login?lang=en" class="fa fa-twitter"></a>
+        <a href="https://www.linkedin.com/login" class="fa fa-linkedin"></a>
+        <a href="https://www.youtube.com/" class="fa fa-youtube"></a>
+        <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+      </div>
+    </div>
+    <div
+      style="
+        background-color: black;
+        color: grey;
+        height: 50px;
+        padding: 20px 50px;
+      "
+    >
+      Copyright © 2020 WebDoc. All rights reserved.
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">
+      <b>&uarr;</b>
+    </button>
+
+    <!--Doctor Login Form-->
+    <div id="id01" class="modal">
+      <form
+        class="modal-content animate"
+        action="/doctor/auth/login"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id01').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Welcome Back!</h1>
+          <button
+            type="button"
+            class="buttontrans borderless card"
+            style="padding: 0px 0px; border-radius: 50%"
+          >
+            <img class="avatar active" src="images/doctor.png" />
+          </button>
+          <button
+            type="button"
+            class="buttontrans borderless"
+            style="padding: 0px 0px; border-radius: 50%"
+            onclick="patl()"
+          >
+            <img class="avatar" src="images/patient.png" />
+          </button>
+        </div>
+
+        <div class="container">
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
+
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="password01"
+            name="password"
+            required
+          />
+          <input type="checkbox" id="01" onclick="myFunction('01')" />Show
+          Password<br />
+          <!--<label style=" position:absolute; top:260px; right:300px;"><i class="fa fa-eye" aria-hidden="true"></i><input type="checkbox" id="01" onclick="myFunction('01')" style="display:none;"></label>-->
+
+          <button type="submit" class="buttongreen borderless">Login</button>
+          <label>
+            <input
+              type="checkbox"
+              checked="checked"
+              id="remember"
+              name="remember"
+            />
+            Remember me
+          </label>
+          <span class="psw"
+            ><a
+              onclick="document.getElementById('dfpwd').style.display='block'"
+              style="color: black"
+              >Forgot password?</a
+            ></span
+          >
+        </div>
+      </form>
+    </div>
+
+    <!--Patient Login Form-->
+    <div id="id02" class="modal">
+      <form
+        class="modal-content animate"
+        action="/patient/auth/login"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id02').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Welcome Back!</h1>
+          <button
+            type="button"
+            class="buttontrans borderless"
+            style="padding: 0px 0px; border-radius: 50%"
+            onclick="docl()"
+          >
+            <img class="avatar" src="images/doctor.png" />
+          </button>
+          <button
+            type="button"
+            class="buttontrans borderless card"
+            style="padding: 0px 0px; border-radius: 50%"
+          >
+            <img class="avatar" src="images/patient.png" />
+          </button>
+        </div>
+
+        <div class="container">
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
+
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="password02"
+            name="password"
+            required
+          />
+          <input type="checkbox" id="02" onclick="myFunction('02')" />Show
+          Password<br />
+
+          <button type="submit" class="buttongreen borderless">Login</button>
+          <label>
+            <input
+              type="checkbox"
+              checked="checked"
+              id="remember"
+              name="remember"
+            />
+            Remember me
+          </label>
+          <span class="psw"
+            ><a
+              onclick="document.getElementById('pfpwd').style.display='block'"
+              style="color: black"
+              >Forgot password?</a
+            ></span
+          >
+        </div>
+      </form>
+    </div>
+
+    <!--Choice sign up Form-->
+    <div id="id03" class="modal">
+      <div class="modal-content animate">
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id03').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>You Are?</h1>
+        </div>
+        <div class="col-container" align="center">
+          <div class="col column3">
+            <button class="buttontrans" style="padding: 0px 0px" onclick="m1()">
+              <img src="images/doctor.png" height="200" width="200" /></button
+            ><br />
+            <h1>Doctor</h1>
           </div>
-          <div class="col column7" style="border:none;height:100px;">
-            <p style="color:white;">Our Active Hours:</p>
-            We are available 24 x 7!
+          <div class="col column3">
+            <button class="buttontrans" style="padding: 0px 0px" onclick="m2()">
+              <img src="images/patient.png" height="200" width="200" /></button
+            ><br />
+            <h1>Patient</h1>
           </div>
         </div>
       </div>
     </div>
-        <div align="center" style="font-size: 25px;">
-          <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
-          <a href="https://twitter.com/login?lang=en" class="fa fa-twitter"></a>
-          <a href="https://www.linkedin.com/login" class="fa fa-linkedin"></a>
-          <a href="https://www.youtube.com/" class="fa fa-youtube"></a>
-          <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+
+    <!--Doctor signup-->
+    <div id="id04" class="modal">
+      <form
+        class="modal-content animate"
+        action="/doctor/auth/register"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id04').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Lets Get You Started!</h1>
+          <button
+            type="button"
+            class="buttontrans borderless card"
+            style="padding: 0px 0px; border-radius: 50%"
+          >
+            <img class="avatar active" src="images/doctor.png" />
+          </button>
+          <button
+            type="button"
+            class="buttontrans borderless"
+            style="padding: 0px 0px; border-radius: 50%"
+            onclick="pats()"
+          >
+            <img class="avatar" src="images/patient.png" />
+          </button>
         </div>
-  </div>
-  <div style="background-color:black;color:grey; height: 50px;padding: 20px 50px;">
-          Copyright © 2020 WebDoc. All rights reserved.
-  </div>
-  <button onclick="topFunction()" id="myBtn" title="Go to top"><b>&uarr;</b></button>
 
+        <div class="container">
+          <i
+            class="fa fa-user"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Full Name"
+            id="name"
+            name="name"
+            required
+          />
 
-  <!--Doctor Login Form-->
-  <div id="id01" class="modal">
-  
-    <form class="modal-content animate" action="/doctor/auth/login" method="post">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <h1>Welcome Back!</h1>
-        <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar active" src="images/doctor.png"></button>
-        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="patl()"><img class="avatar" src="images/patient.png"></button>
-      </div>
-  
-      <div class="container">
-        <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-        <input type="text" placeholder="Enter Mail" id="email" name="username" required>
-  
-        <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-        <input type="password" placeholder="Enter Password" id="password01" name="password" required>
-        <input type="checkbox" id="01" onclick="myFunction('01')">Show Password<br>
-        <!--<label style=" position:absolute; top:260px; right:300px;"><i class="fa fa-eye" aria-hidden="true"></i><input type="checkbox" id="01" onclick="myFunction('01')" style="display:none;"></label>-->
-          
-        <button type="submit" class="buttongreen borderless">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" id="remember" name="remember"> Remember me
-        </label>
-        <span class="psw"><a onclick="document.getElementById('dfpwd').style.display='block'" style="color:black;">Forgot password?</a></span>
-      </div>
-    </form>
-  </div>
+          <i
+            class="fa fa-birthday-cake"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input type="number" placeholder="Age" id="age" name="age" required />
 
-  <!--Patient Login Form-->
-  <div id="id02" class="modal" >
-  
-    <form class="modal-content animate" action="/patient/auth/login" method="post">
-      <div class="imgcontainer">
-        <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <h1>Welcome Back!</h1>
-        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="docl()"><img class="avatar" src="images/doctor.png"></button>
-        <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar" src="images/patient.png"></button>
-      </div>
-  
-      <div class="container">
-        <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-        <input type="text" placeholder="Enter Mail" id="email" name="username" required>
-  
-        <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-        <input type="password" placeholder="Enter Password" id="password02" name="password" required>
-        <input type="checkbox" id="02" onclick="myFunction('02')">Show Password<br>
-          
-        <button type="submit" class="buttongreen borderless">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" id="remember" name="remember"> Remember me
-        </label>
-        <span class="psw"><a onclick="document.getElementById('pfpwd').style.display='block'" style="color:black;">Forgot password?</a></span>
-      </div>
-    </form>
-  </div>
+          <br /><br />
+          <div class="radio-toolbar">
+            <input type="radio" id="female1" name="sex" value="Female" />
+            <label for="female1">Female</label>
 
-<!--Choice sign up Form-->
-<div id="id03" class="modal">
-  <div class="modal-content animate">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h1>You Are?</h1>
-    </div>
-    <div class="col-container" align="center">
-      <div class="col column3"><button class="buttontrans" style="padding:0px 0px;" onclick="m1()"><img src="images/doctor.png" height="200" width="200"></button><br><h1>Doctor</h1></div>
-      <div class="col column3"><button class="buttontrans" style="padding:0px 0px;" onclick="m2()"><img src="images/patient.png" height="200" width="200"></button><br><h1>Patient</h1></div>
-    </div>
-  </div>
-</div>
+            <input type="radio" id="male1" name="sex" value="Male" />
+            <label for="male1">Male</label>
 
-<!--Doctor signup-->
-<div id="id04" class="modal">
-  
-  <form class="modal-content animate" action="/doctor/auth/register" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h1>Lets Get You Started!</h1>
-      <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar active" src="images/doctor.png"></button>
-        <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="pats()"><img class="avatar" src="images/patient.png"></button>
-    </div>
+            <input type="radio" id="nb1" name="sex" value="Non-Binary" />
+            <label for="nb1">Non-Binary</label>
 
-    <div class="container">
+            <input type="radio" id="trans1" name="sex" value="Transgender" />
+            <label for="trans1">Transgender</label>
 
-      <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Full Name" id="name" name="name" required>
+            <input type="radio" id="intersex1" name="sex" value="Intersex" />
+            <label for="intersex1">Intersex</label>
 
-      <i class="fa fa-birthday-cake" aria-hidden="true" style="position:absolute;"></i>
-      <input type="number" placeholder="Age" id="age" name="age" required>
+            <input
+              onchange="gender('1')"
+              onclick="gender('1')"
+              type="radio"
+              id="type1"
+              name="sex"
+              value=""
+            />
+            <label for="type1">Let Me Type</label>
 
-      <br><br>
-      <div class="radio-toolbar">
-      
-        <input type="radio" id="female1" name="sex" value="Female">
-        <label for="female1">Female</label>
-      
-        <input type="radio" id="male1" name="sex" value="Male">
-        <label for="male1">Male</label>
+            <span onclick="v('1')">
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+            <div
+              id="genderinfo1"
+              style="
+                word-wrap: break-word;
+                padding: 10px;
+                position: absolute;
+                top: 50%;
+                left: 65%;
+                height: 200px;
+                width: 250px;
+                background-color: black;
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                border-radius: 10px;
+                display: none;
+              "
+            >
+              <h3>Why Do We Ask?</h3>
+              Bcs its really important for<br />
+              the medical testing and other<br />
+              medical diagnosis!<br />
+              If you have any complaints with<br />
+              this please feel free to report <br />
+              it to us.Thank You!
+            </div>
+          </div>
+          <br />
+          <span id="explain1" style="display: none"
+            ><i
+              class="fa fa-sticky-note"
+              aria-hidden="true"
+              style="position: absolute"
+            ></i>
+            <input
+              type="text"
+              placeholder="Feel Free to Explain!"
+              id="genderexplain1"
+          /></span>
 
-        <input type="radio" id="nb1" name="sex" value="Non-Binary">
-        <label for="nb1">Non-Binary</label>
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
 
-        <input type="radio" id="trans1" name="sex" value="Transgender">
-        <label for="trans1">Transgender</label>
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="password04"
+            name="password"
+            required
+          />
+          <input type="checkbox" id="04" onclick="myFunction('04')" />Show
+          Password<br />
 
-        <input type="radio" id="intersex1" name="sex" value="Intersex">
-        <label for="intersex1">Intersex</label>
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Confirm your Password"
+            id="cpassword"
+            name="password2"
+            required
+          />
 
-        <input onchange="gender('1')" onclick="gender('1')" type="radio" id="type1" name="sex" value="">
-        <label for="type1">Let Me Type</label>
+          <label>
+            <input
+              type="checkbox"
+              checked="checked"
+              id="t&c"
+              name="t&c"
+              onchange="document.getElementById('signup').disabled = !this.checked;"
+            />I accept all <a href="#">Terms & Condition</a>. </label
+          ><br />
 
-        <span onclick="v('1')">
-          <i class="fa fa-question-circle" aria-hidden="true" ></i>
-        </span>
-        <div id="genderinfo1" style="word-wrap:break-word;padding:10px;position:absolute;top:50%;left:65%;height:200px;width:250px;background-color: black;background-color: rgba(0,0,0,0.7);color:white;border-radius: 10px;display:none;">
-          <h3>Why Do We Ask?</h3>
-          Bcs its really important for<br>
-          the medical testing and other<br>
-          medical diagnosis!<br>
-          If you have any complaints with<br>
-          this please feel free to report <br>
-          it to us.Thank You!
+          <button type="submit" id="signup" class="buttongreen borderless">
+            Sign Up
+          </button>
         </div>
-        
-      </div>
-      <br>
-      <span id="explain1" style="display:none;"><i class="fa fa-sticky-note" aria-hidden="true" style="position:absolute;"></i>
-      <input  type="text" placeholder="Feel Free to Explain!" id="genderexplain1"></span>
-
-      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
-
-      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-      <input type="password" placeholder="Enter Password" id="password04" name="password" required>
-      <input type="checkbox" id="04" onclick="myFunction('04')">Show Password<br>
-
-      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-      <input type="password" placeholder="Confirm your Password" id="cpassword" name="password2" required>
-        
-      <label>
-        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
-      </label><br>
-
-      <button type="submit" id="signup" class="buttongreen borderless">Sign Up</button>
-    </div>
-  </form>
-</div>
-
-<!--Patient Signup-->
-<div id="id05" class="modal">
-  
-  <form class="modal-content animate" action="/patient/auth/register" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h1>Lets Get You Started!</h1>
-      <button type="button" class="buttontrans borderless" style="padding:0px 0px;border-radius: 50%;" onclick="docs()"><img class="avatar" src="images/doctor.png"></button>
-      <button type="button" class="buttontrans borderless card" style="padding:0px 0px;border-radius: 50%;"><img class="avatar" src="images/patient.png"></button>
+      </form>
     </div>
 
-    <div class="container">
-      <i class="fa fa-user" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Full Name" id="name" name="name" required>
-
-      <i class="fa fa-birthday-cake" aria-hidden="true" style="position:absolute;"></i>
-      <input type="number" placeholder="Age" id="age" name="age" required>
-
-      <br><br>
-      <div class="radio-toolbar">
-
-        <input onclick="gender('2')" type="radio" id="female2" name="sex" value="Female">
-        <label for="female2">Female</label>
-      
-        <input onclick="gender('2')" type="radio" id="male2" name="sex" value="Male">
-        <label for="male2">Male</label>
-
-        <input onclick="gender('2')" type="radio" id="nb2" name="sex" value="Non-Binary">
-        <label for="nb2">Non-Binary</label>
-
-        <input onclick="gender('2')" type="radio" id="trans2" name="sex" value="Transgender">
-        <label for="trans2">Transgender</label>
-
-        <input onclick="gender('2')" type="radio" id="intersex2" name="sex" value="Intersex">
-        <label for="intersex2">Intersex</label>
-
-        <input onclick="gender('2')" type="radio" id="type2" name="sex" value="">
-        <label for="type2">Let Me Type</label>
-        <span onclick="v('2')">
-          <i class="fa fa-question-circle" aria-hidden="true" ></i>
-        </span>
-        <div id="genderinfo2" style="word-wrap:break-word;padding:10px;position:absolute;top:50%;left:65%;height:200px;width:250px;background-color: black;background-color: rgba(0,0,0,0.7);color:white;border-radius: 10px;display:none;">
-          <h3>Why Do We Ask?</h3>
-          Bcs its really important for<br>
-          the medical testing and other<br>
-          medical diagnosis!<br>
-          If you have any complaints with<br>
-          this please feel free to report <br>
-          it to us.Thank You!
+    <!--Patient Signup-->
+    <div id="id05" class="modal">
+      <form
+        class="modal-content animate"
+        action="/patient/auth/register"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('id05').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Lets Get You Started!</h1>
+          <button
+            type="button"
+            class="buttontrans borderless"
+            style="padding: 0px 0px; border-radius: 50%"
+            onclick="docs()"
+          >
+            <img class="avatar" src="images/doctor.png" />
+          </button>
+          <button
+            type="button"
+            class="buttontrans borderless card"
+            style="padding: 0px 0px; border-radius: 50%"
+          >
+            <img class="avatar" src="images/patient.png" />
+          </button>
         </div>
-        
-      </div>
-      <br>
-      <span id="explain2" style="display:none;"><i class="fa fa-sticky-note" aria-hidden="true" style="position:absolute;"></i>
-      <input  type="text" placeholder="Feel Free to Explain!" id="genderexplain2"></span>
 
+        <div class="container">
+          <i
+            class="fa fa-user"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Full Name"
+            id="name"
+            name="name"
+            required
+          />
 
-      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
+          <i
+            class="fa fa-birthday-cake"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input type="number" placeholder="Age" id="age" name="age" required />
 
-      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-      <input type="password" placeholder="Enter Password" id="password05" name="password" required>
-      <input type="checkbox" id="05" onclick="myFunction('05')">Show Password<br>
+          <br /><br />
+          <div class="radio-toolbar">
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="female2"
+              name="sex"
+              value="Female"
+            />
+            <label for="female2">Female</label>
 
-      <i class="fa fa-lock" aria-hidden="true" style="position:absolute;"></i>
-      <input type="password" placeholder="Confirm your Password" id="cpassword" name="password2" required>
-        
-      <label>
-        <input type="checkbox" checked="checked" id="t&c" name="t&c" onchange="document.getElementById('signup').disabled = !this.checked;">I accept all <a href="#">Terms & Condition</a>.
-      </label><br>
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="male2"
+              name="sex"
+              value="Male"
+            />
+            <label for="male2">Male</label>
 
-      <button type="submit" id="signup" class="buttongreen borderless">Sign Up</button>
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="nb2"
+              name="sex"
+              value="Non-Binary"
+            />
+            <label for="nb2">Non-Binary</label>
+
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="trans2"
+              name="sex"
+              value="Transgender"
+            />
+            <label for="trans2">Transgender</label>
+
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="intersex2"
+              name="sex"
+              value="Intersex"
+            />
+            <label for="intersex2">Intersex</label>
+
+            <input
+              onclick="gender('2')"
+              type="radio"
+              id="type2"
+              name="sex"
+              value=""
+            />
+            <label for="type2">Let Me Type</label>
+            <span onclick="v('2')">
+              <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </span>
+            <div
+              id="genderinfo2"
+              style="
+                word-wrap: break-word;
+                padding: 10px;
+                position: absolute;
+                top: 50%;
+                left: 65%;
+                height: 200px;
+                width: 250px;
+                background-color: black;
+                background-color: rgba(0, 0, 0, 0.7);
+                color: white;
+                border-radius: 10px;
+                display: none;
+              "
+            >
+              <h3>Why Do We Ask?</h3>
+              Bcs its really important for<br />
+              the medical testing and other<br />
+              medical diagnosis!<br />
+              If you have any complaints with<br />
+              this please feel free to report <br />
+              it to us.Thank You!
+            </div>
+          </div>
+          <br />
+          <span id="explain2" style="display: none"
+            ><i
+              class="fa fa-sticky-note"
+              aria-hidden="true"
+              style="position: absolute"
+            ></i>
+            <input
+              type="text"
+              placeholder="Feel Free to Explain!"
+              id="genderexplain2"
+          /></span>
+
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
+
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="password05"
+            name="password"
+            required
+          />
+          <input type="checkbox" id="05" onclick="myFunction('05')" />Show
+          Password<br />
+
+          <i
+            class="fa fa-lock"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="password"
+            placeholder="Confirm your Password"
+            id="cpassword"
+            name="password2"
+            required
+          />
+
+          <label>
+            <input
+              type="checkbox"
+              checked="checked"
+              id="t&c"
+              name="t&c"
+              onchange="document.getElementById('signup').disabled = !this.checked;"
+            />I accept all <a href="#">Terms & Condition</a>. </label
+          ><br />
+
+          <button type="submit" id="signup" class="buttongreen borderless">
+            Sign Up
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div> 
 
-<!--doctor forgot pwd-->
-<div id="dfpwd" class="modal">
-  
-  <form class="modal-content animate" action="/reset/forgot/doctor" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('dfpwd').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h1>Enter Your Mail!</h1>
+    <!--doctor forgot pwd-->
+    <div id="dfpwd" class="modal">
+      <form
+        class="modal-content animate"
+        action="/reset/forgot/doctor"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('dfpwd').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Enter Your Mail!</h1>
+        </div>
+
+        <div class="container">
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
+
+          <button type="submit" id="Send" class="buttongreen borderless">
+            Send a mail
+          </button>
+        </div>
+      </form>
     </div>
 
-    <div class="container">
+    <!--patient forgot pwd-->
+    <div id="pfpwd" class="modal">
+      <form
+        class="modal-content animate"
+        action="/reset/forgot/patient"
+        method="post"
+      >
+        <div class="imgcontainer">
+          <span
+            onclick="document.getElementById('pfpwd').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <h1>Enter Your Mail!</h1>
+        </div>
 
-      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
+        <div class="container">
+          <i
+            class="fa fa-envelope"
+            aria-hidden="true"
+            style="position: absolute"
+          ></i>
+          <input
+            type="text"
+            placeholder="Enter Mail"
+            id="email"
+            name="username"
+            required
+          />
 
-      <button type="submit" id="Send" class="buttongreen borderless">Send a mail</button>
+          <button type="submit" id="send" class="buttongreen borderless">
+            Send a mail
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-
-<!--patient forgot pwd-->
-<div id="pfpwd" class="modal">
-  
-  <form class="modal-content animate" action="/reset/forgot/patient" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('pfpwd').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <h1>Enter Your Mail!</h1>
-    </div>
-
-    <div class="container">
-
-      <i class="fa fa-envelope" aria-hidden="true" style="position:absolute;"></i>
-      <input type="text" placeholder="Enter Mail" id="email" name="username" required>
-
-      <button type="submit" id="send" class="buttongreen borderless">Send a mail</button>
-    </div>
-  </form>
-</div>
-
-</body>
+  </body>
 </html>

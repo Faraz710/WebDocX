@@ -1,72 +1,84 @@
 html {
-	scroll-behavior: smooth;
-  }
+  scroll-behavior: smooth;
+}
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
 body {
   font-family: Arial;
-  margin:0;
+  margin: 0;
   padding: 0;
   border: 0;
   word-wrap: break-word;
 }
-div{
+div {
   margin: 0;
   padding: 0;
   border: 0;
-  }
-  .card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    }
-  button {
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+button {
   padding: 3px 10px;
   margin: 8px 0;
-  font-size:20px;
+  font-size: 20px;
   cursor: pointer;
-  }
-  button:hover {
+}
+button:hover {
   opacity: 0.5;
-  }
-  .change:hover{
-    background-color: grey;;
-    padding:2px;
-  }
-.not:hover{
+}
+.signupbtn {
+  background-color: transparent;
+  border: 2px solid black;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+.loginbtn {
+  background-color: #39ff14;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+}
+.change:hover {
+  background-color: grey;
+  padding: 2px;
+}
+.not:hover {
   background-color: white;
   opacity: 1;
 }
-.buttontrans{
+.buttontrans {
   background-color: transparent;
-  border-radius:3px;
-  border-width:1px;
-  color:grey;
-  font-size:20px;
+  border-radius: 3px;
+  border-width: 1px;
+  color: grey;
+  font-size: 20px;
 }
-.borderless{
+.borderless {
   border: none;
 }
-.buttongreen{
-  background-color:#39FF14;
-  border-radius:3px;
-  border-width:1px;
+.buttongreen {
+  background-color: #39ff14;
+  border-radius: 3px;
+  border-width: 1px;
   color: White;
-  font-size:20px;
+  font-size: 20px;
   padding: 10px 18px;
 }
-.buttongreen:hover{
+.buttongreen:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.buttonwhite{
+.buttonwhite {
   background-color: white;
   border: solid;
-  border-radius:3px;
-  border-width:1px;
-  color:#39FF14;
-  font-size:20px;
+  border-radius: 3px;
+  border-width: 1px;
+  color: #39ff14;
+  font-size: 20px;
 }
-.buttonwhite:hover{
+.buttonwhite:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -78,59 +90,56 @@ div{
   font-size: 18px;
   border: none;
   outline: none;
-  background-color:grey;
+  background-color: grey;
   color: white;
   cursor: pointer;
   padding: 15px;
   border-radius: 4px;
-  opacity:0.5;
+  opacity: 0.5;
 }
 
 #myBtn:hover {
-  opacity:1;
+  opacity: 1;
 }
-
 
 * {
   box-sizing: border-box;
 }
 
 /* Create bigger column for center screen */
-.column8{
+.column8 {
   width: 80%;
   padding: 10px;
-  
 }
-.column7{
+.column7 {
   width: 70%;
   padding: 10px;
 }
-.column33{
+.column33 {
   width: 33.33%;
   padding: 10px;
 }
 /* Create two equal columns for matches and blocked */
-.column1{
+.column1 {
   width: 10%;
   padding: 10px;
 }
 /* Create two equal columns for logo and logout */
-.column5{
+.column5 {
   width: 50%;
   padding: 0px;
-  
 }
 /* Create two equal columns for logo and logout */
-.column3{
+.column3 {
   width: 30%;
   padding: 10px;
 }
 /* Create two equal columns for logo and logout */
-.column2{
+.column2 {
   width: 20%;
   padding: 10px;
 }
-.column6{
+.column6 {
   width: 60%;
   padding: 10px;
 }
@@ -141,13 +150,13 @@ div{
   clear: both;
 }
 
-a:link{
+a:link {
   background-color: transparent;
   text-align: center;
   text-decoration: none;
   display: inline-block;
 }
- a:visited {
+a:visited {
   background-color: transparent;
   color: grey;
   text-align: center;
@@ -155,35 +164,48 @@ a:link{
   display: inline-block;
 }
 
-a:hover, a:active {
+a:hover,
+a:active {
   background-color: transparent;
 }
 
-
 .col-container {
-  display: table;
+  display: flex;
   width: 100%;
 }
+.navbar {
+  display: flex;
+  width: 100%;
+  background-color: white;
+  position: sticky;
+  top: 0px;
+  height: 10vh;
+  min-height: 100px;
+  max-height: 100px;
+}
+.maincontent {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  background-color: white;
+}
 .col {
-  display: table-cell;
+  flex: 1;
   padding: 16px;
 }
-.notification{
-  height:50px;
-  background-color:#e7eff9;
-  background-image:linear-gradient(315deg, #e7eff9 0%, #cfd6e6 74%);
+.notification {
+  max-height: 100px;
+  background-color: #aeafaf;
+  background-image: linear-gradient(315deg, #e7eff9 0%, #cfd6e6 74%);
   padding: 10px;
-}
-.sticky {
-  position: sticky;
-  top: 0;
-  background-color: white;
 }
 /* design icons for social media */
 
 /*designs for forms*/
 /*input field should be full*/
-input[type=text], input[type=password],input[type=number] {
+input[type="text"],
+input[type="password"],
+input[type="number"] {
   width: 100%;
   padding: 12px 40px;
   margin: 8px 0;
@@ -199,10 +221,10 @@ input[type=text], input[type=password],input[type=number] {
   width: auto;
   padding: 10px 18px;
   background-color: red;
-  border-radius:3px;
-  border-width:1px;
+  border-radius: 3px;
+  border-width: 1px;
   color: White;
-  font-size:20px;
+  font-size: 20px;
 }
 
 /* Center the image and position the close button */
@@ -237,8 +259,8 @@ span.psw {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   padding-top: 60px;
 }
 
@@ -253,9 +275,8 @@ span.psw {
 
 /* The Close Button (x) */
 .close {
-  position: absolute;
-  right: 25px;
-  top: 0;
+  float: right;
+  top: 45%;
   color: #000;
   font-size: 35px;
   font-weight: bold;
@@ -270,41 +291,71 @@ span.psw {
 /* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
+  animation: animatezoom 0.6s;
 }
 
 @-webkit-keyframes animatezoom {
-  from {-webkit-transform: scale(0)} 
-  to {-webkit-transform: scale(1)}
+  from {
+    -webkit-transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(1);
+  }
 }
-  
+
 @keyframes animatezoom {
-  from {transform: scale(0)} 
-  to {transform: scale(1)}
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
-     display: block;
-     float: none;
+    display: block;
+    float: none;
   }
   .cancelbtn {
-     width: 100%;
+    width: 100%;
   }
 }
 @keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 .logo:hover {
   animation: shake 0.5s;
@@ -315,82 +366,82 @@ span.psw {
   transition: opacity 0.5s ease;
 }
 
-
 /*social media buttons*/
 .fa {
-	padding: 10px 10px;
-	font-size: 30px;
-	width: 30px;
-	text-align: center;
-	text-decoration: none;
-	margin: 5px 2px;
-  }
-  
-  .fa:hover {
-	  opacity: 0.7;
-  }
-  
-  .fa-facebook {
-	background: #3B5998;
-	color: white;
-  }
-  
-  .fa-twitter {
-	background: #55ACEE;
-	color: white;
-  }
-  
-  .fa-google {
-	background: #dd4b39;
-	color: white;
-  }
-  
-  .fa-linkedin {
-	background: #007bb5;
-	color: white;
-  }
-  
-  .fa-youtube {
-	background: #bb0000;
-	color: white;
-  }
-  
-  .fa-instagram {
-	background: #125688;
-	color: white;
-  }
-  
+  padding: 10px 10px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
 /*social media buttons end*/
 
-
-
-.radio-toolbar{
+.radio-toolbar {
   border-width: 0px;
-  overflow-x: auto; 
-  overflow-y: hidden; 
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
 }
 
-  .radio-toolbar input[type="radio"] {
+.radio-toolbar input[type="radio"] {
   opacity: 0;
   position: fixed;
   width: 0px;
-  }
-  
-  .radio-toolbar label {
-    text-align: center;
-    display: inline-block;
-    background-color: transparent;
-    padding: 5px;
-    font-family: sans-serif, Arial;
-    font-size: 14px;
-    border-style: solid;
-    border-radius: 15px;
-    border-width:1px;
-    font-weight: bold;
-  }
-  
-  .radio-toolbar input[type="radio"]:checked + label {
+}
+
+.radio-toolbar label {
+  text-align: center;
+  display: inline-block;
+  background-color: transparent;
+  padding: 5px;
+  font-family: sans-serif, Arial;
+  font-size: 14px;
+  border-style: solid;
+  border-radius: 15px;
+  border-width: 1px;
+  font-weight: bold;
+}
+
+.radio-toolbar input[type="radio"]:checked + label {
   background-color: black;
-  color:white;
-  }
+  color: white;
+}
+
+@media only screen and (max-width: 992px) {
+}
